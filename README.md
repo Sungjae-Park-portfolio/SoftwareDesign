@@ -1,5 +1,5 @@
 # CSCI 3601 Production Template -- Spring 2018
-[![Build Status](https://travis-ci.org/UMM-CSci-3601-S18/iteration-3-unnamed-supergroup.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-S18/iteration-3-unnamed-supergroup)
+[![Build Status](https://travis-ci.org/UMM-CSci-3601-S18/iteration-4-secure-super-group.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-S18/iteration-4-secure-super-group)
 <!-- TOC depthFrom:1 depthTo:5 withLinks:1 updateOnSave:1 orderedList:0 -->
 ## Table of Contents
 - [Setup](#setup)
