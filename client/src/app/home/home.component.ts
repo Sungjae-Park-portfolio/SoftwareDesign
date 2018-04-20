@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
 
         const date = new Date();
         this.emoji.date = null;
-        this.emoji.owner = window['name'];
+        this.emoji.owner = localStorage.getItem('name');
         this.emoji.email = localStorage.getItem('email');
 
         this.homeService.addEmoji(this.emoji).subscribe(
