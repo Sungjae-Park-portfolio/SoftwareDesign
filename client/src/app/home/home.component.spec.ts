@@ -18,7 +18,7 @@ describe('Adding an emoji', () => {
 
     const newEmoji: Emoji = {
         _id: '',
-        owner: '',
+        owner: null,
         mood: 3,
         intensity: 1,
         date: null, //date will be created during the test so that it matches what is made in component.addEmoji
