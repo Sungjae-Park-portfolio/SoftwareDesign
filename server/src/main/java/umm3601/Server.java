@@ -77,6 +77,7 @@ public class Server {
 
         // Redirects for the "home" page
         redirect.get("", "/");
+        redirect.get("/about", "/");
         redirect.get("/reports", "/");
         redirect.get("/resources", "/");
         redirect.get("/journaling", "/");
