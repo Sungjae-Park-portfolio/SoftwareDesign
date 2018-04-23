@@ -8,25 +8,25 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 import umm3601.SuperController;
 
-public class ContactController extends SuperController {
+public class ResourceController extends SuperController {
 
-    public ContactController(MongoDatabase database) {
+    public ResourceController(MongoDatabase database) {
         this.gson = new Gson();
         this.database = database;
         this.collection = database.getCollection("contacts");
     }
 
-    public String addNewContact(String phone, String userEmail, String name) {
-        Document newContact = new Document();
-        newContact.append("phone", phone);
-        newContact.append("email", userEmail);
-        newContact.append("name", name);
+    public String addNewResource(String phone, String userEmail, String name) {
+        Document newResource = new Document();
+        newResource.append("phone", phone);
+        newResource.append("email", userEmail);
+        newResource.append("name", name);
 
         try {
-            collection.insertOne(newContact);
+            collection.insertOne(newResource);
 
-            ObjectId id = newContact.getObjectId("_id");
-            System.out.println("Successfully added new contact with " +
+            ObjectId id = newResource.getObjectId("_id");
+            System.out.println("Successfully added new resource with " +
                 "[_id=" + id + ", email=" + userEmail + ", phone=" + phone + "]");
 
             return JSON.serialize(id);

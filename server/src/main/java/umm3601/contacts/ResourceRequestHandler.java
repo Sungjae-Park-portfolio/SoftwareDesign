@@ -5,41 +5,41 @@ import com.mongodb.util.JSON;
 import spark.Request;
 import spark.Response;
 
-public class ContactRequestHandler {
-    private final ContactController contactController;
+public class ResourceRequestHandler {
+    private final ResourceController resourceController;
 
-    public ContactRequestHandler(ContactController contactController) {
-        this.contactController = contactController;
+    public ResourceRequestHandler(ResourceController resourceController) {
+        this.resourceController = resourceController;
     }
 
-    public String getContactJSON(Request req, Response res) {
+    public String getResourceJSON(Request req, Response res) {
         res.type("application/json");
         String id = req.params("id");
-        String contact;
+        String resource;
         try {
-            contact = contactController.getItem(id);
+            resource = resourceController.getItem(id);
         } catch (IllegalArgumentException e) {
             res.status(400);
-            res.body("The requested contact id " + id + " wasn't a legal Mongo Object ID." +
+            res.body("The requested resource id " + id + " wasn't a legal Mongo Object ID." +
                 "\n See 'https://docs.mongodb.com/manual/reference/method/ObjectID/' for more information");
             return "";
         }
-        if (contact != null) {
-            return contact;
+        if (resource != null) {
+            return resource;
         }
         else {
             res.status(404);
-            res.body("The requested contact with id " + id + " wasn't found");
+            res.body("The requested resource with id " + id + " wasn't found");
             return "";
         }
     }
 
-    public String getContacts(Request req, Response res) {
+    public String getResources(Request req, Response res) {
         res.type("applications/json");
-        return contactController.getItems(req.queryMap().toMap());
+        return resourceController.getItems(req.queryMap().toMap());
     }
 
-    public String addNewContact(Request req, Response res) {
+    public String addNewResource(Request req, Response res) {
         res.type("application/json");
         Object o = JSON.parse(req.body());
         try {
@@ -48,11 +48,11 @@ public class ContactRequestHandler {
                     BasicDBObject dbObject = (BasicDBObject) o;
                     String phone = dbObject.getString("phone");
                     String email = dbObject.getString("email");
-                    String contactName = dbObject.getString("name");
+                    String resourceName = dbObject.getString("name");
 
-                    System.out.println("Adding new contact with [contactName=" + contactName +
+                    System.out.println("Adding new resource with [resourceName=" + resourceName +
                         ", user email=" + email + ", and phone=" + phone + "]");
-                    return contactController.addNewContact(phone, email, contactName);
+                    return resourceController.addNewResource(phone, email, resourceName);
                 } catch (NullPointerException e) {
                     System.err.println("A value was malformed or omitted, new Contact request failed.");
                     return null;

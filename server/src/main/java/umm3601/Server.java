@@ -4,8 +4,8 @@ import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 import spark.Request;
 import spark.Response;
-import umm3601.contacts.ContactController;
-import umm3601.contacts.ContactRequestHandler;
+import umm3601.contacts.ResourceController;
+import umm3601.contacts.ResourceRequestHandler;
 import umm3601.emoji.EmojiController;
 import umm3601.emoji.EmojiRequestHandler;
 import umm3601.goal.GoalRequestHandler;
@@ -45,8 +45,8 @@ public class Server {
         ResponseController responseController = new ResponseController(emojiDatabase);
         ResponseRequestHandler responseRequestHandler = new ResponseRequestHandler(responseController);
 
-        ContactController contactController = new ContactController(emojiDatabase);
-        ContactRequestHandler contactRequestHandler = new ContactRequestHandler(contactController);
+        ResourceController resourceController = new ResourceController(emojiDatabase);
+        ResourceRequestHandler resourceRequestHandler = new ResourceRequestHandler(resourceController);
         //Configure Spark
         port(serverPort);
         enableDebugScreen();
@@ -90,9 +90,9 @@ public class Server {
         get("api/response", responseRequestHandler::getRandomResponse);
         get("api/responses", responseRequestHandler::getResponses);
 
-        get("api/contacts", contactRequestHandler::getContacts);
-        get("api/contacts/:id", contactRequestHandler::getContactJSON);
-        post("api/contacts/add", contactRequestHandler::addNewContact);
+        get("api/resources", resourceRequestHandler::getResources);
+        get("api/resources/:id", resourceRequestHandler::getResourceJSON);
+        post("api/resources/add", resourceRequestHandler::addNewResource);
 
         get("api/users", userRequestHandler::getUsers);
 
