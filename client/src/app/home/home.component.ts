@@ -59,7 +59,8 @@ export class HomeComponent implements OnInit {
                 this.openSnackBar('There was an error communicating with the server. Your entry was not saved.', 'OK');
             });
 
-            this.openDialog();
+        this.openDialog();
+
     }
 
     //This function takes in the mood and intensity, and returns the english interpretation
