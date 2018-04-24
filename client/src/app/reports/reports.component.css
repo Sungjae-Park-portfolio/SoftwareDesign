@@ -19,3 +19,16 @@
     width: 125px;
     height: 125px;
 }
+
+#myChart {
+    position: relative;
+}
+
+#myBar{
+    position: relative;
+}
+
+#chartdiv {
+    margin:0 auto;
+    max-width: 90vh;
+}
