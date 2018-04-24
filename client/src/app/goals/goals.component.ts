@@ -4,6 +4,7 @@ import {Goal} from "./goals";
 import {GoalsService} from "./goals.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddGoalComponent} from "./add-goals.component";
+import {EditJournalComponent} from "./edit-goal.component";
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -57,6 +58,39 @@ export class GoalsComponent implements OnInit{
                 err => {
                     // This should probably be turned into some sort of meaningful response.
                     console.log('There was an error adding the goal.');
+                    console.log('The error was ' + JSON.stringify(err));
+                });
+        });
+    }
+
+    openDialogEdit(_id: string, subject: string, body: string, date: string): void {
+        const newGoal: Goal =
+            {
+                _id: '',
+                name: '',
+                owner: '',
+                body: '',
+                category: 'Other',
+                startDate: '',
+                endDate: '',
+                frequency: '',
+                status: false,
+                email: localStorage.getItem('email'),
+            };
+        const dialogRef = this.dialog.open(EditGoalComponent, {
+            width: '500px',
+            data: { goal: newGoal }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.goalsService.editGoal(result).subscribe(
+                editJournalResult => {
+                    this.highlightedID = editJournalResult;
+                    this.refreshGoals();
+                },
+                err => {
+                    // This should probably be turned into some sort of meaningful response.
+                    console.log('There was an error editing the journal.');
                     console.log('The error was ' + JSON.stringify(err));
                 });
         });
