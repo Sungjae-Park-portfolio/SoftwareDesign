@@ -21,6 +21,7 @@ export class GoalsComponent implements OnInit{
     // We should rename them to make that clearer.
     public goalOwner: string;
     public goalStatus: string;
+    public goalFilter: string;
     //public email: string =
 
     private highlightedID: {'$oid': string} = { '$oid': '' };
@@ -116,6 +117,38 @@ export class GoalsComponent implements OnInit{
 
             this.filteredGoals = this.filteredGoals.filter(goal => {
                 return !searchStatus || goal.status.toString().toLowerCase().indexOf(searchStatus) !== -1;
+            });
+        }
+
+        // Sort by start date from newest to oldest
+        this.filteredGoals = this.filteredGoals.sort((goal1, goal2) => {
+            const date1 = new Date(goal1.startDate);
+            const date2 = new Date(goal2.startDate);
+            return date2.valueOf() - date1.valueOf();
+        });
+
+
+        return this.filteredGoals;
+    }
+
+    public superFilterGoals(searchString, searchStatus): Goal[] {
+
+        this.filteredGoals = this.goals;
+
+        // Filter by goal status
+        if (searchStatus != null){
+            searchStatus = searchStatus.toLocaleLowerCase();
+
+            this.filteredGoals = this.filteredGoals.filter(goal => {
+                return !searchStatus || goal.status.toString().toLowerCase().indexOf(searchStatus) !== -1;
+            });
+        }
+
+        // Filter by name, category and frequency
+        if (searchString != null) {
+            searchString = searchString.toLocaleLowerCase();
+            this.filteredGoals = this.filteredGoals.filter(goal => {
+                return !searchString || goal.name.toLowerCase().indexOf(searchString) !== -1 || goal.frequency.toString().toLowerCase().indexOf(searchString) !== -1 || goal.category.toString().toLowerCase().indexOf(searchString) !== -1;
             });
         }
 
