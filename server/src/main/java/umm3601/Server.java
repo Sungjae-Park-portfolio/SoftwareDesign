@@ -2,8 +2,18 @@ package umm3601;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
+import org.apache.commons.io.IOUtils;
 import spark.Request;
 import spark.Response;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+
+import static spark.Spark.*;
+import static spark.debug.DebugScreen.enableDebugScreen;
+
+import spark.Route;
 import umm3601.emoji.EmojiController;
 import umm3601.emoji.EmojiRequestHandler;
 import umm3601.goal.GoalRequestHandler;
@@ -15,11 +25,14 @@ import umm3601.user.UserRequestHandler;
 import umm3601.journal.JournalController;
 import umm3601.journal.JournalRequestHandler;
 
-import java.io.IOException;
+import com.google.api.client.googleapis.auth.oauth2.*;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+
+import org.json.*;
 
 
-import static spark.Spark.*;
-import static spark.debug.DebugScreen.enableDebugScreen;
+import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.REDIRECT_URI;
 
 public class Server {
     private static final String databaseName = "dev";
@@ -32,8 +45,10 @@ public class Server {
 
         EmojiController emojiController = new EmojiController(emojiDatabase);
         EmojiRequestHandler emojiRequestHandler = new EmojiRequestHandler(emojiController);
+
         GoalController goalController = new GoalController(emojiDatabase);
         GoalRequestHandler goalRequestHandler = new GoalRequestHandler(goalController);
+
         JournalController journalController = new JournalController(emojiDatabase);
         JournalRequestHandler journalRequestHandler = new JournalRequestHandler(journalController);
 
@@ -42,6 +57,7 @@ public class Server {
 
         ResponseController responseController = new ResponseController(emojiDatabase);
         ResponseRequestHandler responseRequestHandler = new ResponseRequestHandler(responseController);
+
         //Configure Spark
         port(serverPort);
         enableDebugScreen();
@@ -78,6 +94,19 @@ public class Server {
         redirect.get("/goals", "/");
         //get("/google83434285ffe11fe1.html", (req, res) -> "/google83434285ffe11fe1.html");
 
+        Route clientRoute = (req, res) -> {
+            InputStream stream = goalController.getClass().getResourceAsStream("/public/index.html");
+            return stream != null ? IOUtils.toString(stream) : "Sorry, we couldn't find that!";
+        };
+        Route notFoundRoute = (req, res) -> {
+            res.type("text");
+            res.status(404);
+            return "Sorry, we couldn't find that!";
+        };
+
+        get("/", clientRoute);
+
+
         /// User Endpoints ///////////////////////////
         /////////////////////////////////////////////
 
@@ -99,24 +128,71 @@ public class Server {
         post("api/journaling/edit", journalRequestHandler::editJournal);
         post("api/response/new", responseRequestHandler::addNewResponse);
 
+        post("api/login", (req, res) -> {
+
+            JSONObject obj = new JSONObject(req.body());
+            String authCode = obj.getString("code");
+
+
+            try {
+                // We can create this later to keep our secret safe
+
+                String CLIENT_SECRET_FILE = "./src/main/java/umm3601/server_files/client_secret_file.json";
+
+                GoogleClientSecrets clientSecrets =
+                    GoogleClientSecrets.load(
+                        JacksonFactory.getDefaultInstance(), new FileReader(CLIENT_SECRET_FILE));
+
+
+                GoogleTokenResponse tokenResponse =
+                    new GoogleAuthorizationCodeTokenRequest(
+                        new NetHttpTransport(),
+                        JacksonFactory.getDefaultInstance(),
+                        "https://www.googleapis.com/oauth2/v4/token",
+                        clientSecrets.getDetails().getClientId(),
+
+                        // Replace clientSecret with the localhost one if testing
+                        clientSecrets.getDetails().getClientSecret(),
+                        authCode,
+                        "http://localhost:9000")
+                        //Not sure if we have a redirectUri
+
+                        // Specify the same redirect URI that you use with your web
+                        // app. If you don't have a web version of your app, you can
+                        // specify an empty string.
+                        .execute();
+
+
+                GoogleIdToken idToken = tokenResponse.parseIdToken();
+                GoogleIdToken.Payload payload = idToken.getPayload();
+                String subjectId = payload.getSubject();  // Use this value as a key to identify a user.
+                String email = payload.getEmail();
+                boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
+                String name = (String) payload.get("name");
+                String pictureUrl = (String) payload.get("picture");
+                String locale = (String) payload.get("locale");
+                String familyName = (String) payload.get("family_name");
+                String givenName = (String) payload.get("given_name");
+
+
+                System.out.println(subjectId);
+                System.out.println(email);
+                System.out.println(name);
+                System.out.println(locale);
+
+                return userController.addNewUser(subjectId, givenName, familyName);
+
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+
+            return "";
+        });
+
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.
         get("api/error", (req, res) -> {
             throw new RuntimeException("A demonstration error");
-        });
-
-        // Called after each request to insert the GZIP header into the response.
-        // This causes the response to be compressed _if_ the client specified
-        // in their request that they can accept compressed responses.
-        // There's a similar "before" method that can be used to modify requests
-        // before they they're processed by things like `get`.
-        after("*", Server::addGzipHeader);
-
-        // Handle "404" file not found requests:
-        notFound((req, res) -> {
-            res.type("text");
-            res.status(404);
-            return "Sorry, we couldn't find that!";
         });
     }
 

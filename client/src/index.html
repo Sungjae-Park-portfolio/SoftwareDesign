@@ -1,6 +1,10 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" itemtype="http://schema.org/Article">
 <head>
+
+    <meta name="google-signin-client_id" content="605590953368-p8q4g5f2evfgtqqub6bcglvs3sraejo5.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
     <meta charset="utf-8">
     <title>Sunshine Journal</title>
     <base href="/">
@@ -9,19 +13,10 @@
     <meta name="google-site-verification" content="pVcTf_pdmx-O4FH3REpCnCmwzoco-TQ9B1k9qmhttpo" />
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--
-    <script defer async src="https://apis.google.com/js/platform.js"></script>
-    -->
-    <script defer src="https://apis.google.com/js/platform.js"></script>
-    <meta name="google-signin-client_id" content="605590953368-p8q4g5f2evfgtqqub6bcglvs3sraejo5.apps.googleusercontent.com">
+
 </head>
 <body onload="writeDataLocal()">
 
-
-<!--
-These following functions make sure that auth2 is loaded into the page
-which allows for functions like signOut to work properly.
--->
 
 <script type=application/javascript>
 
@@ -41,14 +36,11 @@ which allows for functions like signOut to work properly.
     function signOut() {
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
-
             //Clear Global Vars
             localStorage.setItem('name', '');
             localStorage.setItem('email', '');
-
             //Reload Page
             location.reload();
-
             //Debug
             console.log('User signed out.');
         });
@@ -61,7 +53,6 @@ which allows for functions like signOut to work properly.
     }
 
     function onSignIn(googleUser) {
-
         //This line prevents an infinite loop of loading in
         if(localStorage.getItem('name') === "")
         {
@@ -70,15 +61,11 @@ which allows for functions like signOut to work properly.
         if(localStorage.getItem('email') === "") {
             location.reload();
         }
-
         localStorage.setItem('email', googleUser.getBasicProfile().getEmail());
         localStorage.setItem('name', googleUser.getBasicProfile().getName());
-
     }
-
-
 </script>
 
-<app-root>Loading...?</app-root>
+<app-root>Taking you to Nirvana, lalalalalala...</app-root>
 </body>
 </html>
