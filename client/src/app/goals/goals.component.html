@@ -4,12 +4,15 @@
     </div>
     <mat-card *ngIf="goals; else goalError">
         <mat-card-content>
+            <mat-form-field>
+                <input matInput id="goalFilter" #input type="text" placeholder="Filter Goals" (input)="goalFilter = $event.target.value">
+            </mat-form-field>
             <mat-card-title>Overview Of Goals</mat-card-title>
             <mat-tab-group class="tab-group">
                 <mat-tab label="Incomplete Goals" id="incomplete-goals-tab">
                     <mat-divider></mat-divider>
                     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" class="box" >
-                        <mat-card class="goal" #elem [id]="goal._id['$oid']" *ngFor="let goal of this.filterGoals(goalOwner, 'false')">
+                        <mat-card class="goal" #elem [id]="goal._id['$oid']" *ngFor="let goal of this.superFilterGoals(goalFilter, 'false')">
                             <mat-card-header>
                                 <div mat-card-avatar class="goal-avatar"></div>
                                 <mat-card-title class="goalName">{{goal.name}}</mat-card-title>
@@ -41,7 +44,7 @@
                 <mat-tab label="All Goals" id="all-goals-tab">
                     <mat-divider></mat-divider>
                     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" class="box" >
-                        <mat-card class="goal" #elem [id]="goal._id['$oid']" *ngFor="let goal of this.filterGoals(goalOwner, goalStatus)">
+                        <mat-card class="goal" #elem [id]="goal._id['$oid']" *ngFor="let goal of this.superFilterGoals(goalFilter, goalStatus)">
                             <mat-card-header>
                                 <div mat-card-avatar class="goal-avatar"></div>
                                 <mat-card-title class="goalName">{{goal.name}}</mat-card-title>
@@ -73,7 +76,7 @@
                 <mat-tab label="Completed Goals" id="completed-goals-tab">
                     <mat-divider></mat-divider>
                     <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="center center" class="box" >
-                        <mat-card class="goal" #elem [id]="goal._id['$oid']" *ngFor="let goal of this.filterGoals(goalOwner, 'true')">
+                        <mat-card class="goal" #elem [id]="goal._id['$oid']" *ngFor="let goal of this.superFilterGoals(goalFilter, 'true')">
                             <mat-card-header>
                                 <div mat-card-avatar class="goal-avatar"></div>
                                 <mat-card-title class="goalName">{{goal.name}}</mat-card-title>
