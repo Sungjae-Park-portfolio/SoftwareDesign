@@ -31,6 +31,9 @@
                                 <button id="completeGoalButton" mat-raised-button *ngIf="!goal.status" class="check-buttons" (click)="editGoal(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, goal.email, true); openSnackBar(goal.name + ' Completed', '✔️')">
                                     <mat-icon>check</mat-icon>
                                 </button>
+                                <button class="edit-buttons" (click)="editGoal(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, goal.email, true)">
+                                    <mat-icon>mode_edit</mat-icon>
+                                </button>
                             </mat-card-actions>
                         </mat-card>
                     </div>
