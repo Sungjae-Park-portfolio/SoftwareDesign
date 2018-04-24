@@ -4,7 +4,7 @@ import {Goal} from "./goals";
 import {GoalsService} from "./goals.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddGoalComponent} from "./add-goals.component";
-import {EditJournalComponent} from "./edit-goal.component";
+import {EditGoalComponent} from "./edit-goals.component";
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -63,19 +63,19 @@ export class GoalsComponent implements OnInit{
         });
     }
 
-    openDialogEdit(_id: string, subject: string, body: string, date: string): void {
+    openDialogEdit(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, email: string, status: boolean): void {
         const newGoal: Goal =
             {
-                _id: '',
-                name: '',
-                owner: '',
-                body: '',
-                category: 'Other',
-                startDate: '',
-                endDate: '',
-                frequency: '',
-                status: false,
-                email: localStorage.getItem('email'),
+                _id: _id,
+                name: name,
+                owner: owner,
+                body: body,
+                category: category,
+                startDate: startDate,
+                endDate: endDate,
+                frequency: frequency,
+                status: status,
+                email: email,
             };
         const dialogRef = this.dialog.open(EditGoalComponent, {
             width: '500px',
