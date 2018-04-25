@@ -8,13 +8,14 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+import umm3601.SuperController;
 
 import java.util.Iterator;
 import java.util.Map;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class UserController {
+public class UserController extends SuperController {
 
     private final Gson gson;
     private MongoDatabase database;

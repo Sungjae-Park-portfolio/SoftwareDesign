@@ -60,6 +60,11 @@ public abstract class SuperController {
     public String getItems(Map<String, String[]> queryParams) {
         Document filterDoc = new Document();
 
+        if (queryParams.containsKey("SubjectID")) {
+            String targetSubjectID = (queryParams.get("SubjectID")[0]);
+            filterDoc = filterDoc.append("SubjectID", targetSubjectID);
+        }
+
         if (queryParams.containsKey("email")) {
             String targetEmail = (queryParams.get("email")[0]);
             filterDoc = filterDoc.append("email", targetEmail);

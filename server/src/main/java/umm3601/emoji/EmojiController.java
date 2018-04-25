@@ -64,13 +64,12 @@ public class EmojiController extends SuperController {
     }*/
 
 
-    public String addNewEmoji(String ownerId, int mood, int intensity, String email) {
+    public String addNewEmoji(String ownerId, int mood, int intensity) {
 
         Document newEmoji = new Document();
-        newEmoji.append("owner", ownerId);
+        newEmoji.append("SubjectID", ownerId);
         newEmoji.append("mood", mood);
         newEmoji.append("intensity", intensity);
-        newEmoji.append("email", email);
 
         Date now = new Date();
         newEmoji.append("date", now.toString());
@@ -80,7 +79,7 @@ public class EmojiController extends SuperController {
 
             ObjectId id = newEmoji.getObjectId("_id");
             System.err.println("Successfully added new emoji [_id=" + id + ", owner=" + ownerId + ", mood="
-                + mood + " date=" + now + ", email=" + email + ']');
+                + mood + " date=" + now + ']');
 
             return JSON.serialize(id);
         } catch(MongoException me) {

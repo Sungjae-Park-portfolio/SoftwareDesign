@@ -15,7 +15,7 @@ import {AddResponseComponent} from "./add-response.component";
 })
 export class HomeComponent implements OnInit {
 
-    public emoji: Emoji = {_id: '', owner: '', date: null, mood: 3, intensity: 1, email: localStorage.getItem('email')};
+    public emoji: Emoji = {_id: '', SubjectID: localStorage.getItem("subjectID"), date: null, mood: 3, intensity: 1};
     public email: string = localStorage.getItem('email');
     public response: Response = {_id: '', link: '', email: this.email, name: ''};
     public emojis: Emoji[];
@@ -44,8 +44,8 @@ export class HomeComponent implements OnInit {
 
         const date = new Date();
         this.emoji.date = null;
-        this.emoji.owner = window['name'];
-        this.emoji.email = localStorage.getItem('email');
+        this.emoji.SubjectID = localStorage.getItem('subjectID');
+
 
         this.homeService.addEmoji(this.emoji).subscribe(
             addEmojiResult => {
@@ -152,7 +152,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.emoji.owner = localStorage.getItem('name');
+        this.emoji.SubjectID = localStorage.getItem('subjectID');
     }
 
     isUserLoggedIN(): boolean {
