@@ -22,18 +22,50 @@ export class ReportsComponent implements AfterViewInit, OnInit {
     // These are public so that tests can reference them (.spec.ts)
     public emojis: Emoji[];
     public filteredEmojis: Emoji[];
+    public dateFilteredEmojis: Emoji[] = [];
+    public pastWeekEmojis: Emoji[] = [];
+    public pastMonthEmojis: Emoji[] = [];
+    public pastYearEmojis: Emoji[] = [];
+
     public userEmail: string = localStorage.getItem('email');
 
     public prefilteredEmojis: Emoji[];
     public chartEmojis: Emoji[];
 
+    //filter date will be used
     public startDate: any;
     public endDate: any;
     getDate: any;
+
+    nowStamp = new Date(Date.now());
+    nowUnix = this.nowStamp.getTime();
+    nowDay = this.nowStamp.getDay();
+    nowDate = this.nowStamp.getDate();
+    nowMonth = this.nowStamp.getMonth();
+
+    lastWeekUnix = this.nowUnix - 604800000;
+    lastWeekStamp = new Date(this.lastWeekUnix);
+    lastMonthUnix = this.nowUnix - 2628000000;
+    lastMonthStamp = new Date(this.lastMonthUnix);
+    lastMonth = this.lastMonthStamp.getMonth();
+    lastYearUnix = this.nowUnix - 31540000000;
+    lastYearStamp = new Date(this.lastYearUnix);
+
+    /** --------------------------------------- **/
+    timeZone: number = -5;
+    //timeZone offsets the hour from UTC.
+    //Currently everything is passed around as UTC.
+    //This changes it to CDT for display
+    /** --------------------------------------- **/
+
+
     canvas: any;
-    barCanvas:any;
     ctx: any;
-    barctx:any;
+
+    limitedPast:boolean;
+    graphMode = 'line';
+    public inputType = "week";
+
 
 
     // Inject the EmojiListService into this component.
@@ -71,12 +103,37 @@ export class ReportsComponent implements AfterViewInit, OnInit {
         return this.filteredEmojis;
     }
 
+    //define the list for emojis of a week
+    public pastWeekEmotions():Emoji[]{
+        this.pastWeekEmojis = this.filterEmojis(this.lastWeekStamp,this.nowStamp);
+        return this.pastWeekEmojis;
+    }
+
+    //define the list for emojis of a month
+    public pastMonthEmotions():Emoji[]{
+        this.pastMonthEmojis = this.filterEmojis(this.lastMonthStamp,this.nowStamp);
+        return this.pastMonthEmojis;
+    }
+
+    //define the list for emojis of a year
+    public pastYearEmotions():Emoji[]{
+        this.pastYearEmojis = this.filterEmojis(this.lastYearStamp,this.nowStamp);
+        return this.pastYearEmojis;
+    }
+
+
+
+    public clearDateFilter(){
+        this.startDate = null;
+        this.endDate = null;
+    }
+
     //get current date
     getdate(): string{
         return Date();
     }
 
-    filterChart(weekday, mood): number {
+    filterChart(mood:number,startDay:any,endDay:any): Emoji[] {
         this.chartEmojis = this.prefilteredEmojis;
         if(this.chartEmojis == null){
             this.chartEmojis = [];
@@ -87,16 +144,225 @@ export class ReportsComponent implements AfterViewInit, OnInit {
             return !mood.toString() || emoji.mood.toString().indexOf(mood.toString()) !== -1;
         });
 
+        this.chartEmojis = this.filterEmojis(startDay,endDay);
 
-/*
-        // Filter by day of the week
-        this.chartEmojis = this.chartEmojis.filter(emoji => {
-            return !weekday || emoji.date.indexOf(weekday) !== -1;
-        });
-*/
-        // return number of emojis left after filter
-        return this.chartEmojis.length;
+        return this.chartEmojis;
     }
+
+    filterGraphData(dateValue,mood):number{
+        let filterChartData = this.chartEmojis.filter(emoji => {
+            return !mood.toString() || emoji.mood.toString().indexOf(mood.toString()) !== -1;
+        });
+
+        if (this.inputType == "week"){
+            if(this.inputType == "week") {
+                if(this.limitedPast) {
+                    filterChartData = this.pastWeekEmotions();
+                }
+            filterChartData = filterChartData.filter(emoji => {
+                this.getDate = new Date(emoji.date);
+                return this.getDate.getDay() == dateValue;
+            });
+        }
+
+
+        else if(this.inputType == "month"){
+                if(this.limitedPast) {
+                    filterChartData = this.pastMonthEmotions();
+                }
+                filterChartData = filterChartData.filter(emoji => {
+                    this.getDate = new Date(emoji.date);
+                    return this.getDate.getDate() == dateValue;
+                });
+            }
+        }
+
+        else if(this.inputType == "year"){
+            if(this.limitedPast) {
+                filterChartData = this.pastYearEmotions();
+            }
+            filterChartData = filterChartData.filter(emoji => {
+                this.getDate = new Date(emoji.date);
+                return this.getDate.getMonth() == dateValue;
+            });
+
+        }
+
+        return filterChartData.length;
+
+    }
+
+
+    public modDay(day: number): Number {
+        if(this.limitedPast){
+            return (this.nowDay + 1 + day)%7;
+        }
+        else {
+            return day;
+        }
+    }
+
+    public modDate(date: number): Number {
+        if(this.limitedPast){
+            return (this.nowDate + date - 1)%31 + 1;
+        }
+        else {
+            return date;
+        }
+    }
+
+    public modMonth(month: number): Number {
+        if(this.limitedPast){
+            return (this.nowMonth + 1 + month)%12;
+        }
+        else {
+            return month;
+        }
+    }
+
+
+
+    public getPastDays(weekDay: number): String {
+
+        let thisDay = (this.nowDay + 1 + weekDay)%7;
+
+        let strDay = '';
+
+        if(thisDay == 0){
+            strDay = 'Sun';
+        }
+        if(thisDay == 1){
+            strDay = 'Mon';
+        }
+        if(thisDay == 2){
+            strDay = 'Tues';
+        }
+        if(thisDay == 3){
+            strDay = 'Wed';
+        }
+        if(thisDay == 4){
+            strDay = 'Thurs';
+        }
+        if(thisDay == 5){
+            strDay = 'Fri';
+        }
+        if(thisDay == 6){
+            strDay = 'Sat';
+        }
+        return strDay;
+    }
+
+    public getPastMonths(monthNum: number): String {
+        let thisMonth = (this.nowMonth + 1 + monthNum)%12;
+
+        let strMonth = '';
+
+        if(thisMonth == 0){
+            strMonth = 'Jan';
+        }
+        if(thisMonth == 1){
+            strMonth = 'Feb';
+        }
+        if(thisMonth == 2){
+            strMonth = 'Mar';
+        }
+        if(thisMonth == 3){
+            strMonth = 'Apr';
+        }
+        if(thisMonth == 4){
+            strMonth = 'May';
+        }
+        if(thisMonth == 5){
+            strMonth = 'June';
+        }
+        if(thisMonth == 6){
+            strMonth = 'July';
+        }
+        if(thisMonth == 7){
+            strMonth = 'Aug';
+        }
+        if(thisMonth == 8){
+            strMonth = 'Sep';
+        }
+        if(thisMonth == 9){
+            strMonth = 'Oct';
+        }
+        if(thisMonth == 10){
+            strMonth = 'Nov';
+        }
+        if(thisMonth == 11){
+            strMonth = 'Dec';
+        }
+        return strMonth;
+    }
+
+
+    public getDailyData(mood){
+        return [
+            this.filterGraphData(this.modDay(0), mood),
+            this.filterGraphData(this.modDay(1), mood),
+            this.filterGraphData(this.modDay(2), mood),
+            this.filterGraphData(this.modDay(3), mood),
+            this.filterGraphData(this.modDay(4), mood),
+            this.filterGraphData(this.modDay(5), mood),
+            this.filterGraphData(this.modDay(6), mood)
+        ]
+
+    }
+
+    public getMonthlyData(mood){
+        return [
+            this.filterGraphData(this.modMonth(0), mood),
+            this.filterGraphData(this.modMonth(1), mood),
+            this.filterGraphData(this.modMonth(2), mood),
+            this.filterGraphData(this.modMonth(3), mood),
+            this.filterGraphData(this.modMonth(4), mood),
+            this.filterGraphData(this.modMonth(5), mood),
+            this.filterGraphData(this.modMonth(6), mood),
+            this.filterGraphData(this.modMonth(7), mood),
+            this.filterGraphData(this.modMonth(8), mood),
+            this.filterGraphData(this.modMonth(9), mood),
+            this.filterGraphData(this.modMonth(10), mood),
+            this.filterGraphData(this.modMonth(11), mood),
+        ]
+    }
+
+    public getTypeData(type,mood){
+        if(type == "week"){
+            return this.getDailyData(mood);
+        }
+        else{
+            return this.getMonthlyData(mood);
+        }
+
+    }
+
+    public pastDays = [
+        this.getPastDays(0),
+        this.getPastDays(1),
+        this.getPastDays(2),
+        this.getPastDays(3),
+        this.getPastDays(4),
+        this.getPastDays(5),
+        this.getPastDays(6)
+    ];
+
+    public pastMonths = [
+        this.getPastMonths(0),
+        this.getPastMonths(1),
+        this.getPastMonths(2),
+        this.getPastMonths(3),
+        this.getPastMonths(4),
+        this.getPastMonths(5),
+        this.getPastMonths(6),
+        this.getPastMonths(7),
+        this.getPastMonths(8),
+        this.getPastMonths(9),
+        this.getPastMonths(10),
+        this.getPastMonths(11)
+    ];
+
+
 
 
     /**<mat-tab label="Line Chart">
@@ -107,7 +373,7 @@ export class ReportsComponent implements AfterViewInit, OnInit {
      * Starts an asynchronous operation to update the emojis list
      *
      */
-
+/*
 
     buildChartData() {
         let days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
@@ -213,11 +479,11 @@ export class ReportsComponent implements AfterViewInit, OnInit {
             }
         });
     }
-
+*/
 
     ngAfterViewInit(): void {
-        this.buildChart();
-        //       this.buildBar();
+       // this.buildChart();
+        //this.buildBar();
     }
 
     refreshEmojis(): Observable<Emoji[]> {
