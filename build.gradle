@@ -8,6 +8,12 @@ task clearMongoDB(type: Exec) {
     args = ["dev", "--eval", "printjson(db.dropDatabase())"]
 }
 
+task clearMongoDBProd(type: Exec) {
+    group = "application"
+    executable "mongo"
+    args = ["prod", "--eval", "printjson(db.dropDatabase())"]
+}
+
 task seedEmojiData(type: Exec) {
     executable = "mongoimport"
     args = ["-d", "dev", "-c", "emojis", "--file", "emojis.seed.json", "--jsonArray"]

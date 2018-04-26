@@ -30,6 +30,7 @@ import {JournalListComponent} from "./journaling/journal-list.component";
 import {JournalListService} from "./journaling/journal-list.service";
 import {AddJournalComponent} from './journaling/add-journal.component';
 import {EditJournalComponent} from "./journaling/edit-journal.component";
+import {EditGoalComponent} from "./goals/edit-goals.component";
 
 import {GoalsComponent} from "./goals/goals.component";
 import {GoalsService} from "./goals/goals.service";
@@ -90,6 +91,7 @@ export function provideConfig() {
         ViewJournalComponent,
         AddResourcesComponent,
         CrisisButtonComponent,
+        EditGoalComponent
         // GoogleSignInComponent,
 
     ],
@@ -111,6 +113,7 @@ export function provideConfig() {
         EditJournalComponent,
         ViewJournalComponent,
         AddResourcesComponent,
+        EditGoalComponent,
 
         ViewJournalComponent,
         CrisisButtonComponent,
