@@ -58,3 +58,12 @@
     word-wrap: break-word;
     width: 200px;
 }
+
+.edit-buttons{
+    color: darkorange;
+    background-color: lightyellow;
+}
+
+.edit-buttons:hover{
+    background-color: #FFC433;
+}

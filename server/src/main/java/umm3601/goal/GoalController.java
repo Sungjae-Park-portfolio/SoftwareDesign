@@ -94,12 +94,17 @@ public class GoalController extends SuperController{
         }
     }
 
-    public String editGoal(String id, Boolean status){
+    public String editGoal(String id, String name, String category, String startDate, String endDate, String frequency, Boolean status){
         System.out.println("Right here again");
-        Document newJournal = new Document();
-        newJournal.append("status", status);
+        Document newGoal = new Document();
+        newGoal.append("name", name);
+        newGoal.append("category", category);
+        newGoal.append("startDate", startDate);
+        newGoal.append("endDate", endDate);
+        newGoal.append("frequency", frequency);
+        newGoal.append("status", status);
         Document setQuery = new Document();
-        setQuery.append("$set", newJournal);
+        setQuery.append("$set", newGoal);
 
         Document searchQuery = new Document().append("_id", new ObjectId(id));
 
@@ -110,7 +115,7 @@ public class GoalController extends SuperController{
         try {
             collection.updateOne(searchQuery, setQuery);
             ObjectId id1 = searchQuery.getObjectId("_id");
-            System.err.println("Successfully updated goal [_id=" + id1 + ", status=" + status + ']');
+            System.err.println("Successfully updated goal [ id=" + id + ", name=" + name + ", category=" + category + ", startDate=" + startDate + ", endDate=" + endDate + ", frequency=" + frequency + ", status=" + status +  ']');
             return JSON.serialize(id1);
         } catch(MongoException me) {
             me.printStackTrace();
