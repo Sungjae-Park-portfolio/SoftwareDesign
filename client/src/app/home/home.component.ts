@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     openDialog(): void {
         const response = this.emoji.mood;
         const dialogRef = this.dialog.open(ResponseComponent, {
-            width: '500px',
+
             data: { response }
         });
     }

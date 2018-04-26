@@ -1,1 +1,7 @@
+.mat-dialog-container {
+    width: 150%;
+}
 
+mat-card-content {
+    margin-right: 20px;
+}
