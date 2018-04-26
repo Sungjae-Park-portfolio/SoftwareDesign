@@ -7,6 +7,7 @@ import {AddJournalComponent} from './add-journal.component';
 import {EditJournalComponent} from './edit-journal.component';
 import {environment} from '../../environments/environment';
 import {ViewJournalComponent} from './view-journal.component';
+import {AppComponent} from "../app.component";
 
 @Component({
     selector: 'app-journal-list-component',
@@ -29,7 +30,7 @@ export class JournalListComponent implements OnInit {
     private highlightedID: {'$oid': string} = { '$oid': '' };
 
     // Inject the JournalListService into this component.
-    constructor(public journalListService: JournalListService, public dialog: MatDialog) {
+    constructor(public journalListService: JournalListService, public appComponent: AppComponent, public dialog: MatDialog) {
         if (environment.production === false) {
 
         }
@@ -170,14 +171,6 @@ export class JournalListComponent implements OnInit {
         this.refreshJournals();
         // this.loadService();
     }
-
-    // This function returns true when the user is signed in and false otherwise
-    isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
-        else return true;
-    }
-
 
     /*
     functions for getting next/previous page

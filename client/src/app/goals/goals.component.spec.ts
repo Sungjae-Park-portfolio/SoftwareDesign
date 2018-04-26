@@ -12,6 +12,7 @@ import {MatDialog} from '@angular/material';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
+import {AppService} from "../app.service";
 
 describe('Goal list', () => {
 
@@ -22,12 +23,20 @@ describe('Goal list', () => {
         getGoals: () => Observable<Goal[]>
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean;
+    };
+
     beforeEach(() => {
+        appServiceStub = {
+            isSignedIn: () => true,
+        };
         // stub GoalService for test purposes
         goalsServiceStub = {
             getGoals: () => Observable.of([
                 {
                     _id: '5aa0b36ecf40cfd384c299fd',
+                    userID: '123456',
                     owner: 'Brittany',
                     name: 'Go to bed earlier',
                     body: 'Get it done',
@@ -36,10 +45,10 @@ describe('Goal list', () => {
                     endDate: 'Thu Dec 03 1992 09:18:58 GMT-0600 (CST)',
                     frequency: 'Everyday',
                     status: true,
-                    email: 'brittany@gmail.com',
                 },
                 {
                     _id: '5aa0b36e50d6094af8e91aba',
+                    userID: '987654',
                     owner: 'Cathleen',
                     name: 'Go to bed earlier',
                     body: 'You can do it',
@@ -48,10 +57,10 @@ describe('Goal list', () => {
                     endDate: 'Tue May 14 1974 08:51:10 GMT-0500 (CDT)',
                     frequency: 'Everyday',
                     status: false,
-                    email: 'cathleen@gmail.com',
                 },
                 {
                     _id: '5aa0b36e3f417437ce3c502a',
+                    userID: '456789',
                     owner: 'Martinez',
                     name: 'Get groceries',
                     body: 'Get it done',
@@ -60,7 +69,6 @@ describe('Goal list', () => {
                     endDate: 'Tue Jul 30 2013 18:14:50 GMT-0500 (CDT)',
                     frequency: 'Everyday',
                     status: true,
-                    email: 'martinez@gmail.com',
                 }
             ])
         };
@@ -70,8 +78,10 @@ describe('Goal list', () => {
             declarations: [GoalsComponent],
             // providers:    [ GoalsService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
-            providers: [{provide: GoalsService, useValue: goalsServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+            providers: [{provide: GoalsService, useValue: goalsServiceStub, },
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub},
+            ]
         });
     });
 
@@ -95,19 +105,6 @@ describe('Goal list', () => {
     it('doesn\'t contains an _id \'asdfasdfasdf\'', () => {
         expect(goals.goals.some((goal: Goal) => goal._id === 'asdfasdfasdf')).toBe(false);
     });
-/*
-    it('has two goals that are 37 years old', () => {
-        expect(goals.goals.filter((goal: Goal) => goal.age === 37).length).toBe(2);
-    });
-
-    it('goal list filters by name', () => {
-        expect(goals.filteredGoals.length).toBe(3);
-        goals.goalName = 'a';
-        goals.refreshGoals().subscribe(() => {
-            expect(goals.filteredGoals.length).toBe(2);
-        });
-    });
-*/
 });
 
 describe('Misbehaving Goals', () => {
@@ -154,6 +151,7 @@ describe('Adding a goal', () => {
     let fixture: ComponentFixture<GoalsComponent>;
     const newGoal: Goal = {
         _id: '5aa0b36e9c7d66070b9231e4',
+        userID: '456321',
         owner: 'Enid',
         name: 'Drink more water',
         body: 'There you go',
@@ -162,7 +160,6 @@ describe('Adding a goal', () => {
         endDate: 'Tue Jun 01 2010 05:50:57 GMT-0500 (CDT)',
         frequency: 'Once a year',
         status: false,
-        email: 'enid@gmail.com',
     };
     const newId = 'enid_id';
 

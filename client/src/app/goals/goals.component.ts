@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddGoalComponent} from "./add-goals.component";
 import {EditGoalComponent} from "./edit-goals.component";
 import {MatSnackBar} from '@angular/material';
+import {AppService} from "../app.service";
 
 @Component({
     selector: 'app-goals-component',
@@ -28,8 +29,7 @@ export class GoalsComponent implements OnInit{
 
 
     // Inject the GoalListService into this component.
-    constructor(public goalsService: GoalsService, public dialog: MatDialog, public snackBar: MatSnackBar) {
-
+    constructor(public goalsService: GoalsService, public appService: AppService, public dialog: MatDialog, public snackBar: MatSnackBar) {
     }
 
     openDialog(): void {
@@ -205,17 +205,12 @@ export class GoalsComponent implements OnInit{
 
     ngOnInit(): void {
         this.refreshGoals();
+        //this.appService.testingToggle();
     }
 
     parseStatus(thing: Boolean){
         if(thing == true) return "Complete";
         else return "Incomplete"
-    }
-
-    isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
-        else return true;
     }
 
     editGoal(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, status: boolean) {

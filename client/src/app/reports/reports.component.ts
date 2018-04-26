@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Emoji} from "../emoji";
 import {ReportsService} from "./reports.service";
+import {AppComponent} from "../app.component";
 
 @Component({
     selector: 'app-reports-component',
@@ -21,7 +22,7 @@ export class ReportsComponent implements OnInit {
 
 
     // Inject the EmojiListService into this component.
-    constructor(public reportsService: ReportsService) {
+    constructor(public reportsService: ReportsService, public appComponent: AppComponent) {
 
     }
 
@@ -72,9 +73,4 @@ export class ReportsComponent implements OnInit {
         this.refreshEmojis();
     }
 
-    isUserLoggedIN(): boolean {
-        const userID = localStorage.getItem('userID');
-        if(userID == '' || userID === null) return false;
-        else return true;
-    }
 }

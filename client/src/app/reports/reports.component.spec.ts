@@ -25,27 +25,30 @@ describe('Reports list', () => {
             getEmojis: () => Observable.of([
                 {
                     _id: 'f',
+                    userID: '123456',
+                    ownerFirstName: 'Roch',
                     owner: 'Nick',
                     mood: 3,
                     intensity: 1,
                     date: null, //date will be created during the test so that it matches what is made in component.addEmoji
-                    email: "nick@gmail.com",
                 },
                 {
                     _id: 'd',
+                    userID: '987654',
+                    ownerFirstName: 'Sungjae',
                     owner: 'Roch',
                     mood: 4,
                     date: null, //date will be created during the test so that it matches what is made in component.addEmoji
                     intensity: 2,
-                    email: "roch@gmail.com",
                 },
                 {
                     _id: 'd',
+                    userID: '456321',
+                    ownerFirstName: 'Steve',
                     owner: 'Leo',
                     mood: 5,
                     date: null, //date will be created during the test so that it matches what is made in component.addEmoji
                     intensity: 2,
-                    email: "leo@gmail.com",
                 }
             ])
         };
@@ -73,19 +76,19 @@ describe('Reports list', () => {
     });
 
     it('contains a owner named \'Roch\'', () => {
-        expect(emojiList.emojis.some((emoji: Emoji) => emoji.owner === 'Nick')).toBe(true);
+        expect(emojiList.emojis.some((emoji: Emoji) => emoji.ownerFirstName === 'Roch')).toBe(true);
     });
 
-    it('contain a user named \'Jamie\'', () => {
-        expect(emojiList.emojis.some((emoji: Emoji) => emoji.owner === 'Roch')).toBe(true);
+    it('contain a user named \'Sungjae\'', () => {
+        expect(emojiList.emojis.some((emoji: Emoji) => emoji.ownerFirstName === 'Roch')).toBe(true);
     });
 
     it('doesn\'t contain a user named \'Santa\'', () => {
-        expect(emojiList.emojis.some((emoji: Emoji) => emoji.owner === 'Santa')).toBe(false);
+        expect(emojiList.emojis.some((emoji: Emoji) => emoji.ownerFirstName === 'Santa')).toBe(false);
     });
 
-    it('has one emoji with the owner leo', () => {
-        expect(emojiList.emojis.filter((emoji: Emoji) => emoji.owner === 'Leo').length).toBe(1);
+    it('has one emoji with the owner Steve', () => {
+        expect(emojiList.emojis.filter((emoji: Emoji) => emoji.ownerFirstName === 'Steve').length).toBe(1);
     });
 
     it('has two emoji with intensity two', () => {
@@ -97,7 +100,7 @@ describe('Reports list', () => {
     });
 
     it('emoji list filters by name', () => {
-        console.log(emojiList.emojis)
+        console.log(emojiList.emojis);
         expect(emojiList.filteredEmojis.length).toBe(3);
         emojiList.emojiOwner = 'L';
         emojiList.refreshEmojis().subscribe(() => {

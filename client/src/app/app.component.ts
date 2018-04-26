@@ -25,7 +25,6 @@ export class AppComponent implements OnInit {
     constructor(private http: HttpClient, public appService: AppService, public dialog: MatDialog){
     }
 
-
     public isSignedIn(): boolean {
         return (localStorage.getItem('isSignedIn') == 'true');
     }

@@ -1,4 +1,4 @@
-<div *ngIf="isUserLoggedIN() == true; else promptLogin">
+<div *ngIf="this.appService.isSignedIn(); else promptLogin">
     <div class="addNewGoalDiv">
         <button id = "addNewGoal" mat-raised-button (click)="openDialog()">Add a Goal</button>
     </div>

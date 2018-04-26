@@ -5,6 +5,7 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {ResponseComponent} from "./response.component";
 import {Response} from "./response";
 import {AddResponseComponent} from "./add-response.component";
+import {AppComponent} from "../app.component";
 
 // Selector will change when we know more
 
@@ -24,12 +25,8 @@ export class HomeComponent implements OnInit {
     public lastMood = 3;
     public lastIntensity = 1;
 
-    constructor(public homeService: HomeService, public dialog: MatDialog, public snackBar: MatSnackBar) {
+    constructor(public homeService: HomeService, public appComponent: AppComponent, public dialog: MatDialog, public snackBar: MatSnackBar) {
 
-    }
-
-    public isSignedIn(): boolean {
-        return (localStorage.getItem('isSignedIn') == 'true');
     }
 
     openSnackBar(message: string, action: string) {
