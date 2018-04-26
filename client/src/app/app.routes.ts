@@ -9,6 +9,7 @@ import {JournalListComponent} from './journaling/journal-list.component';
 
 import {GoalsComponent} from "./goals/goals.component";
 import {AboutComponent} from "./about/about.component";
+import {ContactComponent} from "./contact/contact.component";
 
 // Route Configuration
 export const routes: Routes = [
@@ -18,6 +19,8 @@ export const routes: Routes = [
     {path: 'reports', component: ReportsComponent },
     {path: 'goals', component: GoalsComponent },
     {path: 'about', component: AboutComponent},
+    {path: 'contact', component: ContactComponent},
+
 
 ];
 
