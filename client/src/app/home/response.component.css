@@ -1,5 +1,10 @@
 .mat-dialog-container {
-    width: 150%;
+    padding: 0px;
 }
 
-
+#responseGetButton {
+    margin-bottom: 10px;
+}
+#response1, #response2, #response3, #response4, #response5{
+    margin-bottom: 0px;
+}
