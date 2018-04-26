@@ -28,6 +28,10 @@ export class HomeComponent implements OnInit {
 
     }
 
+    public isSignedIn(): boolean {
+        return (localStorage.getItem('isSignedIn') == 'true');
+    }
+
     openSnackBar(message: string, action: string) {
         this.snackBar.open(message, action, {
             duration: 10000,
@@ -151,11 +155,6 @@ export class HomeComponent implements OnInit {
         this.emoji.userID = localStorage.getItem('userID');
     }
 
-    isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
-        else return true;
-    }
 
     // This function pertains to mood carousel. It allows for the value of emoji.mood to
     // 'wrap around' back to the start, so that it is in an infinite loop.

@@ -22,14 +22,12 @@ export class AppComponent implements OnInit {
     windowHeight: number;
     googleAuth;
 
-    constructor(private http: HttpClient,public appService: AppService, public dialog: MatDialog){
+    constructor(private http: HttpClient, public appService: AppService, public dialog: MatDialog){
     }
 
 
-    isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
-        else return true;
+    public isSignedIn(): boolean {
+        return (localStorage.getItem('isSignedIn') == 'true');
     }
 
     signIn() {
@@ -73,14 +71,14 @@ export class AppComponent implements OnInit {
         this.http.post(environment.API_URL + "login", {code: code}, httpOptions)
             .subscribe(onSuccess => {
                 console.log("Code sent to server");
+                window.location.reload();
                 console.log('User id: ' + onSuccess["_id"]["$oid"]);
                 console.log(onSuccess["FirstName"]);
                 console.log(onSuccess["LastName"]);
+                localStorage.setItem('isSignedIn', 'true');
                 localStorage.setItem("userID", onSuccess["_id"]["$oid"]);
                 localStorage.setItem("userFirstName", onSuccess["FirstName"]);
                 localStorage.setItem("userLastName", onSuccess["LastName"]);
-
-                // window.location.reload();
             }, onFail => {
                 console.log("ERROR: Code couldn't be sent to the server");
             });
