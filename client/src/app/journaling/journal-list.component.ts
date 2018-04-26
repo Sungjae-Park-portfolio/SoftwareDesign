@@ -18,6 +18,7 @@ export class JournalListComponent implements OnInit {
     // These are public so that tests can reference them (.spec.ts)
     public journals: Journal[];
     public filteredJournals: Journal[];
+    public userID: string = localStorage.getItem('userID');
 
     // These are the target values used in searching.
     // We should rename them to make that clearer.
@@ -39,7 +40,7 @@ export class JournalListComponent implements OnInit {
     }
 
     openDialog(): void {
-        const newJournal: Journal = {_id: '', subject: '', body: '', date: null, email: localStorage.getItem('email')};
+        const newJournal: Journal = {_id: '', subject: '', body: '', date: null, userID: this.userID};
         const dialogRef = this.dialog.open(AddJournalComponent, {
             width: '500px',
             data: { journal: newJournal }
@@ -61,7 +62,7 @@ export class JournalListComponent implements OnInit {
 
     openDialogReview(_id: string, subject: string, body: string): void {
         console.log(_id + ' ' + subject);
-        const newJournal: Journal = {_id: _id, subject: subject, body: body, date: null, email: localStorage.getItem('email')};
+        const newJournal: Journal = {_id: _id, subject: subject, body: body, date: null, userID: this.userID};
         const dialogRef = this.dialog.open(EditJournalComponent, {
             width: '500px',
             data: { journal: newJournal }
@@ -154,7 +155,7 @@ export class JournalListComponent implements OnInit {
 
     showJournalBody(journal: Journal): void {
         const newJournal: Journal = {_id: '', subject: journal.subject, body: journal.body,
-            date: journal.date, email: localStorage.getItem('email')};
+            date: journal.date, userID: this.userID};
         const dialogRef = this.dialog.open(ViewJournalComponent, {
             width: '80%',
             data: { journal: newJournal },
