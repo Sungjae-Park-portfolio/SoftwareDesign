@@ -78,7 +78,7 @@ public class EmojiController extends SuperController {
             collection.insertOne(newEmoji);
 
             ObjectId id = newEmoji.getObjectId("_id");
-            System.err.println("Successfully added new emoji [_id=" + id + ", owner=" + ownerId + ", mood="
+            System.err.println("Successfully added new emoji [_id=" + id + ", SubjectID=" + ownerId + ", mood="
                 + mood + " date=" + now + ']');
 
             return JSON.serialize(id);

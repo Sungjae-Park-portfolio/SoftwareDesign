@@ -73,7 +73,7 @@ export class AppComponent implements OnInit {
         this.http.post(environment.API_URL + "login", {code: code}, httpOptions)
             .subscribe(onSuccess => {
                 console.log("Code sent to server");
-                console.log(onSuccess["_id"]["$oid"]);
+                console.log('User id: ' + onSuccess["_id"]["$oid"]);
                 console.log(onSuccess["FirstName"]);
                 console.log(onSuccess["LastName"]);
                 localStorage.setItem("userID", onSuccess["_id"]["$oid"]);

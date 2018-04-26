@@ -76,7 +76,7 @@ public class EmojiRequestHandler {
                 try {
                     BasicDBObject dbO = (BasicDBObject) o;
 
-                    String SubjectID = dbO.getString("SubjectID");
+                    String SubjectID = dbO.getString("userID");
                     int mood = dbO.getInt("mood");
                     int intensity = dbO.getInt("intensity");
 

@@ -1,7 +1,5 @@
 import {TestBed, ComponentFixture, async} from '@angular/core/testing';
 import {HomeComponent} from './home.component';
-import {DebugElement} from '@angular/core';
-import {By} from '@angular/platform-browser';
 import {MatDialog} from '@angular/material';
 import {CustomModule} from '../custom.module';
 import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
@@ -18,11 +16,11 @@ describe('Adding an emoji', () => {
 
     const newEmoji: Emoji = {
         _id: '',
-        owner: null,
+        userID: '',
+        ownerFirstName: null,
         mood: 3,
         intensity: 1,
         date: null, //date will be created during the test so that it matches what is made in component.addEmoji
-        email: null,
     };
 
     const newId = 'nick_id';
@@ -80,10 +78,10 @@ describe('Adding an emoji', () => {
         expect(calledEmoji).toBeNull();
 
         component.emoji._id = newEmoji._id;
+        component.emoji.userID = newEmoji.userID;
         component.emoji.mood = newEmoji.mood;
         component.emoji.intensity = newEmoji.intensity;
-        component.emoji.owner = newEmoji.owner;
-        const date = new Date();
+        component.emoji.ownerFirstName = newEmoji.ownerFirstName;
         component.addEmoji(); //date for component.emoji is set within this method
 
         expect(calledEmoji).toEqual(newEmoji);

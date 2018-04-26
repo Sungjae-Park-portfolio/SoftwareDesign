@@ -15,9 +15,11 @@ import {AddResponseComponent} from "./add-response.component";
 })
 export class HomeComponent implements OnInit {
 
-    public emoji: Emoji = {_id: '', SubjectID: localStorage.getItem("subjectID"), date: null, mood: 3, intensity: 1};
-    public email: string = localStorage.getItem('email');
-    public response: Response = {_id: '', link: '', email: this.email, name: ''};
+    public userID: string = localStorage.getItem('userID');
+    public userFirstName: string = localStorage.getItem('userFirstName');
+    public emoji: Emoji = {_id: '', userID: this.userID,
+        ownerFirstName: this.userFirstName, date: null, mood: 3, intensity: 1};
+    public response: Response = {_id: '', link: '', userID: this.userID, name: ''};
     public emojis: Emoji[];
     public lastMood = 3;
     public lastIntensity = 1;
@@ -41,12 +43,6 @@ export class HomeComponent implements OnInit {
     }
 
     addEmoji(): void {
-
-        const date = new Date();
-        this.emoji.date = null;
-        this.emoji.SubjectID = localStorage.getItem('subjectID');
-
-
         this.homeService.addEmoji(this.emoji).subscribe(
             addEmojiResult => {
                 console.log('emoji ' + addEmojiResult + ' successfully added');
@@ -98,7 +94,7 @@ export class HomeComponent implements OnInit {
                 _id: '',
                 name: '',
                 link: '',
-                email: localStorage.getItem('email'),
+                userID: localStorage.getItem('userID'),
             };
         const dialogRef = this.dialog.open(AddResponseComponent, {
             width: '500px',
@@ -152,7 +148,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.emoji.SubjectID = localStorage.getItem('subjectID');
+        this.emoji.userID = localStorage.getItem('userID');
     }
 
     isUserLoggedIN(): boolean {

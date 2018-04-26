@@ -1,6 +1,7 @@
 export interface Emoji {
     _id: string;
-    SubjectID: string;
+    userID: string;
+    ownerFirstName: string;
     mood: number;
     intensity: number;
     date: Date;

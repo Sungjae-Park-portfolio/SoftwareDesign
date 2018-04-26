@@ -31,9 +31,6 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 
 import org.json.*;
 
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.Constants.REDIRECT_URI;
-
 public class Server {
     private static final String databaseName = "dev";
     private static final int serverPort = 4567;
@@ -111,15 +108,22 @@ public class Server {
         /// User Endpoints ///////////////////////////
         /////////////////////////////////////////////
 
+        // Response get requests
         get("api/response", responseRequestHandler::getRandomResponse);
         get("api/responses", responseRequestHandler::getResponses);
 
+        // User get requests
         get("api/users", userRequestHandler::getUsers);
 
+        // Emotion get requests
         get("api/emojis", emojiRequestHandler::getEmojis);
         get("api/emojis/:id", emojiRequestHandler::getEmojiJSON);
+
+        // Goals get requests
         get("api/goals", goalRequestHandler::getGoals);
         get("api/goals/:id", goalRequestHandler::getGoalJSON);
+
+
         get("api/journaling", journalRequestHandler::getJournals);
         get("api/journaling/:id", journalRequestHandler::getJournalJSON);
         post("api/emojis/new", emojiRequestHandler::addNewEmoji);
