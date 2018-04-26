@@ -26,18 +26,9 @@ export class ReportsComponent implements OnInit {
     }
 
 
-    public filterEmojis(searchOwner): Emoji[] {
+    public filterEmojis(searchDate): Emoji[] {
 
         this.filteredEmojis = this.emojis;
-
-        // Filter by name
-        if (searchOwner != null) {
-            searchOwner = searchOwner.toLocaleLowerCase();
-
-            this.filteredEmojis = this.filteredEmojis.filter(emoji => {
-                return !searchOwner || emoji.owner.toLowerCase().indexOf(searchOwner) !== -1;
-            });
-        }
 
         // Sort by date
         this.filteredEmojis = this.filteredEmojis.sort((emoji1, emoji2) => {
