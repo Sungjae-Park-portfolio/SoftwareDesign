@@ -13,7 +13,7 @@ export class ReportsComponent implements OnInit {
     // These are public so that tests can reference them (.spec.ts)
     public emojis: Emoji[];
     public filteredEmojis: Emoji[];
-    public userEmail: string = localStorage.getItem('email');
+    public userID: string = localStorage.getItem('userID');
 
     // These are the target values used in searching.
     // We should rename them to make that clearer.
@@ -73,8 +73,8 @@ export class ReportsComponent implements OnInit {
     }
 
     isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
+        const userID = localStorage.getItem('userID');
+        if(userID == '' || userID === null) return false;
         else return true;
     }
 }
