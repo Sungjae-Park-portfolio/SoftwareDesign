@@ -126,12 +126,14 @@ public class GoalRequestHandler {
                     String category = dbO.getString("category");
                     String frequency = dbO.getString("frequency");
                     Boolean status = dbO.getBoolean("status");
+                    String startDate = dbO.getString("startDate");
+                    String endDate = dbO.getString("endDate");
                     String body = dbO.getString("body");
 
 
 
-                    System.err.println("Editing goal [ id=" + id + ", status=" + status +  ']');
-                    return goalController.editGoal(id, status);
+                    System.err.println("Editing goal [ id=" + id + ", name=" + name + ", category=" + category + ", startDate=" + startDate + ", endDate=" + endDate + ", frequency=" + frequency + ", status=" + status +  ']');
+                    return goalController.editGoal(id, name, category, startDate, endDate, frequency, status);
                 }
                 catch(NullPointerException e)
                 {

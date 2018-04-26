@@ -4,6 +4,7 @@ import {Goal} from "./goals";
 import {GoalsService} from "./goals.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddGoalComponent} from "./add-goals.component";
+import {EditGoalComponent} from "./edit-goals.component";
 import {MatSnackBar} from '@angular/material';
 
 @Component({
@@ -20,6 +21,7 @@ export class GoalsComponent implements OnInit{
     // We should rename them to make that clearer.
     public goalOwner: string;
     public goalStatus: string;
+    public goalFilter: string;
     //public email: string =
 
     private highlightedID: {'$oid': string} = { '$oid': '' };
@@ -62,6 +64,39 @@ export class GoalsComponent implements OnInit{
         });
     }
 
+    openDialogEdit(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, email: string, status: boolean): void {
+        const newGoal: Goal =
+            {
+                _id: _id,
+                name: name,
+                owner: owner,
+                body: body,
+                category: category,
+                startDate: startDate,
+                endDate: endDate,
+                frequency: frequency,
+                status: status,
+                email: email,
+            };
+        const dialogRef = this.dialog.open(EditGoalComponent, {
+            width: '500px',
+            data: { goal: newGoal }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            this.goalsService.editGoal(result).subscribe(
+                editJournalResult => {
+                    this.highlightedID = editJournalResult;
+                    this.refreshGoals();
+                },
+                err => {
+                    // This should probably be turned into some sort of meaningful response.
+                    console.log('There was an error editing the journal.');
+                    console.log('The error was ' + JSON.stringify(err));
+                });
+        });
+    }
+
 
     public filterGoals(searchName, searchStatus): Goal[] {
 
@@ -82,6 +117,38 @@ export class GoalsComponent implements OnInit{
 
             this.filteredGoals = this.filteredGoals.filter(goal => {
                 return !searchStatus || goal.status.toString().toLowerCase().indexOf(searchStatus) !== -1;
+            });
+        }
+
+        // Sort by start date from newest to oldest
+        this.filteredGoals = this.filteredGoals.sort((goal1, goal2) => {
+            const date1 = new Date(goal1.startDate);
+            const date2 = new Date(goal2.startDate);
+            return date2.valueOf() - date1.valueOf();
+        });
+
+
+        return this.filteredGoals;
+    }
+
+    public superFilterGoals(searchString, searchStatus): Goal[] {
+
+        this.filteredGoals = this.goals;
+
+        // Filter by goal status
+        if (searchStatus != null){
+            searchStatus = searchStatus.toLocaleLowerCase();
+
+            this.filteredGoals = this.filteredGoals.filter(goal => {
+                return !searchStatus || goal.status.toString().toLowerCase().indexOf(searchStatus) !== -1;
+            });
+        }
+
+        // Filter by name, category and frequency
+        if (searchString != null) {
+            searchString = searchString.toLocaleLowerCase();
+            this.filteredGoals = this.filteredGoals.filter(goal => {
+                return !searchString || goal.name.toLowerCase().indexOf(searchString) !== -1 || goal.frequency.toString().toLowerCase().indexOf(searchString) !== -1 || goal.category.toString().toLowerCase().indexOf(searchString) !== -1;
             });
         }
 

@@ -128,7 +128,9 @@ public class GoalControllerSpec extends ControllerSuperSpec{
 
         assertNotNull("Add new goal should return true when a goal is added,", newGoal);
 
-        String editGoal = goalController.editGoal(parseObjectId(newGoal).toString(), true);
+        System.out.println(newGoal);
+
+        String editGoal = goalController.editGoal(parseObjectId(newGoal).toString(), "Roch", "Social", "6/19/2015 14:00", "6/20/2015 14:00", "Daily", true);
 
         assertNotNull("Edited goal should not return null,", editGoal);
 
