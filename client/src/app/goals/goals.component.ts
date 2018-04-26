@@ -22,7 +22,7 @@ export class GoalsComponent implements OnInit{
     public goalOwner: string;
     public goalStatus: string;
     public goalFilter: string;
-    //public email: string =
+    public userID: string = localStorage.getItem('userID');
 
     private highlightedID: {'$oid': string} = { '$oid': '' };
 
@@ -36,6 +36,7 @@ export class GoalsComponent implements OnInit{
         const newGoal: Goal =
             {
                 _id: '',
+                userID: this.userID,
                 name: '',
                 owner: '',
                 body: '',
@@ -44,7 +45,6 @@ export class GoalsComponent implements OnInit{
                 endDate: '',
                 frequency: '',
                 status: false,
-                email: localStorage.getItem('email'),
             };
         const dialogRef = this.dialog.open(AddGoalComponent, {
             width: '500px',
@@ -64,10 +64,11 @@ export class GoalsComponent implements OnInit{
         });
     }
 
-    openDialogEdit(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, email: string, status: boolean): void {
+    openDialogEdit(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, status: boolean): void {
         const newGoal: Goal =
             {
                 _id: _id,
+                userID: this.userID,
                 name: name,
                 owner: owner,
                 body: body,
@@ -76,7 +77,6 @@ export class GoalsComponent implements OnInit{
                 endDate: endDate,
                 frequency: frequency,
                 status: status,
-                email: email,
             };
         const dialogRef = this.dialog.open(EditGoalComponent, {
             width: '500px',
@@ -218,8 +218,8 @@ export class GoalsComponent implements OnInit{
         else return true;
     }
 
-    editGoal(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, email: string, status: boolean) {
-        const updatedGoal: Goal = {_id: _id, name: name, owner: owner, body: body, category: category, startDate: startDate, endDate: endDate, frequency: frequency, email: email, status: status};
+    editGoal(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, status: boolean) {
+        const updatedGoal: Goal = {_id: _id, userID: this.userID, name: name, owner: owner, body: body, category: category, startDate: startDate, endDate: endDate, frequency: frequency, status: status};
         this.goalsService.editGoal(updatedGoal).subscribe(
             editGoalResult => {
                 this.highlightedID = editGoalResult;

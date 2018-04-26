@@ -76,19 +76,16 @@ public class GoalRequestHandler {
             {
                 try {
                     BasicDBObject dbO = (BasicDBObject) o;
+                    String SubjectID = dbO.getString("userID");
                     String name = dbO.getString("name");
                     String owner = dbO.getString("owner");
-                    String body = dbO.getString("body");
                     String category = dbO.getString("category");
                     String startDate = dbO.getString("startDate");
                     String endDate = dbO.getString("endDate");
                     String frequency = dbO.getString("frequency");
                     Boolean status = dbO.getBoolean("status");
-                    String email = dbO.getString("email");
 
-//
-//                    System.err.println("Adding new emoji [owner=" + owner + ", mood=" + mood + " date=" + date  + ']');
-                    return goalController.addNewGoal(owner, name, body, category, startDate, endDate, frequency, status, email);
+                    return goalController.addNewGoal(owner, name, category, startDate, endDate, frequency, status, SubjectID);
                 }
                 catch(NullPointerException e)
                 {
