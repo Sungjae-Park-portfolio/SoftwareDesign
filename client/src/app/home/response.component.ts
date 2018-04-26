@@ -10,7 +10,7 @@ import {HttpClient} from "@angular/common/http";
 })
 export class ResponseComponent {
 
-    public email: string = localStorage.getItem('email');
+    public userID: string = localStorage.getItem('userID');
 
     constructor(
         private http: HttpClient,
@@ -31,7 +31,7 @@ export class ResponseComponent {
 
     getLink() : void {
         let service = new HomeService(this.http);
-        let response = service.getRandomResponse(this.email);
+        let response = service.getRandomResponse(this.userID);
         response.subscribe(
                 (ls) => {
                     window.open(ls[0].link);
