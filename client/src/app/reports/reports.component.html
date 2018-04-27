@@ -1,5 +1,5 @@
 <!-- Don't display any data unless user is signed in -->
-<div *ngIf="appComponent.isSignedIn(); else promptLogin">
+<div *ngIf="appService.isSignedIn(); else promptLogin">
     <div layout-gt-sm="row">
         <div flex-gt-sm="80" flex-offset-gt-sm="10">
             <mat-card>

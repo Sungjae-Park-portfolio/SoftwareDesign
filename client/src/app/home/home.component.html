@@ -1,5 +1,5 @@
 <!--Don't allow user to do anything without logging in! -->
-<div *ngIf="appComponent.isSignedIn(); else promptLogin">
+<div *ngIf="appService.isSignedIn(); else promptLogin">
 
             <!-- Main Page -->
             <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">

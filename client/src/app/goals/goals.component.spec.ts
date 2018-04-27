@@ -115,7 +115,17 @@ describe('Misbehaving Goals', () => {
         getGoals: () => Observable<Goal[]>
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean;
+    };
+
+
     beforeEach(() => {
+
+        appServiceStub = {
+            isSignedIn: () => true,
+        };
+
         // stub GoalService for test purposes
         goalsServiceStub = {
             getGoals: () => Observable.create(observer => {
@@ -127,7 +137,8 @@ describe('Misbehaving Goals', () => {
             imports: [FormsModule, CustomModule],
             declarations: [GoalsComponent],
             providers: [{provide: GoalsService, useValue: goalsServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 

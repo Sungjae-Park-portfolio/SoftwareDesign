@@ -1,5 +1,5 @@
 <!-- Don't allow the user to see anything if they aren't logged in. -->
-<div *ngIf="appComponent.isSignedIn(); else promptLogin">
+<div *ngIf="appService.isSignedIn(); else promptLogin">
 
 
     <div layout-gt-sm="row">

@@ -9,6 +9,7 @@ import {ReportsService} from "./reports.service";
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import {Emoji} from "../emoji";
+import {AppService} from "../app.service";
 
 describe('Reports list', () => {
 
@@ -17,6 +18,10 @@ describe('Reports list', () => {
 
     let ReportsListServiceStub: {
         getEmojis: () => Observable<Emoji[]>
+    };
+
+    let appServiceStub: {
+        isSignedIn: () => boolean
     };
 
     beforeEach(() => {
@@ -53,13 +58,18 @@ describe('Reports list', () => {
             ])
         };
 
+        appServiceStub = {
+            isSignedIn: () => true,
+        };
+
         TestBed.configureTestingModule({
             imports: [CustomModule],
             declarations: [ReportsComponent],
             // providers:    [ UserListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
             providers: [{provide: ReportsService, useValue: ReportsListServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 
@@ -99,16 +109,6 @@ describe('Reports list', () => {
         expect(emojiList.emojis.filter((emoji: Emoji) => emoji.mood === 4).length).toBe(1);
     });
 
-    it('emoji list filters by name', () => {
-        console.log(emojiList.emojis);
-        expect(emojiList.filteredEmojis.length).toBe(3);
-        emojiList.emojiOwner = 'L';
-        emojiList.refreshEmojis().subscribe(() => {
-            expect(emojiList.filteredEmojis.length).toBe(1);
-        });
-    });
-
-
 });
 
 describe('Misbehaving Emoji List', () => {
@@ -119,6 +119,10 @@ describe('Misbehaving Emoji List', () => {
         getEmojis: () => Observable<Emoji[]>
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean
+    };
+
     beforeEach(() => {
         // stub UserService for test purposes
         emojiListServiceStub = {
@@ -127,11 +131,16 @@ describe('Misbehaving Emoji List', () => {
             })
         };
 
+        appServiceStub = {
+            isSignedIn: () => true
+        };
+
         TestBed.configureTestingModule({
             imports: [FormsModule, CustomModule],
             declarations: [ReportsComponent],
             providers: [{provide: ReportsService, useValue: emojiListServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 

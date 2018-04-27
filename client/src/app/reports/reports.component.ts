@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Emoji} from "../emoji";
 import {ReportsService} from "./reports.service";
-import {AppComponent} from "../app.component";
+import {AppService} from "../app.service";
 
 @Component({
     selector: 'app-reports-component',
@@ -22,7 +22,7 @@ export class ReportsComponent implements OnInit {
 
 
     // Inject the EmojiListService into this component.
-    constructor(public reportsService: ReportsService, public appComponent: AppComponent) {
+    constructor(public reportsService: ReportsService, public appService: AppService) {
 
     }
 

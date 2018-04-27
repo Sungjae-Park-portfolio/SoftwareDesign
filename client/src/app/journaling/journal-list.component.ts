@@ -7,7 +7,7 @@ import {AddJournalComponent} from './add-journal.component';
 import {EditJournalComponent} from './edit-journal.component';
 import {environment} from '../../environments/environment';
 import {ViewJournalComponent} from './view-journal.component';
-import {AppComponent} from "../app.component";
+import {AppService} from "../app.service";
 
 @Component({
     selector: 'app-journal-list-component',
@@ -30,7 +30,7 @@ export class JournalListComponent implements OnInit {
     private highlightedID: {'$oid': string} = { '$oid': '' };
 
     // Inject the JournalListService into this component.
-    constructor(public journalListService: JournalListService, public appComponent: AppComponent, public dialog: MatDialog) {
+    constructor(public journalListService: JournalListService, public appService: AppService, public dialog: MatDialog) {
         if (environment.production === false) {
 
         }

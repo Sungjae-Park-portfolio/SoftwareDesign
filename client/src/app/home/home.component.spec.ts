@@ -1,12 +1,13 @@
 import {TestBed, ComponentFixture, async} from '@angular/core/testing';
 import {HomeComponent} from './home.component';
-import {MatDialog} from '@angular/material';
+import {MatDialog, MatSnackBar} from '@angular/material';
 import {CustomModule} from '../custom.module';
 import {MATERIAL_COMPATIBILITY_MODE} from '@angular/material';
 import {Emoji} from "../emoji";
 import {Observable} from "rxjs/Observable";
 import {FormsModule} from "@angular/forms";
 import {HomeService} from "./home.service";
+import {AppService} from "../app.service";
 
 describe('Adding an emoji', () => {
 
@@ -28,7 +29,11 @@ describe('Adding an emoji', () => {
     let calledEmoji: Emoji;
 
     let homeServiceStub: {
-        addEmoji: (newEmoji: Emoji) => Observable<{'$oid': string}>
+        addEmoji: (newEmoji: Emoji) => Observable<{'$oid': string}>,
+    };
+
+    let appServiceStub: {
+        isSignedIn: () => boolean;
     };
 
     let mockMatDialog: {
@@ -49,6 +54,10 @@ describe('Adding an emoji', () => {
             }
         };
 
+        appServiceStub = {
+            isSignedIn: () => true,
+        };
+
         mockMatDialog = {
             open: () => {
                 return {afterClosed: () => {return}  };
@@ -61,7 +70,8 @@ describe('Adding an emoji', () => {
             providers: [
                 {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
                 {provide: MatDialog, useValue: mockMatDialog},
-                {provide: HomeService, useValue: homeServiceStub}]
+                {provide: HomeService, useValue: homeServiceStub},
+                {provide: AppService, useValue: appServiceStub}]
         });
 
     });
@@ -97,14 +107,45 @@ describe('parseSwipeDirection', () => {
         addEmoji: (newEmoji: Emoji) => Observable<{'$oid': string}>
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean;
+    };
+
+    let mockSnackBar: {
+        open: () => void
+    };
+
+    let mockMatDialog: {
+        open: (ResponseComponent, any) => {
+            afterClosed: () => void
+        };
+    };
+
     beforeEach(() => {
+
+        appServiceStub = {
+            isSignedIn: () => true,
+        };
+
+        mockSnackBar = {
+            open: () => {return},
+        };
+
+        mockMatDialog = {
+            open: () => {
+                return {afterClosed: () => {return}  };
+            }
+        };
+
         TestBed.configureTestingModule({
             imports: [FormsModule, CustomModule],
             declarations: [HomeComponent], // declare the test component
             providers: [
                 {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
-                {provide: HomeService, useValue: homeServiceStub}
-        ]});
+                {provide: MatDialog, useValue: mockMatDialog},
+                {provide: HomeService, useValue: homeServiceStub},
+                {provide: AppService, useValue: appServiceStub},
+                {provide: MatSnackBar, useValue: mockSnackBar}]});
 
     });
 
