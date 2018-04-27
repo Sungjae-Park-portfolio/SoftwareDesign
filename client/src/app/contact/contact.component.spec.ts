@@ -142,6 +142,7 @@ describe('Adding a contacts', () => {
 
     let calledContact: contact;
 
+
     let contactListServiceStub: {
         getContact: () => Observable<contact[]>,
         addNewContact: (newContact: contact) => Observable<{'$oid': string}>
@@ -162,7 +163,7 @@ describe('Adding a contacts', () => {
                 return Observable.of({
                     '$oid': newId
                 });
-            }
+            },
         };
         mockMatDialog = {
             open: () => {

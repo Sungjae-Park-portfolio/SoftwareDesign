@@ -11,8 +11,10 @@ import org.bson.types.ObjectId;
 import java.util.Iterator;
 import java.util.Map;
 import static com.mongodb.client.model.Filters.eq;
+import umm3601.SuperController;
 
-public class ContactController {
+
+public class ContactController  extends SuperController{
     private final Gson gson;
     private MongoDatabase database;
     // goalCollection is the collection that the resources data is in.
@@ -109,6 +111,19 @@ public class ContactController {
         } catch (MongoException me) {
             me.printStackTrace();
             return null;
+        }
+    }
+    public void deleteContact(String id){
+        Document searchQuery = new Document().append("_id", new ObjectId(id));
+
+        try {
+            collection.deleteOne(searchQuery);
+            ObjectId id1 = searchQuery.getObjectId("_id");
+            System.out.println("Succesfully deleted contact " + id1);
+
+        } catch(MongoException me) {
+            me.printStackTrace();
+            System.out.println("error");
         }
     }
 }

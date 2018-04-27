@@ -74,7 +74,6 @@ export class ContactComponent implements OnInit{
         });
     }
 
-
     public filterContact(searchName): contact[] {
 
         this.filteredContact = this.contact;

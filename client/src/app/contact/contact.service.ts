@@ -48,17 +48,4 @@ export class ContactService {
         // Send post request to add a new journal with the journal data as the body with specified headers.
         return this.http.post<{'$oid': string}>(this.contactUrl + '/edit', id, httpOptions);
     }
-
-    deleteContact(id: string) {
-        console.log ("here!");
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            }),
-        };
-
-        console.log(this.baseUrl + '/delete/' + id);
-        console.log(this.http.delete(this.contactUrl + '/delete/' + id, httpOptions))
-        return this.http.delete (this.contactUrl + '/delete/' + id, httpOptions);
-    }
 }

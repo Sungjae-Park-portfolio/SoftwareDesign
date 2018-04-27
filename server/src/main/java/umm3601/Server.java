@@ -110,6 +110,7 @@ public class Server {
         get("api/contact", contactRequestHandler::getContact);
         post("api/contact/new", contactRequestHandler::addNewContact);
         post("api/contact/edit", contactRequestHandler::editContact);
+        delete("api/contact/delete/:id", contactRequestHandler::deleteContact);
 
         // An example of throwing an unhandled exception so you can see how the
         // Java Spark debugger displays errors like this.

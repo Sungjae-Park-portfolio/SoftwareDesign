@@ -147,4 +147,23 @@ public class ContactRequestHandler {
             return null;
         }
     }
+
+    public String deleteContact(Request req, Response res){
+
+        System.out.println("I'm here");
+        System.out.println(req.params(":id"));
+
+        res.type("application/json");
+
+        try {
+            String id = req.params(":id");
+            contactController.deleteContact(id);
+            return req.params(":id");
+        }
+        catch(RuntimeException ree)
+        {
+            ree.printStackTrace();
+            return null;
+        }
+    }
 }
