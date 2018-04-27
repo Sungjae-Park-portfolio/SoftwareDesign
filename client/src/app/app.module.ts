@@ -36,6 +36,12 @@ import {GoalsService} from "./goals/goals.service";
 import {AddGoalComponent} from "./goals/add-goals.component";
 import {ViewJournalComponent} from "./journaling/view-journal.component";
 
+import {ContactComponent} from "./contact/contact.component";
+import {ContactService} from "./contact/contact.service";
+import {AddContactComponent} from "./contact/add-contact.component";
+import {ContactButtonComponent} from "./contact/contact-button.component";
+import {EditContactComponent} from "./contact/edit-contact.component";
+
 //import {GoogleSignInComponent} from "angular-google-signin";
 
 import { SocialLoginModule, AuthServiceConfig } from 'angular4-social-login';
@@ -90,7 +96,11 @@ export function provideConfig() {
         ViewJournalComponent,
         AddResourcesComponent,
         CrisisButtonComponent,
-        EditGoalComponent
+        EditGoalComponent,
+        ContactComponent,
+        AddContactComponent,
+        ContactButtonComponent,
+        EditContactComponent,
         // GoogleSignInComponent,
 
     ],
@@ -100,6 +110,7 @@ export function provideConfig() {
         ReportsService,
         GoalsService,
         JournalListService,
+        ContactService,
         {provide: APP_BASE_HREF, useValue: '/'},
         {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
     ],
@@ -112,6 +123,9 @@ export function provideConfig() {
         ViewJournalComponent,
         AddResourcesComponent,
         EditGoalComponent,
+        AddContactComponent,
+        ContactButtonComponent,
+        EditContactComponent,
 
         ViewJournalComponent,
         CrisisButtonComponent,

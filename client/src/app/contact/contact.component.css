@@ -1,0 +1,16 @@
+#addNewCrisis{
+    background-color: #EFEFEF;
+    font-size: large;
+    font-weight: 600;
+    color: #663366;
+}
+
+#crisisTitle{
+    background-color: #D8E5C4;
+    font-weight: bold;
+    font-family: "gubblebum-blocky", monospace;
+    color: #000080;
+}
+#addedCrisis{
+    background-color: #D8E5C4;
+}
