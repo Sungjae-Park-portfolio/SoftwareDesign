@@ -1,0 +1,38 @@
+[
+    {
+        "_id": "5ac6763e98b28f389cd7733b",
+        "name": "Cortez Yang",
+        "email": "cortezyang@animalia.com",
+        "phone": "+1 (954) 574-2870"
+    },
+    {
+        "_id": "5ac6763eb76e8fe30dc88f7b",
+        "name": "Dean Skinner",
+        "email": "deanskinner@animalia.com",
+        "phone": "+1 (914) 407-3107"
+    },
+    {
+        "_id": "5ac6763ebbe3918976b98454",
+        "name": "Roach Swanson",
+        "email": "roachswanson@animalia.com",
+        "phone": "+1 (830) 531-3345"
+    },
+    {
+        "_id": "5ac6763e4702dfa362c39d32",
+        "name": "Harris Sosa",
+        "email": "harrissosa@animalia.com",
+        "phone": "+1 (961) 487-2480"
+    },
+    {
+        "_id": "5ac6763e7d9dedcdd20d3e31",
+        "name": "Morgan Vazquez",
+        "email": "morganvazquez@animalia.com",
+        "phone": "+1 (953) 422-3108"
+    },
+    {
+        "_id": "5ac6763e4d43669e63838e92",
+        "name": "Janet Sandoval",
+        "email": "janetsandoval@animalia.com",
+        "phone": "+1 (881) 407-2041"
+    }
+]
