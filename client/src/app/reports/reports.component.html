@@ -10,7 +10,7 @@
                 <mat-divider></mat-divider>
 
                 <div layout="row" layout-align="center">
-                    <p>
+
                         <mat-form-field>
                             <input matInput [(ngModel)]="startDate" (oninput)="buildChart()"
                                    [matDatepicker]="startdp" placeholder="Start Date" disabled>
@@ -23,10 +23,20 @@
                             <mat-datepicker-toggle matSuffix [for]="enddp"></mat-datepicker-toggle>
                             <mat-datepicker #enddp disabled="false"></mat-datepicker>
                         </mat-form-field>
+
+                        <form>
+                             <!--# The Angular feature-->
+                            <label>Show entries across a day or week?</label>
+                        <select name="dropdown" id="labelType" #input (input)="inputType = $event.target.value">
+                                <option id ="Week" value="week" selected>Week</option>
+                                <option id ="Year" value="year">Year</option>
+                        </select>
+                        </form>
+
                         <button mat-raised-button id="submit" (click)="buildChart()" type="button">Submit</button>
-                    </p>
+
                 </div>
-                <a name="{{filterEmojis(startDate, endDate).length}}"></a>
+            <!--    <a name="{{filterEmojis(startDate, endDate).length}}"></a>-->
 
 
 

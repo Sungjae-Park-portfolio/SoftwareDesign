@@ -37,6 +37,12 @@ export class ReportsComponent implements AfterViewInit, OnInit {
     public endDate: any;
     getDate: any;
 
+    moodOneColor: string;
+    moodTwoColor: string;
+    moodThreeColor: string;
+    moodFourColor: string;
+    moodFiveColor: string;
+
     nowStamp = new Date(Date.now());
     nowUnix = this.nowStamp.getTime();
     nowDay = this.nowStamp.getDay();
@@ -61,6 +67,7 @@ export class ReportsComponent implements AfterViewInit, OnInit {
 
     canvas: any;
     ctx: any;
+    myChart:any;
 
     limitedPast:boolean;
     graphMode = 'line';
@@ -165,7 +172,7 @@ export class ReportsComponent implements AfterViewInit, OnInit {
             });
         }
 
-
+        /*We didn't sell this
         else if(this.inputType == "month"){
                 if(this.limitedPast) {
                     filterChartData = this.pastMonthEmotions();
@@ -175,6 +182,7 @@ export class ReportsComponent implements AfterViewInit, OnInit {
                     return this.getDate.getDate() == dateValue;
                 });
             }
+            */
         }
 
         else if(this.inputType == "year"){
@@ -202,14 +210,6 @@ export class ReportsComponent implements AfterViewInit, OnInit {
         }
     }
 
-    public modDate(date: number): Number {
-        if(this.limitedPast){
-            return (this.nowDate + date - 1)%31 + 1;
-        }
-        else {
-            return date;
-        }
-    }
 
     public modMonth(month: number): Number {
         if(this.limitedPast){
@@ -362,6 +362,119 @@ export class ReportsComponent implements AfterViewInit, OnInit {
         this.getPastMonths(11)
     ];
 
+    buildChart(){
+        let stackStatus = false;
+        if(this.graphMode == 'bar'){
+            stackStatus = true;
+        }
+
+        this.canvas = document.getElementById("myChart");
+        this.ctx = this.canvas;
+
+        let xLabel;
+        let days;
+        let months;
+
+
+        if(this.limitedPast){
+            days = this.pastDays;
+            months = this.pastMonths;
+        }
+        else {
+            days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
+
+            months = [
+                'Jan', 'Feb', 'Mar','Apr', 'May', 'June',
+                'July', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        }
+
+        console.log(this.inputType);
+
+        if (this.inputType == "week") {
+            xLabel = days;
+        }
+        else {
+            xLabel = months;
+        }
+
+        this.moodOneColor = "rgb(64,255,0)";
+        this.moodTwoColor = "rgb(0,128,255)";
+        this.moodThreeColor = "rgb(100,100,100)";
+        this.moodFourColor = "rgb(255,0,0)";
+        this.moodFiveColor = "rgb(255,128,0)";
+
+
+
+
+        this.myChart = new Chart(this.ctx, {
+            type: this.graphMode,
+            data: {
+                labels: xLabel,
+                datasets: [
+                    {
+                        "label": "Frustrated/Angry",
+                        "data": this.getTypeData(this.inputType, '1'),
+                        hidden: false,
+                        "fill": false,
+                        "borderColor": this.moodOneColor,
+                        "lineTension": 0.2,
+                        "backgroundColor": this.moodOneColor,
+                    },
+                    {
+                        "label": "Worried/Anxious",
+                        "data": this.getTypeData(this.inputType, '2'),
+                        hidden: false,
+                        "fill": false,
+                        "borderColor": this.moodTwoColor,
+                        "lineTension": 0.2,
+                        "backgroundColor": this.moodTwoColor,
+                    },
+                    {
+                        "label": "Happy/Content/Ecstatic",
+                        "data": this.getTypeData(this.inputType, '3'),
+                        hidden: false,
+                        "fill": false,
+                        "borderColor": this.moodThreeColor,
+                        "lineTension": 0.2,
+                        "backgroundColor": this.moodThreeColor,
+                    },
+                    {
+                        "label": "Meh/Bleh",
+                        "data": this.getTypeData(this.inputType, '4'),
+                        hidden: false,
+                        "fill": false,
+                        "borderColor": this.moodFourColor,
+                        "lineTension": 0.2,
+                        "backgroundColor": this.moodFourColor,
+                    },
+                    {
+                        "label": "Unhappy/Sad/Miserable",
+                        "data": this.getTypeData(this.inputType, '5'),
+                        hidden: false,
+                        "fill": false,
+                        "borderColor": this.moodFiveColor,
+                        "lineTension": 0.2,
+                        "backgroundColor": this.moodFiveColor,
+                    }
+                ]
+            },
+            options: {
+                scales: {
+                    xAxes: [{ stacked:stackStatus}],
+                    yAxes: [{
+                        stacked: stackStatus,
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }]
+                }
+            }
+        });
+    }
+
+
+
 
 
 
@@ -482,7 +595,7 @@ export class ReportsComponent implements AfterViewInit, OnInit {
 */
 
     ngAfterViewInit(): void {
-       // this.buildChart();
+        this.buildChart();
         //this.buildBar();
     }
 
