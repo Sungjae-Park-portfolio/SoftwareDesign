@@ -40,37 +40,36 @@ export class HomeService {
         return this.http.post<{ '$oid': string }>(this.responseUrl + '/new', newResponse, httpOptions);
     }
 
-    getRandomResponse(responseEmail?: string): Observable<Response[]> {
-        this.filterByEmail(responseEmail);
-        console.log('This is the url we\'re sending: ' + this.responseUrl);
-        return this.http.get < Response[]>(this.responseUrl);
-    }
-
-
     getEmojiById(id: string): Observable<Emoji> {
         return this.http.get<Emoji>(this.emojiUrl + '/' + id);
     }
+
     getEmojis(emojiOwner?: string): Observable<Emoji[]> {
         return this.http.get<Emoji[]>(this.emojiUrl);
     }
 
-    filterByEmail(responseEmail?: string): void {
-        if(!(responseEmail == null || responseEmail === '')) {
-            if (this.parameterPresentResponse('email=') ) {
-                // there was a previous search by company that we need to clear
-                this.removeParameter('email=');
+    getRandomResponse(responseUserID?: string): Observable<Response[]> {
+        this.filterByUserID(responseUserID);
+        return this.http.get < Response[]>(this.responseUrl);
+    }
+
+    filterByUserID(responseUserID?: string): void {
+        if(!(responseUserID == null || responseUserID === '')) {
+            if (this.parameterPresentResponse('userID=') ) {
+                // there was a previous search by email that we need to clear
+                this.removeParameter('userID=');
             }
             if (this.responseUrl.indexOf('?') !== -1) {
                 // there was already some information passed in this url
-                this.responseUrl += 'email=' + responseEmail + '&';
+                this.responseUrl += 'userID=' + responseUserID + '&';
             } else {
                 // this was the first bit of information to pass in the url
-                this.responseUrl += '?email=' + responseEmail + '&';
+                this.responseUrl += '?userID=' + responseUserID + '&';
             }
         }
         else {
-            if (this.parameterPresentResponse('email=')) {
-                let start = this.responseUrl.indexOf('email=');
+            if (this.parameterPresentResponse('userID=')) {
+                let start = this.responseUrl.indexOf('userID=');
                 const end = this.responseUrl.indexOf('&', start);
                 if (this.responseUrl.substring(start - 1, start) === '?') {
                     start = start - 1;

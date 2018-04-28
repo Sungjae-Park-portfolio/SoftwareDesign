@@ -1,13 +1,10 @@
 package umm3601.user;
 
-import com.mongodb.BasicDBObject;
-import com.mongodb.util.JSON;
-import org.bson.types.ObjectId;
 import spark.Request;
 import spark.Response;
 
 /**
- * Created by Brian on 11/29/2017.
+ *
  */
 public class UserRequestHandler {
 
@@ -27,7 +24,7 @@ public class UserRequestHandler {
         String id = req.params("id");
         String user;
         try {
-            user = userController.getItem(id);
+            user = userController.getUser(id);
         } catch (IllegalArgumentException e) {
             // This is thrown if the ID doesn't have the appropriate
             // form for a Mongo Object ID.
@@ -58,7 +55,7 @@ public class UserRequestHandler {
     public String getUsers(Request req, Response res)
     {
         res.type("application/json");
-        return userController.getItems(req.queryMap().toMap());
+        return userController.getUsers(req.queryMap().toMap());
     }
 
 
@@ -66,46 +63,23 @@ public class UserRequestHandler {
      * Gets specified user info from request and calls addNewUser helper method
      * to append that info to a document
      *
-     * @param req the HTTP request
-     * @param res the HTTP response
      * @return a boolean as whether the user was added successfully or not
      */
-    public String addNewUser(Request req, Response res)
+    public String addNewUser(String subjectID, String firstName, String lastName)
     {
 
-        res.type("application/json");
-        Object o = JSON.parse(req.body());
+
         try {
-            if(o.getClass().equals(BasicDBObject.class))
-            {
-                try {
-                    BasicDBObject dbO = (BasicDBObject) o;
 
-                    String name = dbO.getString("name");
-                    String email = dbO.getString("email");
-                    String date = dbO.getString("creation_date");
-
-
-                    System.err.println("Adding new user [name=" + name + " email=" + email + " creation_date=" + date + ']');
-                    return userController.addNewUser(name, email, date).toString();
-                }
-                catch(NullPointerException e)
-                {
-                    System.err.println("A value was malformed or omitted, new user request failed.");
-                    return null;
-                }
-
-            }
-            else
-            {
-                System.err.println("Expected BasicDBObject, received " + o.getClass());
-                return null;
-            }
+            System.err.println("Adding new user [" + "SubjectID=" + subjectID + " FirstName=" + firstName + " LastName=" + lastName + ']');
+            return userController.addNewUser(subjectID, firstName, lastName).toString();
         }
-        catch(RuntimeException ree)
+        catch(NullPointerException e)
         {
-            ree.printStackTrace();
+            System.err.println("A value was malformed or omitted, new user request failed.");
             return null;
         }
+
+
     }
 }

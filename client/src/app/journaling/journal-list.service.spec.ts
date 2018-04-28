@@ -10,24 +10,24 @@ describe('Journal list service: ', () => {
     const testJournals: Journal[] = [
         {
             _id: "5aa0b36e401cfced5f36b1a7",
+            userID: '123456',
             subject: "York",
             body: "You can do it",
             date: new Date("Sun Feb 04 1979 13:35:46 GMT-0600 (CST)"),
-            email: "york@fake.com"
         },
         {
             _id: "5aa0b36ef2d33e651859bd70",
+            userID: '978654',
             subject: "Sutton",
             body: "Get it done",
             date: new Date("Sun Oct 28 2012 03:04:31 GMT-0500 (CDT)"),
-            email: "sutton@suttonsemail.com"
         },
         {
             _id: "5aa0b36e5c1d05d2cb0460a4",
+            userID: '654321',
             subject: "Madelyn",
             body: "There you go",
             date: new Date("Thu Sep 25 2003 14:45:37 GMT-0500 (CDT)"),
-            email: "madelynrules@myspace.com"
         }
     ];
     const mJournals: Journal[] = testJournals.filter(journal =>
@@ -131,10 +131,10 @@ describe('Journal list service: ', () => {
         const pennington_id = { '$oid': 'pennington_id' };
         const newJournal: Journal = {
             _id: "5aa0b36e1f57545f27a26b69",
+            userID: '654978',
             subject: "Pennington",
             body: "Get it done",
             date: new Date("Sun Feb 07 1982 22:41:23 GMT-0600 (CST)"),
-            email: "pennington@penn.com"
         };
 
         journalListService.addNewJournal(newJournal).subscribe(

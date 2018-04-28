@@ -10,34 +10,34 @@ import {environment} from '../../environments/environment';
 export class ReportsService {
     readonly baseUrl: string = environment.API_URL + 'emojis';
     private emojiUrl: string = this.baseUrl;
-    private userEmail: string = localStorage.getItem('email');
+    public userID: string = localStorage.getItem('userID');
 
     constructor(private http: HttpClient) {
     }
 
 
     getEmojis(): Observable<Emoji[]> {
-        this.filterByEmail(this.userEmail);
+        this.filterByUserID(this.userID);
         return this.http.get<Emoji[]>(this.emojiUrl);
     }
 
-    filterByEmail(userEmail?: string): void {
-        if(!(userEmail == null || userEmail === '')) {
-            if (this.parameterPresent('email=') ) {
+    filterByUserID(userID?: string): void {
+        if(!(userID == null || userID === '')) {
+            if (this.parameterPresent('userID=') ) {
                 // there was a previous search by company that we need to clear
-                this.removeParameter('email=');
+                this.removeParameter('userID=');
             }
             if (this.emojiUrl.indexOf('?') !== -1) {
                 // there was already some information passed in this url
-                this.emojiUrl += 'email=' + userEmail + '&';
+                this.emojiUrl += 'userID=' + userID + '&';
             } else {
                 // this was the first bit of information to pass in the url
-                this.emojiUrl += '?email=' + userEmail + '&';
+                this.emojiUrl += '?userID=' + userID + '&';
             }
         }
         else {
-            if (this.parameterPresent('email=')) {
-                let start = this.emojiUrl.indexOf('email=');
+            if (this.parameterPresent('userID=')) {
+                let start = this.emojiUrl.indexOf('userID=');
                 const end = this.emojiUrl.indexOf('&', start);
                 if (this.emojiUrl.substring(start - 1, start) === '?') {
                     start = start - 1;

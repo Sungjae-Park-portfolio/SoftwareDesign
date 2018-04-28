@@ -18,6 +18,7 @@ import {APP_BASE_HREF} from '@angular/common';
 import {ResourcesComponent} from "./resources/resources.component";
 import {AddResourcesComponent} from "./resources/add-resources.component";
 import {CustomModule} from './custom.module';
+import {AppService} from "./app.service";
 
 
 import {AddUserComponent} from './users/add-user.component';
@@ -111,6 +112,7 @@ export function provideConfig() {
         GoalsService,
         JournalListService,
         ContactService,
+        AppService,
         {provide: APP_BASE_HREF, useValue: '/'},
         {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
     ],

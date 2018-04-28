@@ -1,6 +1,6 @@
 export interface Response {
     _id: string;
     link: string;
-    email: string;
+    userID: string;
     name: string;
 }

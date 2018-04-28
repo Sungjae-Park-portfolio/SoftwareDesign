@@ -18,6 +18,7 @@ public class GoalRequestHandler {
      * @param res the HTTP response
      * @return one emoji in JSON formatted string and if it fails it will return text with a different HTTP status code
      */
+
     public String getGoalJSON(Request req, Response res){
         res.type("application/json");
         String id = req.params("id");
@@ -76,19 +77,15 @@ public class GoalRequestHandler {
             {
                 try {
                     BasicDBObject dbO = (BasicDBObject) o;
+                    String SubjectID = dbO.getString("userID");
                     String name = dbO.getString("name");
-                    String owner = dbO.getString("owner");
-                    String body = dbO.getString("body");
                     String category = dbO.getString("category");
                     String startDate = dbO.getString("startDate");
                     String endDate = dbO.getString("endDate");
                     String frequency = dbO.getString("frequency");
                     Boolean status = dbO.getBoolean("status");
-                    String email = dbO.getString("email");
 
-//
-//                    System.err.println("Adding new emoji [owner=" + owner + ", mood=" + mood + " date=" + date  + ']');
-                    return goalController.addNewGoal(owner, name, body, category, startDate, endDate, frequency, status, email);
+                    return goalController.addNewGoal(name, category, startDate, endDate, frequency, status, SubjectID);
                 }
                 catch(NullPointerException e)
                 {
@@ -128,12 +125,12 @@ public class GoalRequestHandler {
                     Boolean status = dbO.getBoolean("status");
                     String startDate = dbO.getString("startDate");
                     String endDate = dbO.getString("endDate");
-                    String body = dbO.getString("body");
+                    String SubjectID = dbO.getString("SubjectID");
 
 
 
                     System.err.println("Editing goal [ id=" + id + ", name=" + name + ", category=" + category + ", startDate=" + startDate + ", endDate=" + endDate + ", frequency=" + frequency + ", status=" + status +  ']');
-                    return goalController.editGoal(id, name, category, startDate, endDate, frequency, status);
+                    return goalController.editGoal(id, name, category, startDate, endDate, frequency, status, SubjectID );
                 }
                 catch(NullPointerException e)
                 {

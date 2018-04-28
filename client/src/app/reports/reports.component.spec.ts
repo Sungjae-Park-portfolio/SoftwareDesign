@@ -9,6 +9,7 @@ import {ReportsService} from "./reports.service";
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import {Emoji} from "../emoji";
+import {AppService} from "../app.service";
 
 describe('Reports list', () => {
 
@@ -19,35 +20,46 @@ describe('Reports list', () => {
         getEmojis: () => Observable<Emoji[]>
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean
+    };
+
     beforeEach(() => {
         // stub ReportsService for test purposes
         ReportsListServiceStub = {
             getEmojis: () => Observable.of([
                 {
                     _id: 'f',
+                    userID: '123456',
+                    ownerFirstName: 'Roch',
                     owner: 'Nick',
                     mood: 3,
                     intensity: 1,
                     date: null, //date will be created during the test so that it matches what is made in component.addEmoji
-                    email: "nick@gmail.com",
                 },
                 {
                     _id: 'd',
+                    userID: '987654',
+                    ownerFirstName: 'Sungjae',
                     owner: 'Roch',
                     mood: 4,
                     date: null, //date will be created during the test so that it matches what is made in component.addEmoji
                     intensity: 2,
-                    email: "roch@gmail.com",
                 },
                 {
                     _id: 'd',
+                    userID: '456321',
+                    ownerFirstName: 'Steve',
                     owner: 'Leo',
                     mood: 5,
                     date: null, //date will be created during the test so that it matches what is made in component.addEmoji
                     intensity: 2,
-                    email: "leo@gmail.com",
                 }
             ])
+        };
+
+        appServiceStub = {
+            isSignedIn: () => true,
         };
 
         TestBed.configureTestingModule({
@@ -56,7 +68,8 @@ describe('Reports list', () => {
             // providers:    [ UserListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
             providers: [{provide: ReportsService, useValue: ReportsListServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 
@@ -73,19 +86,19 @@ describe('Reports list', () => {
     });
 
     it('contains a owner named \'Roch\'', () => {
-        expect(emojiList.emojis.some((emoji: Emoji) => emoji.owner === 'Nick')).toBe(true);
+        expect(emojiList.emojis.some((emoji: Emoji) => emoji.ownerFirstName === 'Roch')).toBe(true);
     });
 
-    it('contain a user named \'Jamie\'', () => {
-        expect(emojiList.emojis.some((emoji: Emoji) => emoji.owner === 'Roch')).toBe(true);
+    it('contain a user named \'Sungjae\'', () => {
+        expect(emojiList.emojis.some((emoji: Emoji) => emoji.ownerFirstName === 'Roch')).toBe(true);
     });
 
     it('doesn\'t contain a user named \'Santa\'', () => {
-        expect(emojiList.emojis.some((emoji: Emoji) => emoji.owner === 'Santa')).toBe(false);
+        expect(emojiList.emojis.some((emoji: Emoji) => emoji.ownerFirstName === 'Santa')).toBe(false);
     });
 
-    it('has one emoji with the owner leo', () => {
-        expect(emojiList.emojis.filter((emoji: Emoji) => emoji.owner === 'Leo').length).toBe(1);
+    it('has one emoji with the owner Steve', () => {
+        expect(emojiList.emojis.filter((emoji: Emoji) => emoji.ownerFirstName === 'Steve').length).toBe(1);
     });
 
     it('has two emoji with intensity two', () => {
@@ -95,16 +108,6 @@ describe('Reports list', () => {
     it('has one emoji with mood four', () => {
         expect(emojiList.emojis.filter((emoji: Emoji) => emoji.mood === 4).length).toBe(1);
     });
-
-    it('emoji list filters by name', () => {
-        console.log(emojiList.emojis)
-        expect(emojiList.filteredEmojis.length).toBe(3);
-        emojiList.emojiOwner = 'L';
-        emojiList.refreshEmojis().subscribe(() => {
-            expect(emojiList.filteredEmojis.length).toBe(1);
-        });
-    });
-
 
 });
 
@@ -116,6 +119,10 @@ describe('Misbehaving Emoji List', () => {
         getEmojis: () => Observable<Emoji[]>
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean
+    };
+
     beforeEach(() => {
         // stub UserService for test purposes
         emojiListServiceStub = {
@@ -124,11 +131,16 @@ describe('Misbehaving Emoji List', () => {
             })
         };
 
+        appServiceStub = {
+            isSignedIn: () => true
+        };
+
         TestBed.configureTestingModule({
             imports: [FormsModule, CustomModule],
             declarations: [ReportsComponent],
             providers: [{provide: ReportsService, useValue: emojiListServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 

@@ -9,9 +9,7 @@ import org.bson.types.ObjectId;
 import org.junit.Before;
 import org.junit.Test;
 import umm3601.ControllerSuperSpec;
-import umm3601.emoji.EmojiControllerSpec;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,30 +28,42 @@ public class GoalControllerSpec extends ControllerSuperSpec{
         emojiDocuments.drop();
         List<Document> testGoals = new ArrayList<>();
         testGoals.add(Document.parse("{\n" +
-            "                    owner: \"Ahnaf\",\n" +
             "                    name: \"Do the Dishes\",\n" +
+            "                    category: \"Chores\",\n" +
+            "                    startDate: \"2018-04-11T05:00:00.000Z\",\n" +
+            "                    endDate: \"2018-04-26T05:00:00.000Z\",\n" +
+            "                    frequency: \"2\",\n" +
             "                    status: false,\n" +
-            "                    creation_date: \"8/20/2015 20:00\",\n" +
+            "                    SubjectID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                }"));
         testGoals.add(Document.parse("{\n" +
-            "                    owner: \"Aurora\",\n" +
             "                    name: \"Call Mom\",\n" +
+            "                    category: \"Social\",\n" +
+            "                    startDate: \"2018-04-11T05:00:00.000Z\",\n" +
+            "                    endDate: \"2018-04-26T05:00:00.000Z\",\n" +
+            "                    frequency: \"2\",\n" +
             "                    status: false,\n" +
-            "                    creation_date: \"7/13/2016 08:00\",\n" +
+            "                    SubjectID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                }"));
         testGoals.add(Document.parse("{\n" +
-            "                    owner: \"Ethan\",\n" +
             "                    name: \"Fold Laundry\",\n" +
+            "                    category: \"Chores\",\n" +
+            "                    startDate: \"2018-04-11T05:00:00.000Z\",\n" +
+            "                    endDate: \"2018-04-26T05:00:00.000Z\",\n" +
+            "                    frequency: \"2\",\n" +
             "                    status: false,\n" +
-            "                    creation_date: \"2/10/2017 12:00\",\n" +
+            "                    SubjectID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                }"));
 
         mattsId = new ObjectId();
         BasicDBObject matt = new BasicDBObject("_id", mattsId);
-        matt = matt.append("owner", "Matt")
-            .append("name", "Eat Breakfast")
+        matt = matt.append("name", "Eat Breakfast")
+            .append("category", "Health")
+            .append("startDate", "2018-04-11T05:00:00.000Z")
+            .append("endDate", "2018-04-26T05:00:00.000Z")
+            .append("frequency", "2")
             .append("status", false)
-            .append("creation_date", "11/11/2011 09:00");
+            .append("SubjectID", "5ae21df81ce1aa2ca211060b");
 
 
 
@@ -67,70 +77,50 @@ public class GoalControllerSpec extends ControllerSuperSpec{
     }
 
 
-    private static String getOwner(BsonValue val) {
+    private static String getSubjectID(BsonValue val) {
         BsonDocument doc = val.asDocument();
-        return ((BsonString) doc.get("owner")).getValue();
-    }
-
-    @Test
-    public void getAllUsers() {
-        Map<String, String[]> emptyMap = new HashMap<>();
-        String jsonResult = goalController.getItems(emptyMap);
-        BsonArray docs = parseJsonArray(jsonResult);
-
-        assertEquals("Should be 4 users", 4, docs.size());
-        List<String> names = docs
-            .stream()
-            .map(GoalControllerSpec::getOwner)
-            .sorted()
-            .collect(Collectors.toList());
-        List<String> expectedNames = Arrays.asList("Ahnaf", "Aurora", "Ethan", "Matt");
-        assertEquals("Names should match", expectedNames, names);
+        return ((BsonString) doc.get("SubjectID")).getValue();
     }
 
     @Test
     public void addGoalTest() {
-        String newId = goalController.addNewGoal("Matt2",
-            "Matt2",
-            "Make good code",
-            "Programming",
-            "8/19/2015 14:00",
-            "8/20/2015 14:00",
-            "Weekly",
-            false,
-            "");
+        String newId = goalController.addNewGoal("Make good code",
+            "Other",
+            "2018-04-11T05:00:00.000Z",
+            "2018-04-26T05:00:00.000Z",
+            "Every Day",
+            true,
+            "5ae21df81ce1aa2ca211060b");
 
         assertNotNull("Add new goal should return true when a goal is added,", newId);
         Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("Matt2", new String[] { "Matt2" });
+        argMap.put("5ae21df81ce1aa2ca211060b", new String[] { "5ae21df81ce1aa2ca211060b" });
         String jsonResult = goalController.getItems(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
         List<String> name = docs
             .stream()
-            .map(GoalControllerSpec::getOwner)
+            .map(GoalControllerSpec::getSubjectID)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the owner of the new goal", "Matt2", name.get(4));
+        assertEquals("Should return the SubjectID of the new goal", "5ae21df81ce1aa2ca211060b", name.get(4));
     }
 
     @Test
     public void editGoalTest() {
-        String newGoal = goalController.addNewGoal("Roch",
-            "Roch",
-            "Tak to people",
+        String newGoal = goalController.addNewGoal("Talk to people",
             "Social",
-            "6/19/2015 14:00",
-            "6/20/2015 14:00",
-            "Daily",
+            "2018-04-11T05:00:00.000Z",
+            "2018-04-26T05:00:00.000Z",
+            "3",
             false,
-            "");
+            "5ae21df81ce1aa2ca211060b");
 
         assertNotNull("Add new goal should return true when a goal is added,", newGoal);
 
         System.out.println(newGoal);
 
-        String editGoal = goalController.editGoal(parseObjectId(newGoal).toString(), "Roch", "Social", "6/19/2015 14:00", "6/20/2015 14:00", "Daily", true);
+        String editGoal = goalController.editGoal(parseObjectId(newGoal).toString(), "Talk to people", "Social", "2018-04-11T05:00:00.000Z", "2018-04-26T05:00:00.000Z", "Daily", true, "5ae21df81ce1aa2ca211060b");
 
         assertNotNull("Edited goal should not return null,", editGoal);
 
@@ -143,12 +133,12 @@ public class GoalControllerSpec extends ControllerSuperSpec{
         assertEquals("Should be only 1 goal", 1, docs.size());
 
 
-        List<String> owners = docs
+        List<String> SubjectIDs = docs
             .stream()
-            .map(GoalControllerSpec::getOwner)
+            .map(GoalControllerSpec::getSubjectID)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedOwners = Arrays.asList("Roch");
-        assertEquals("Owners should match", expectedOwners, owners);
+        List<String> expectedSubjectIDs = Arrays.asList("5ae21df81ce1aa2ca211060b");
+        assertEquals("SubjectID's should match", expectedSubjectIDs, SubjectIDs);
     }
 }

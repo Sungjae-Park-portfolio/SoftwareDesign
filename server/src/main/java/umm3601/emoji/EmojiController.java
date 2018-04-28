@@ -29,48 +29,12 @@ public class EmojiController extends SuperController {
         this.collection = database.getCollection("emojis");
     }
 
-    /*public String getEmoji(String id) {
-
-        FindIterable<Document>  jsonEmojis
-            = emojiCollection
-            .find(eq("_id", new ObjectId(id)));
-
-        Iterator<Document> iterator = jsonEmojis.iterator();
-        if (iterator.hasNext()) {
-            Document emoji = iterator.next();
-            return emoji.toJson();
-        } else {
-            // We didn't find the desired emoji
-            return null;
-        }
-    }
-
-
-    //This doesn't do anything right now.
-    public String getEmojis(Map<String, String[]> queryParams) {
-        Document filterDoc = new Document();
-
-        if (queryParams.containsKey("owner")) {
-            String targetOwner = (queryParams.get("owner")[0]);
-            filterDoc = filterDoc.append("owner", targetOwner);
-        }
-
-        FindIterable<Document> matchingEmojis = emojiCollection.find(filterDoc);
-
-
-
-
-        return JSON.serialize(matchingEmojis);
-    }*/
-
-
-    public String addNewEmoji(String ownerId, int mood, int intensity, String email) {
+    public String addNewEmoji(String ownerId, int mood, int intensity) {
 
         Document newEmoji = new Document();
-        newEmoji.append("owner", ownerId);
+        newEmoji.append("SubjectID", ownerId);
         newEmoji.append("mood", mood);
         newEmoji.append("intensity", intensity);
-        newEmoji.append("email", email);
 
         Date now = new Date();
         newEmoji.append("date", now.toString());
@@ -79,8 +43,8 @@ public class EmojiController extends SuperController {
             collection.insertOne(newEmoji);
 
             ObjectId id = newEmoji.getObjectId("_id");
-            System.err.println("Successfully added new emoji [_id=" + id + ", owner=" + ownerId + ", mood="
-                + mood + " date=" + now + ", email=" + email + ']');
+            System.err.println("Successfully added new emoji [_id=" + id + ", SubjectID=" + ownerId + ", mood="
+                + mood + " date=" + now + ']');
 
             return JSON.serialize(id);
         } catch(MongoException me) {
