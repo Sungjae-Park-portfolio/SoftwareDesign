@@ -28,18 +28,17 @@ public class GoalController extends SuperController{
         collection = database.getCollection("goals");
     }
 
-    public String addNewGoal(String ownerId, String name, String category,
+    public String addNewGoal(String name, String category,
                              String startDate, String endDate, String frequency, Boolean status, String SubjectID) {
 
         Document newGoal = new Document();
-        newGoal.append("owner", ownerId);
+        newGoal.append("SubjectID", SubjectID);
         newGoal.append("name", name);
         newGoal.append("category", category);
         newGoal.append("startDate", startDate);
         newGoal.append("endDate", endDate);
         newGoal.append("frequency", frequency);
         newGoal.append("status", status);
-        newGoal.append("SubjectID", SubjectID);
 
 
 
@@ -47,7 +46,7 @@ public class GoalController extends SuperController{
             collection.insertOne(newGoal);
 
             ObjectId id = newGoal.getObjectId("_id");
-            System.err.println("Successfully added new goal [_id=" + id + ", owner=" + ownerId + ", name="
+            System.err.println("Successfully added new goal [_id=" + id + ", name="
                 + name + " category=" + category + " startDate=" + startDate + " endDate=" + endDate +
                 " frequency=" + frequency + " status=" + status + " SubjectID=" + SubjectID + ']');
 
@@ -58,7 +57,7 @@ public class GoalController extends SuperController{
         }
     }
 
-    public String editGoal(String id, String name, String category, String startDate, String endDate, String frequency, Boolean status){
+    public String editGoal(String id, String name, String category, String startDate, String endDate, String frequency, Boolean status, String SubjectID){
         System.out.println("Right here again");
         Document newGoal = new Document();
         newGoal.append("name", name);
@@ -67,6 +66,7 @@ public class GoalController extends SuperController{
         newGoal.append("endDate", endDate);
         newGoal.append("frequency", frequency);
         newGoal.append("status", status);
+        newGoal.append("SubjectID", SubjectID);
         Document setQuery = new Document();
         setQuery.append("$set", newGoal);
 

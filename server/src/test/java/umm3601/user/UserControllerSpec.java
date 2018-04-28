@@ -51,15 +51,15 @@ public class UserControllerSpec extends ControllerSuperSpec{
             "                }"));
 
         kylesId = new ObjectId();
-        BasicDBObject kyle = new BasicDBObject("_id", kylesId);
-        kyle = kyle.append("SubjectID", "654321")
+        BasicDBObject song = new BasicDBObject("_id", kylesId);
+        song = song.append("SubjectID", "654321")
             .append("FirstName", "Song")
             .append("LastName", "Yujing");
 
 
 
         userDocuments.insertMany(testUsers);
-        userDocuments.insertOne(Document.parse(kyle.toJson()));
+        userDocuments.insertOne(Document.parse(song.toJson()));
 
         // It might be important to construct this _after_ the DB is set up
         // in case there are bits in the constructor that care about the state
@@ -84,7 +84,7 @@ public class UserControllerSpec extends ControllerSuperSpec{
             .map(UserControllerSpec::getName)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedNames = Arrays.asList("Ahnaf", "Aurora", "Ethan", "Kyle", "Matt");
+        List<String> expectedNames = Arrays.asList("Aurora", "Ethan", "Hunter", "Jubair", "Song");
         assertEquals("Names should match", expectedNames, names);
     }
 
@@ -92,9 +92,9 @@ public class UserControllerSpec extends ControllerSuperSpec{
     public void getUserById() {
         String jsonResult = userController.getItem(kylesId.toHexString());
         System.out.println(jsonResult);
-        Document kyle = Document.parse(jsonResult);
+        Document song = Document.parse(jsonResult);
 
-        assertEquals("Name should match", "Kyle", kyle.getString("name"));
+        assertEquals("Name should match", "Song", song.getString("FirstName"));
         String noJsonResult = userController.getItem(new ObjectId().toString());
         assertNull("No name should match",noJsonResult);
 
@@ -106,7 +106,7 @@ public class UserControllerSpec extends ControllerSuperSpec{
 
         assertNotNull("Add new user should return true when a user is added,", newId);
         Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("987123", new String[] { "987123" });
+        argMap.put("SubjectID", new String[] { "987123" });
         String jsonResult = userController.getItems(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
@@ -115,7 +115,7 @@ public class UserControllerSpec extends ControllerSuperSpec{
             .map(UserControllerSpec::getName)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the new owner", "Roch", name.get(5));
+        assertEquals("Should return the new owner", "Song", name.get(5));
     }
 
 

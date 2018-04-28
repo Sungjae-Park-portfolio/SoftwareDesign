@@ -28,7 +28,6 @@ public class JournalControllerSpec extends ControllerSuperSpec {
         MongoCollection<Document> journalDocs = db.getCollection("journals");
         journalDocs.drop();
         List<Document> testJournals = new ArrayList<>();
-        // to be clear, adding in user_oid would probably be advantageous at some point, instead of relying on email
         testJournals.add(Document.parse("{\n" +
             "                           subject: \"3601 is hard\", \n" +
             "                           body: \"I'm having a hard time with writing all these tests\"" +
@@ -53,9 +52,9 @@ public class JournalControllerSpec extends ControllerSuperSpec {
         journalController = new JournalController(db);
     }
 
-    private static String getEmail(BsonValue value) {
+    private static String getSubjectID(BsonValue value) {
         BsonDocument doc = value.asDocument();
-        return ((BsonString) doc.get("email")).getValue();
+        return ((BsonString) doc.get("SubjectID")).getValue();
     }
 
     private static String getSubject(BsonValue value) {
@@ -63,21 +62,6 @@ public class JournalControllerSpec extends ControllerSuperSpec {
         return ((BsonString) doc.get("subject")).getValue();
     }
 
-    @Test
-    public void getAllJournals() {
-        Map<String, String[]> emptyMap = new HashMap<>();
-        String jsonResult = journalController.getItems(emptyMap);
-        BsonArray docs = parseJsonArray(jsonResult);
-
-        assertEquals("Should be 3 journal entries", 3, docs.size());
-        List<String> emails = docs
-            .stream()
-            .map(JournalControllerSpec::getEmail)
-            .sorted()
-            .collect(Collectors.toList());
-        List<String> expectedEmails = Arrays.asList("aurora@boreal.is", "nic@college.com", "no@one.ever");
-        assertEquals("Emails should match", expectedEmails, emails);
-    }
 
     @Test
     public void getJournalById() {
@@ -96,16 +80,16 @@ public class JournalControllerSpec extends ControllerSuperSpec {
 
         assertNotNull("Add new journal should return true when a journal is added,", newId);
         Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("I am ok with 3601.", new String[]{"I am ok with 3601."});
+        argMap.put("subject", new String[]{"I am ok with 3601."});
         String jsonResult = journalController.getItems(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
-        List<String> email = docs
+        List<String> subjectIDList = docs
             .stream()
-            .map(JournalControllerSpec::getEmail)
+            .map(JournalControllerSpec::getSubjectID)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the email of the new journal entry", "me@apat.hy", email.get(1));
+        assertEquals("Should return the email of the new journal entry", "me@apat.hy", subjectIDList.get(0));
     }
 
     @Test

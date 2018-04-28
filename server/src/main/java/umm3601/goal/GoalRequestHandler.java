@@ -79,14 +79,13 @@ public class GoalRequestHandler {
                     BasicDBObject dbO = (BasicDBObject) o;
                     String SubjectID = dbO.getString("userID");
                     String name = dbO.getString("name");
-                    String owner = dbO.getString("owner");
                     String category = dbO.getString("category");
                     String startDate = dbO.getString("startDate");
                     String endDate = dbO.getString("endDate");
                     String frequency = dbO.getString("frequency");
                     Boolean status = dbO.getBoolean("status");
 
-                    return goalController.addNewGoal(owner, name, category, startDate, endDate, frequency, status, SubjectID);
+                    return goalController.addNewGoal(name, category, startDate, endDate, frequency, status, SubjectID);
                 }
                 catch(NullPointerException e)
                 {
@@ -126,12 +125,12 @@ public class GoalRequestHandler {
                     Boolean status = dbO.getBoolean("status");
                     String startDate = dbO.getString("startDate");
                     String endDate = dbO.getString("endDate");
-                    String body = dbO.getString("body");
+                    String SubjectID = dbO.getString("SubjectID");
 
 
 
                     System.err.println("Editing goal [ id=" + id + ", name=" + name + ", category=" + category + ", startDate=" + startDate + ", endDate=" + endDate + ", frequency=" + frequency + ", status=" + status +  ']');
-                    return goalController.editGoal(id, name, category, startDate, endDate, frequency, status);
+                    return goalController.editGoal(id, name, category, startDate, endDate, frequency, status, SubjectID );
                 }
                 catch(NullPointerException e)
                 {

@@ -17,16 +17,16 @@ import static com.mongodb.client.model.Filters.eq;
 
 public class UserController extends SuperController {
 
-    private final Gson gson;
-    private MongoDatabase database;
+    //private final Gson gson;
+    //private MongoDatabase database;
     // userCollection is the collection that the users data is in.
-    private final MongoCollection<Document> userCollection;
+    //private final MongoCollection<Document> userCollection;
 
     // Construct controller for user.
     public UserController(MongoDatabase database) {
         gson = new Gson();
         this.database = database;
-        userCollection = database.getCollection("users");
+        collection = database.getCollection("users");
     }
     //    /**
     //
@@ -39,7 +39,7 @@ public class UserController extends SuperController {
      //     */
     public String getUser(String id) {
         FindIterable<Document> jsonUsers
-            = userCollection
+            = collection
             .find(eq("_id", new ObjectId(id)));
 
         Iterator<Document> iterator = jsonUsers.iterator();
@@ -79,7 +79,7 @@ public class UserController extends SuperController {
         }
 
         //FindIterable comes from mongo, Document comes from Gson
-        FindIterable<Document> matchingUsers = userCollection.find(filterDoc);
+        FindIterable<Document> matchingUsers = collection.find(filterDoc);
 
         return JSON.serialize(matchingUsers);
     }
@@ -93,7 +93,7 @@ public class UserController extends SuperController {
         contentRegQuery.append("$options", "i");
         filterDoc = filterDoc.append("SubjectID", contentRegQuery);
 
-        FindIterable<Document> matchingUsers = userCollection.find(filterDoc);
+        FindIterable<Document> matchingUsers = collection.find(filterDoc);
 
         if(JSON.serialize(matchingUsers).equals("[ ]")){
             ObjectId id = new ObjectId();
@@ -105,7 +105,7 @@ public class UserController extends SuperController {
             newUser.append("LastName", LastName);
 
             try {
-                userCollection.insertOne(newUser);
+                collection.insertOne(newUser);
                 System.err.println("Successfully added new user [_id=" + id + ", SubjectID=" + SubjectID + " FirstName=" + FirstName + " LastName=" + LastName + ']');
                 // return JSON.serialize(newUser);
                 return JSON.serialize(id);
