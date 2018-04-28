@@ -18,6 +18,7 @@ public class GoalRequestHandler {
      * @param res the HTTP response
      * @return one emoji in JSON formatted string and if it fails it will return text with a different HTTP status code
      */
+
     public String getGoalJSON(Request req, Response res){
         res.type("application/json");
         String id = req.params("id");

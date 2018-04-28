@@ -16,14 +16,16 @@ export class GoalsService {
     }
 
     addGoal(newGoal: Goal): Observable<{'$oid': string}> {
+        console.log('Starting to add goal');
+
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             }),
         };
 
-        if(this.parameterPresent('email')){
-            this.removeParameter('email');
+        if(this.parameterPresent('userID')){
+            this.removeParameter('userID');
             let locationOfQuestionMark = this.goalsUrl.indexOf('?');
             this.goalsUrl = this.goalsUrl.substring(0, locationOfQuestionMark) + this.goalsUrl.substring(locationOfQuestionMark + 1, this.goalsUrl.length)
         }
@@ -91,8 +93,8 @@ export class GoalsService {
             }),
         };
 
-        if(this.parameterPresent('email')){
-            this.removeParameter('email');
+        if(this.parameterPresent('userID')){
+            this.removeParameter('userID');
             let locationOfQuestionMark = this.goalsUrl.indexOf('?');
             this.goalsUrl = this.goalsUrl.substring(0, locationOfQuestionMark) + this.goalsUrl.substring(locationOfQuestionMark + 1, this.goalsUrl.length)
         }
