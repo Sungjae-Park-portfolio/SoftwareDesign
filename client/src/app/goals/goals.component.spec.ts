@@ -198,6 +198,7 @@ describe('Adding a goal', () => {
                 });
             }
         };
+
         mockMatDialog = {
             open: () => {
                 return {

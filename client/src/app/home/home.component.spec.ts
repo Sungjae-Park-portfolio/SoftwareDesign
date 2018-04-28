@@ -7,7 +7,6 @@ import {Emoji} from "../emoji";
 import {Observable} from "rxjs/Observable";
 import {FormsModule} from "@angular/forms";
 import {HomeService} from "./home.service";
-import {AppService} from "../app.service";
 
 describe('Adding an emoji', () => {
 
@@ -32,10 +31,6 @@ describe('Adding an emoji', () => {
         addEmoji: (newEmoji: Emoji) => Observable<{'$oid': string}>,
     };
 
-    let appServiceStub: {
-        isSignedIn: () => boolean;
-    };
-
     let mockMatDialog: {
         open: (ResponseComponent, any) => {
             afterClosed: () => void
@@ -54,10 +49,6 @@ describe('Adding an emoji', () => {
             }
         };
 
-        appServiceStub = {
-            isSignedIn: () => true,
-        };
-
         mockMatDialog = {
             open: () => {
                 return {afterClosed: () => {return}  };
@@ -68,10 +59,10 @@ describe('Adding an emoji', () => {
             imports: [FormsModule, CustomModule],
             declarations: [HomeComponent], // declare the test component
             providers: [
+                {provide: HomeService, useValue: homeServiceStub},
                 {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
                 {provide: MatDialog, useValue: mockMatDialog},
-                {provide: HomeService, useValue: homeServiceStub},
-                {provide: AppService, useValue: appServiceStub}]
+            ]
         });
 
     });
@@ -107,9 +98,6 @@ describe('parseSwipeDirection', () => {
         addEmoji: (newEmoji: Emoji) => Observable<{'$oid': string}>
     };
 
-    let appServiceStub: {
-        isSignedIn: () => boolean;
-    };
 
     let mockSnackBar: {
         open: () => void
@@ -122,10 +110,6 @@ describe('parseSwipeDirection', () => {
     };
 
     beforeEach(() => {
-
-        appServiceStub = {
-            isSignedIn: () => true,
-        };
 
         mockSnackBar = {
             open: () => {return},
@@ -144,7 +128,6 @@ describe('parseSwipeDirection', () => {
                 {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
                 {provide: MatDialog, useValue: mockMatDialog},
                 {provide: HomeService, useValue: homeServiceStub},
-                {provide: AppService, useValue: appServiceStub},
                 {provide: MatSnackBar, useValue: mockSnackBar}]});
 
     });

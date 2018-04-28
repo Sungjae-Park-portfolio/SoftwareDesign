@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
     public lastMood = 3;
     public lastIntensity = 1;
 
-    constructor(public homeService: HomeService, public appService: AppService, public dialog: MatDialog, public snackBar: MatSnackBar) {
+    constructor(public homeService: HomeService, public dialog: MatDialog, public snackBar: MatSnackBar) {
 
     }
 
@@ -34,6 +34,11 @@ export class HomeComponent implements OnInit {
             duration: 10000,
         });
     }
+
+    public isSignedIn(): boolean {
+        return (localStorage.getItem('isSignedIn') == 'true');
+    }
+
 
     openDialog(): void {
         const response = this.emoji.mood;
