@@ -15,6 +15,7 @@
             <li><a id="about" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>insert_emoticon</mat-icon>About</button></a></li>
             <li><a id="crisis"><button mat-raised-button class="nav-button" color="warn" (click)="openDialog()"><mat-icon>call</mat-icon>Crisis</button></a></li>
             <li *ngIf="appService.isSignedIn()"><a id="sign-out"><button mat-button class="nav-button" (click)="signOut()"><mat-icon>exit_to_app</mat-icon>Sign Out</button></a></li>
+            <li><a class="contact" [routerLink]="['/contact']" routerLinkActive="active"><mat-icon>phone</mat-icon> Contact</a></li>
         </ul>
 </ng-template>
 
@@ -30,6 +31,7 @@
         <li><a id="aboutMobile" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-mini-fab class="nav-button"><mat-icon>insert_emoticon</mat-icon></button></a></li>
         <li><a id="crisisMobile"><button mat-mini-fab class="nav-button" color="warn" (click)="openDialog()"><mat-icon>call</mat-icon></button></a></li>
         <li *ngIf="appService.isSignedIn() == true"><a id="sign-outMobile"><button mat-mini-fab class="nav-button" (click)="signOut()"><mat-icon>exit_to_app</mat-icon></button></a></li>
+        <li><a class="contact" [routerLink]="['/contact']" routerLinkActive="active"><mat-icon>phone</mat-icon></a></li>
     </ul>
 </ng-template>
 

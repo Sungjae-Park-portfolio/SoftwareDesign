@@ -35,3 +35,6 @@ ul{
     text-align: center;
     font-size: 24px;
 }
+.contact.active{
+    background-color: red;
+}

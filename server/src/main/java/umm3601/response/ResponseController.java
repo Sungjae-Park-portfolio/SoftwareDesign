@@ -35,6 +35,10 @@ public class ResponseController extends SuperController{
             responseLink = "http://" + responseLink;
         }
 
+        if(responseLink.contains("www.youtube.com/watch?v=")) {
+            responseLink = responseLink.replace("watch?v=", "embed/");
+        }
+
         if (!(validator.isValid(responseLink))) {
             System.err.println("Invalid link, not adding to database.");
             return "Invalid Link";

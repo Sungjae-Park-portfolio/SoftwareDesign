@@ -14,6 +14,10 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 import spark.Route;
+import umm3601.contacts.ResourceController;
+import umm3601.contacts.ResourceRequestHandler;
+import umm3601.contact.ContactController;
+import umm3601.contact.ContactRequestHandler;
 import umm3601.emoji.EmojiController;
 import umm3601.emoji.EmojiRequestHandler;
 import umm3601.goal.GoalRequestHandler;
@@ -52,9 +56,14 @@ public class Server {
         UserController userController = new UserController(emojiDatabase);
         UserRequestHandler userRequestHandler = new UserRequestHandler(userController);
 
+        ContactController contactController = new ContactController(emojiDatabase);
+        ContactRequestHandler contactRequestHandler = new ContactRequestHandler(contactController);
+
         ResponseController responseController = new ResponseController(emojiDatabase);
         ResponseRequestHandler responseRequestHandler = new ResponseRequestHandler(responseController);
 
+        ResourceController resourceController = new ResourceController(emojiDatabase);
+        ResourceRequestHandler resourceRequestHandler = new ResourceRequestHandler(resourceController);
         //Configure Spark
         port(serverPort);
         enableDebugScreen();
@@ -90,6 +99,7 @@ public class Server {
         redirect.get("/resources", "/");
         redirect.get("/journaling", "/");
         redirect.get("/goals", "/");
+        redirect.get("/contact", "/");
         //get("/google83434285ffe11fe1.html", (req, res) -> "/google83434285ffe11fe1.html");
 
         Route clientRoute = (req, res) -> {
@@ -112,6 +122,10 @@ public class Server {
         get("api/response", responseRequestHandler::getRandomResponse);
         get("api/responses", responseRequestHandler::getResponses);
 
+        get("api/resources", resourceRequestHandler::getResources);
+        get("api/resources/:id", resourceRequestHandler::getResourceJSON);
+        post("api/resources/add", resourceRequestHandler::addNewResource);
+
         // User get requests
         get("api/users", userRequestHandler::getUsers);
 
@@ -132,6 +146,12 @@ public class Server {
         post("api/journaling/new", journalRequestHandler::addNewJournal);
         post("api/journaling/edit", journalRequestHandler::editJournal);
         post("api/response/new", responseRequestHandler::addNewResponse);
+
+        get("api/contact/:id", contactRequestHandler::getContactJSON);
+        get("api/contact", contactRequestHandler::getContact);
+        post("api/contact/new", contactRequestHandler::addNewContact);
+        post("api/contact/edit", contactRequestHandler::editContact);
+        delete("api/contact/delete/:id", contactRequestHandler::deleteContact);
 
         post("api/login", (req, res) -> {
 

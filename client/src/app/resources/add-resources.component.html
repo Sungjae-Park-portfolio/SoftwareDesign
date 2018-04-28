@@ -5,15 +5,12 @@
         <mat-card-content>
             <br>
             <mat-form-field>
-                <input matInput #input id="nameField" placeholder="Resource/Contact Name" [(ngModel)]="data.resources.resourceName">
+                <input matInput #input id="nameField" placeholder="Contact Name" [(ngModel)]="data.resources.name">
                 <mat-error>This field is required</mat-error>
-
-                <input matInput #input id="phoneNumberField" placeholder="Phone Number Here" [(ngModel)]="data.resources.resourcePhone">
-                <input matInput #input id="webLinkField" placeholder="Your Interested Web Link" [(ngModel)]="data.resources.resourcesUrl">
-                <input matInput #input id="bodyField" placeholder="Any notes?" [(ngModel)]="data.resources.resourceBody">
+                <input matInput #input id="phoneNumberField" placeholder="Phone Number" [(ngModel)]="data.resources.number">
             </mat-form-field>
         </mat-card-content>
-        <button mat-raised-button id="confirmAddRsourceButton" [mat-dialog-close]="data.resources" type="button" (click)="openSnackBar('Responses Added','')">Confirm</button>
+        <button mat-raised-button id="confirmAddResourceButton" [mat-dialog-close]="data.resources" type="button" (click)="openSnackBar('Contact Added','')">Confirm</button>
         <button mat-raised-button id="exitWithoutAddingButton" (click)="onNoClick()" type="button">Cancel</button>
     </div>
 </div>
