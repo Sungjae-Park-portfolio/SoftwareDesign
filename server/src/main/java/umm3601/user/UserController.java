@@ -65,9 +65,9 @@ public class UserController extends SuperController {
 
         Document filterDoc = new Document();
 
-        if (queryParams.containsKey("SubjectID")) {
-            int targetAge = Integer.parseInt(queryParams.get("SubjectID")[0]);
-            filterDoc = filterDoc.append("SubjectID", targetAge);
+        if (queryParams.containsKey("userID")) {
+            int targetAge = Integer.parseInt(queryParams.get("userID")[0]);
+            filterDoc = filterDoc.append("userID", targetAge);
         }
 
         if (queryParams.containsKey("FirstName")) {
@@ -84,14 +84,14 @@ public class UserController extends SuperController {
         return JSON.serialize(matchingUsers);
     }
 
-    public String addNewUser(String SubjectID, String FirstName, String LastName) {
+    public String addNewUser(String userID, String FirstName, String LastName) {
 
         Document filterDoc = new Document();
 
         Document contentRegQuery = new Document();
-        contentRegQuery.append("$regex", SubjectID);
+        contentRegQuery.append("$regex", userID);
         contentRegQuery.append("$options", "i");
-        filterDoc = filterDoc.append("SubjectID", contentRegQuery);
+        filterDoc = filterDoc.append("userID", contentRegQuery);
 
         FindIterable<Document> matchingUsers = collection.find(filterDoc);
 
@@ -100,13 +100,13 @@ public class UserController extends SuperController {
 
             Document newUser = new Document();
             newUser.append("_id", id);
-            newUser.append("SubjectID", SubjectID);
+            newUser.append("userID", userID);
             newUser.append("FirstName", FirstName);
             newUser.append("LastName", LastName);
 
             try {
                 collection.insertOne(newUser);
-                System.err.println("Successfully added new user [_id=" + id + ", SubjectID=" + SubjectID + " FirstName=" + FirstName + " LastName=" + LastName + ']');
+                System.err.println("Successfully added new user [_id=" + id + ", userID=" + userID + " FirstName=" + FirstName + " LastName=" + LastName + ']');
                 // return JSON.serialize(newUser);
                 return JSON.serialize(id);
             } catch(MongoException me) {

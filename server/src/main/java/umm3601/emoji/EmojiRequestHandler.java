@@ -76,13 +76,13 @@ public class EmojiRequestHandler {
                 try {
                     BasicDBObject dbO = (BasicDBObject) o;
 
-                    String SubjectID = dbO.getString("userID");
+                    String userID = dbO.getString("userID");
                     int mood = dbO.getInt("mood");
                     int intensity = dbO.getInt("intensity");
 
-                    System.err.println("Adding new emoji [owner=" + SubjectID + ", mood=" + mood +
+                    System.err.println("Adding new emoji [owner=" + userID + ", mood=" + mood +
                         "intensity= " + intensity +']');
-                    return emojiController.addNewEmoji(SubjectID, mood, intensity);
+                    return emojiController.addNewEmoji(userID, mood, intensity);
                 }
                 catch(NullPointerException e)
                 {

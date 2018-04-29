@@ -65,14 +65,14 @@ public class UserRequestHandler {
      *
      * @return a boolean as whether the user was added successfully or not
      */
-    public String addNewUser(String subjectID, String firstName, String lastName)
+    public String addNewUser(String userID, String firstName, String lastName)
     {
 
 
         try {
 
-            System.err.println("Adding new user [" + "SubjectID=" + subjectID + " FirstName=" + firstName + " LastName=" + lastName + ']');
-            return userController.addNewUser(subjectID, firstName, lastName).toString();
+            System.err.println("Adding new user [" + "userID=" + userID + " FirstName=" + firstName + " LastName=" + lastName + ']');
+            return userController.addNewUser(userID, firstName, lastName).toString();
         }
         catch(NullPointerException e)
         {

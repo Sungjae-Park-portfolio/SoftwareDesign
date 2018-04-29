@@ -23,10 +23,10 @@ public class ResponseRequestHandler {
 
                     String name = dbO.getString("name");
                     String link = dbO.getString("link");
-                    String SubjectID = dbO.getString("userID");
+                    String userID = dbO.getString("userID");
 
                     System.err.println("Adding new response [name=" + name + ", link=" + link + ']');
-                    return responseController.addNewResponse(name, SubjectID, link);
+                    return responseController.addNewResponse(name, userID, link);
                 }
                 catch(NullPointerException e)
                 {

@@ -62,7 +62,7 @@ public abstract class SuperController {
 
         if (queryParams.containsKey("userID")) {
             String targetSubjectID = (queryParams.get("userID")[0]);
-            filterDoc = filterDoc.append("SubjectID", targetSubjectID);
+            filterDoc = filterDoc.append("userID", targetSubjectID);
         }
 
         if (queryParams.containsKey("email")) {
