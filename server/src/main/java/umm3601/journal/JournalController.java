@@ -30,11 +30,11 @@ public class JournalController extends SuperController {
         collection = database.getCollection("journals");
     }
 
-    public String addNewJournal(String subject, String body, String SubjectID) {
+    public String addNewJournal(String subject, String body, String userID) {
         Document newJournal = new Document();
         newJournal.append("subject", subject);
         newJournal.append("body", body);
-        newJournal.append("SubjectID", SubjectID);
+        newJournal.append("userID", userID);
 
         Date now = new Date();
         newJournal.append("date", now.toString());

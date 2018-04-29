@@ -164,13 +164,11 @@ export class GoalsComponent implements OnInit{
     }
 
     getDateString(goal: Goal, time: string): string {
-        if(time == 'start'){
+        if (time == 'start') {
             return new Date(goal.startDate).toDateString();
-        }
-        else{
+        } else {
             return new Date(goal.endDate).toDateString();
         }
-
     }
 
     openSnackBar(message: string, action: string) {
