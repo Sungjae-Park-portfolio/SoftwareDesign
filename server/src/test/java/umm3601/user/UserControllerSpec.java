@@ -30,29 +30,29 @@ public class UserControllerSpec extends ControllerSuperSpec{
         userDocuments.drop();
         List<Document> testUsers = new ArrayList<>();
         testUsers.add(Document.parse("{\n" +
-            "                    SubjectID: \"123456\",\n" +
+            "                    userID: \"123456\",\n" +
             "                    FirstName: \"Ethan\",\n" +
             "                    LastName: \"Hamer\",\n" +
             "                }"));
         testUsers.add(Document.parse("{\n" +
-            "                    SubjectID: \"987654\",\n" +
+            "                    userID: \"987654\",\n" +
             "                    FirstName: \"Aurora\",\n" +
             "                    LastName: \"Cordes\",\n" +
             "                }"));
         testUsers.add(Document.parse("{\n" +
-            "                    SubjectID: \"8123\",\n" +
+            "                    userID: \"8123\",\n" +
             "                    FirstName: \"Jubair\",\n" +
             "                    LastName: \"Hassan\",\n" +
             "                }"));
         testUsers.add(Document.parse("{\n" +
-            "                    SubjectID: \"64785\",\n" +
+            "                    userID: \"64785\",\n" +
             "                    FirstName: \"Hunter\",\n" +
             "                    LastName: \"Welch\",\n" +
             "                }"));
 
         kylesId = new ObjectId();
         BasicDBObject song = new BasicDBObject("_id", kylesId);
-        song = song.append("SubjectID", "654321")
+        song = song.append("userID", "654321")
             .append("FirstName", "Song")
             .append("LastName", "Yujing");
 
@@ -106,7 +106,7 @@ public class UserControllerSpec extends ControllerSuperSpec{
 
         assertNotNull("Add new user should return true when a user is added,", newId);
         Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("SubjectID", new String[] { "987123" });
+        argMap.put("userID", new String[] { "987123" });
         String jsonResult = userController.getItems(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
@@ -115,7 +115,7 @@ public class UserControllerSpec extends ControllerSuperSpec{
             .map(UserControllerSpec::getName)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the new owner", "Song", name.get(5));
+        assertEquals("Should return the new owner", "Roch", name.get(0));
     }
 
 

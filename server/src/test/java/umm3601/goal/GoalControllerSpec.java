@@ -34,7 +34,7 @@ public class GoalControllerSpec extends ControllerSuperSpec{
             "                    endDate: \"2018-04-26T05:00:00.000Z\",\n" +
             "                    frequency: \"2\",\n" +
             "                    status: false,\n" +
-            "                    SubjectID: \"5ae21df81ce1aa2ca211060b\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                }"));
         testGoals.add(Document.parse("{\n" +
             "                    name: \"Call Mom\",\n" +
@@ -43,7 +43,7 @@ public class GoalControllerSpec extends ControllerSuperSpec{
             "                    endDate: \"2018-04-26T05:00:00.000Z\",\n" +
             "                    frequency: \"2\",\n" +
             "                    status: false,\n" +
-            "                    SubjectID: \"5ae21df81ce1aa2ca211060b\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                }"));
         testGoals.add(Document.parse("{\n" +
             "                    name: \"Fold Laundry\",\n" +
@@ -52,7 +52,7 @@ public class GoalControllerSpec extends ControllerSuperSpec{
             "                    endDate: \"2018-04-26T05:00:00.000Z\",\n" +
             "                    frequency: \"2\",\n" +
             "                    status: false,\n" +
-            "                    SubjectID: \"5ae21df81ce1aa2ca211060b\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                }"));
 
         mattsId = new ObjectId();
@@ -63,7 +63,7 @@ public class GoalControllerSpec extends ControllerSuperSpec{
             .append("endDate", "2018-04-26T05:00:00.000Z")
             .append("frequency", "2")
             .append("status", false)
-            .append("SubjectID", "5ae21df81ce1aa2ca211060b");
+            .append("userID", "5ae21df81ce1aa2ca211060b");
 
 
 
@@ -77,9 +77,9 @@ public class GoalControllerSpec extends ControllerSuperSpec{
     }
 
 
-    private static String getSubjectID(BsonValue val) {
+    private static String getUserID(BsonValue val) {
         BsonDocument doc = val.asDocument();
-        return ((BsonString) doc.get("SubjectID")).getValue();
+        return ((BsonString) doc.get("userID")).getValue();
     }
 
     @Test
@@ -100,10 +100,10 @@ public class GoalControllerSpec extends ControllerSuperSpec{
 
         List<String> name = docs
             .stream()
-            .map(GoalControllerSpec::getSubjectID)
+            .map(GoalControllerSpec::getUserID)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the SubjectID of the new goal", "5ae21df81ce1aa2ca211060b", name.get(4));
+        assertEquals("Should return the userID of the new goal", "5ae21df81ce1aa2ca211060b", name.get(4));
     }
 
     @Test
@@ -120,7 +120,8 @@ public class GoalControllerSpec extends ControllerSuperSpec{
 
         System.out.println(newGoal);
 
-        String editGoal = goalController.editGoal(parseObjectId(newGoal).toString(), "Talk to people", "Social", "2018-04-11T05:00:00.000Z", "2018-04-26T05:00:00.000Z", "Daily", true, "5ae21df81ce1aa2ca211060b");
+        String editGoal = goalController.editGoal(parseObjectId(newGoal).toString(), "Talk to people", "Social",
+            "2018-04-11T05:00:00.000Z", "2018-04-26T05:00:00.000Z", "Daily", true, "5ae21df81ce1aa2ca211060b");
 
         assertNotNull("Edited goal should not return null,", editGoal);
 
@@ -133,12 +134,12 @@ public class GoalControllerSpec extends ControllerSuperSpec{
         assertEquals("Should be only 1 goal", 1, docs.size());
 
 
-        List<String> SubjectIDs = docs
+        List<String> userIDs = docs
             .stream()
-            .map(GoalControllerSpec::getSubjectID)
+            .map(GoalControllerSpec::getUserID)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedSubjectIDs = Arrays.asList("5ae21df81ce1aa2ca211060b");
-        assertEquals("SubjectID's should match", expectedSubjectIDs, SubjectIDs);
+        List<String> expectedUserIDs = Arrays.asList("5ae21df81ce1aa2ca211060b");
+        assertEquals("userID's should match", expectedUserIDs, userIDs);
     }
 }

@@ -122,7 +122,7 @@ public class ResponseControllerSpec extends ControllerSuperSpec {
             "aurora@boreal.is",
             "https://ragnar.uk");
         Map<String, String[]> map = new HashMap<>();
-        map.put("SubjectID", new String[]{"aurora@boreal.is"});
+        map.put("userID", new String[]{"aurora@boreal.is"});
         assertTrue("the new link is present for the user",
             responseController.getItems(map).contains("https://ragnar.uk"));
 

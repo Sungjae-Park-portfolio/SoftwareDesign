@@ -30,19 +30,19 @@ public class EmojiControllerSpec {
         emojiDocuments.drop();
         List<Document> testEmojis = new ArrayList<>();
         testEmojis.add(Document.parse("{\n" +
-            "                    SubjectID: \"5ae21df81ce1aa2ca211060b\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                    mood: 5,\n" +
             "                    intensity: 2\n" +
             "                    date: \"" + new Date() + "\",\n" +
             "                }"));
         testEmojis.add(Document.parse("{\n" +
-            "                    SubjectID: \"5ae21df81ce1aa2ca211060a\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060a\",\n" +
             "                    mood: 3,\n" +
             "                    intensity: 3\n" +
             "                    date: \"" + new Date() + "\",\n" +
             "                }"));
         testEmojis.add(Document.parse("{\n" +
-            "                    SubjectID: \"5ae21df81ce1aa2ca211060c\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060c\",\n" +
             "                    mood: 2,\n" +
             "                    intensity: 1\n" +
             "                    date: \"" + new Date() + "\",\n" +
@@ -50,7 +50,7 @@ public class EmojiControllerSpec {
 
         mattsId = new ObjectId();
         BasicDBObject matt = new BasicDBObject("_id", mattsId);
-        matt = matt.append("SubjectID", "5ae21df81ce1aa2ca211060d")
+        matt = matt.append("userID", "5ae21df81ce1aa2ca211060d")
             .append("intensity", 4)
             .append("mood", 1)
             .append("date", new Date());
@@ -80,9 +80,9 @@ public class EmojiControllerSpec {
         return arrayReader.decode(reader, DecoderContext.builder().build());
     }
 
-    private static String getSubjectID(BsonValue val) {
+    private static String getUserID(BsonValue val) {
         BsonDocument doc = val.asDocument();
-        return ((BsonString) doc.get("SubjectID")).getValue();
+        return ((BsonString) doc.get("userID")).getValue();
     }
 
     @Test
@@ -91,7 +91,7 @@ public class EmojiControllerSpec {
         System.out.println(jsonResult);
         Document matt = Document.parse(jsonResult);
 
-        assertEquals("Name should match", "5ae21df81ce1aa2ca211060d", matt.getString("SubjectID"));
+        assertEquals("Name should match", "5ae21df81ce1aa2ca211060d", matt.getString("userID"));
         String noJsonResult = emojiController.getItem(new ObjectId().toString());
         assertNull("No name should match",noJsonResult);
 
@@ -107,12 +107,12 @@ public class EmojiControllerSpec {
         String jsonResult = emojiController.getItems(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
-        List<String> SubjectID = docs
+        List<String> userID = docs
             .stream()
-            .map(EmojiControllerSpec::getSubjectID)
+            .map(EmojiControllerSpec::getUserID)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the SubjectID of the new emoji", "123456", SubjectID.get(0));
+        assertEquals("Should return the userID of the new emoji", "123456", userID.get(0));
     }
 
 }
