@@ -5,7 +5,7 @@
 
 <div class="response" layout-gt-sm="row">
     <!--<div flex-gt-sm="80" flex-offset-gt-sm="10">-->
-        <mat-card>
+        <mat-card-title>
             <mat-card-content id="response1" *ngIf="data.response == 1">I'm sorry to hear that you're feeling angry.</mat-card-content>
             <mat-card-content id="response2" *ngIf="data.response == 2">I'm sorry to hear that you're feeling anxious.</mat-card-content>
             <mat-card-content id="response3" *ngIf="data.response == 3">I'm so glad to hear that!</mat-card-content>
@@ -18,9 +18,10 @@
 
             <mat-card-content>
                 <input id="responseGetButton" type="button" value ="Get a response" (click)="getEmbedLink()">
-                <iframe id="embed" width="100%" src="">
+                <iframe id="embed" src="">
                 </iframe>
             </mat-card-content>
-        </mat-card>
+        </mat-card-title>
+
     <!--</div>-->
 </div>
