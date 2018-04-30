@@ -2,35 +2,67 @@
 <div *ngIf="appService.isSignedIn(); else promptLogin">
     <div layout-gt-sm="row">
         <div flex-gt-sm="80" flex-offset-gt-sm="10">
+
             <mat-card>
-                <mat-card-title id="reports-title">Reports</mat-card-title>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+                <mat-card-title id="charts-title">Charts Report</mat-card-title>
                 <mat-divider></mat-divider>
                 <mat-card-content>
+                <div layout="row" layout-align="center">
 
-                    <mat-accordion *ngIf="emojis; else emojiError" >
-                        <mat-expansion-panel #elem class="emoji" [id]="emoji._id['$oid']"  *ngFor="let emoji of this.filterEmojis(emojiOwner)">
-                            <mat-expansion-panel-header>
-                                <!--This gets an emoji image based on the mood that the user input when creating the emoji object-->
-                                <mat-panel-title id="test">{{parseEmojiDate(emoji)}} &nbsp; <img id="reportsEmojiText" src="assets/Emojis/{{emoji.mood}}/{{emoji.intensity}}.png" style="width: 24px; height: 24px"></mat-panel-title>
-                            </mat-expansion-panel-header>
-                            <!-- Need to parse intensity: low, med, high-->
-                            <mat-panel-description >Intensity: {{emoji.intensity}}</mat-panel-description>
-                        </mat-expansion-panel>
-                    </mat-accordion>
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="startDate" (oninput)="buildChart()"
+                                   [matDatepicker]="startdp" placeholder="Start Date" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="startdp"></mat-datepicker-toggle>
+                            <mat-datepicker #startdp disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput [(ngModel)]="endDate" (onchange)="buildChart()"
+                                   [matDatepicker]="enddp" placeholder="End Date" disabled>
+                            <mat-datepicker-toggle matSuffix [for]="enddp"></mat-datepicker-toggle>
+                            <mat-datepicker #enddp disabled="false"></mat-datepicker>
+                        </mat-form-field>
+                        <form>
+                             <!--# The Angular feature&ndash-->
+                            <label>Show entries across a day or week?</label>
+                        <mat-select name="dropdown" id="labelType" #input (input)="inputType = $event.target.value">
+                                <mat-option id ="Week" value="week" selected>Week</mat-option>
+                                <mat-option id ="Year" value="year">Year</mat-option>
+                        </mat-select>
+                        </form>
+                        <button mat-button id="submit" (click)="buildChart()" type="button">Submit</button>
 
-                    <ng-template #emojiError>
-                        <mat-error>
-                            There was a problem loading the data. Possibly the server is down or perhaps there are network
-                            issues.
-                        </mat-error>
-                        <mat-error>
-                            Please wait a bit and try again or start the server.
-                        </mat-error>
-                    </ng-template>
+                </div>
                 </mat-card-content>
+            <a name="{{filterEmojis(startDate, endDate).length}}"></a>
+
+
+
+                <mat-tab-group class="tab-group" (selectChange)="tabChanged($event)">
+                    <mat-tab label="Line Chart" >
+
+                        <div id="chartdiv" layout="row" layout-align="center">
+                            <canvas id="myChart" height="auto"></canvas>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Bar Plot">
+
+                        <div id="bardiv" layout="row" layout-align="center">
+                            <canvas id="myBar" height="auto"></canvas>
+                        </div>
+                    </mat-tab>
+
+                </mat-tab-group>
+
+
+
             </mat-card>
         </div>
     </div>
+
+
+
 </div>
 
 <!-- What to display if the user isn't logged in -->
