@@ -26,7 +26,7 @@ public class ResponseController extends SuperController{
         collection = database.getCollection("responses");
     }
 
-    public String addNewResponse(String responseName, String responseEmail, String responseLink) {
+    public String addNewResponse(String responseName, String userID, String responseLink) {
 
         // makes the search Document key-pairs
         Document newResponse = new Document();
@@ -46,7 +46,7 @@ public class ResponseController extends SuperController{
 
         // Append new resources here
         newResponse.append("name", responseName);
-        newResponse.append("email", responseEmail);
+        newResponse.append("userID", userID);
         newResponse.append("link", responseLink);
 
         try {
@@ -54,7 +54,7 @@ public class ResponseController extends SuperController{
             ObjectId id = newResponse.getObjectId("_id");
 
             System.err.println("Successfully added new resource [_id=" + id + ", responseName=" + responseName + "," +
-                " responseEmail=" + responseEmail + ", link=" + responseLink + ']');
+                " userID=" + userID + ", link=" + responseLink + ']');
             return JSON.serialize(id);
         } catch(MongoException me) {
             me.printStackTrace();

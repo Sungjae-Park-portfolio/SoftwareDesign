@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Emoji} from "../emoji";
 import {ReportsService} from "./reports.service";
+import {AppService} from "../app.service";
 
 @Component({
     selector: 'app-reports-component',
@@ -13,7 +14,7 @@ export class ReportsComponent implements OnInit {
     // These are public so that tests can reference them (.spec.ts)
     public emojis: Emoji[];
     public filteredEmojis: Emoji[];
-    public userEmail: string = localStorage.getItem('email');
+    public userID: string = localStorage.getItem('userID');
 
     // These are the target values used in searching.
     // We should rename them to make that clearer.
@@ -21,23 +22,14 @@ export class ReportsComponent implements OnInit {
 
 
     // Inject the EmojiListService into this component.
-    constructor(public reportsService: ReportsService) {
+    constructor(public reportsService: ReportsService, public appService: AppService) {
 
     }
 
 
-    public filterEmojis(searchOwner): Emoji[] {
+    public filterEmojis(searchDate): Emoji[] {
 
         this.filteredEmojis = this.emojis;
-
-        // Filter by name
-        if (searchOwner != null) {
-            searchOwner = searchOwner.toLocaleLowerCase();
-
-            this.filteredEmojis = this.filteredEmojis.filter(emoji => {
-                return !searchOwner || emoji.owner.toLowerCase().indexOf(searchOwner) !== -1;
-            });
-        }
 
         // Sort by date
         this.filteredEmojis = this.filteredEmojis.sort((emoji1, emoji2) => {
@@ -81,9 +73,4 @@ export class ReportsComponent implements OnInit {
         this.refreshEmojis();
     }
 
-    isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
-        else return true;
-    }
 }

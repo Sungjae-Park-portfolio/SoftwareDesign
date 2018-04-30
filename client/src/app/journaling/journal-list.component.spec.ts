@@ -10,6 +10,7 @@ import {MatDialog} from '@angular/material';
 
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
+import {AppService} from "../app.service";
 
 describe('Journal list', () => {
 
@@ -17,7 +18,11 @@ describe('Journal list', () => {
     let fixture: ComponentFixture<JournalListComponent>;
 
     let journalListServiceStub: {
-        getJournals: () => Observable<Journal[]>
+        getJournals: () => Observable<Journal[]>;
+    };
+
+    let appServiceStub: {
+        isSignedIn: () => boolean;
     };
 
     beforeEach(() => {
@@ -26,6 +31,7 @@ describe('Journal list', () => {
             getJournals: () => Observable.of([
                 {
                     _id: "5aa0b36e401cfced5f36b1a7",
+                    userID: '123456',
                     subject: "York",
                     body: "You can do it",
                     date: new Date("Sun Feb 04 1979 13:35:46 GMT-0600 (CST)"),
@@ -33,6 +39,7 @@ describe('Journal list', () => {
                 },
                 {
                     _id: "5aa0b36ef2d33e651859bd70",
+                    userID: '987654',
                     subject: "Sutton",
                     body: "There you go",
                     date: new Date("Sun Oct 28 2012 03:04:31 GMT-0500 (CDT)"),
@@ -40,6 +47,7 @@ describe('Journal list', () => {
                 },
                 {
                     _id: "5aa0b36e5c1d05d2cb0460a4",
+                    userID: '123789',
                     subject: "Madelyn",
                     body: "There you go",
                     date: new Date("Thu Sep 25 2003 14:45:37 GMT-0500 (CDT)"),
@@ -48,13 +56,18 @@ describe('Journal list', () => {
             ])
         };
 
+        appServiceStub = {
+            isSignedIn: () => true,
+        }
+
         TestBed.configureTestingModule({
             imports: [CustomModule],
             declarations: [JournalListComponent],
             // providers:    [ JournalListService ]  // NO! Don't provide the real service!
             // Provide a test-double instead
             providers: [{provide: JournalListService, useValue: journalListServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 
@@ -121,6 +134,10 @@ describe('Misbehaving Journal List', () => {
         getJournals: () => Observable<Journal[]>
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean
+    };
+
     beforeEach(() => {
         // stub JournalService for test purposes
         journalListServiceStub = {
@@ -129,11 +146,16 @@ describe('Misbehaving Journal List', () => {
             })
         };
 
+        appServiceStub = {
+            isSignedIn: () => true,
+        }
+
         TestBed.configureTestingModule({
             imports: [FormsModule, CustomModule],
             declarations: [JournalListComponent],
             providers: [{provide: JournalListService, useValue: journalListServiceStub},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 
@@ -157,10 +179,10 @@ describe('Adding a journal', () => {
     let fixture: ComponentFixture<JournalListComponent>;
     const newJournal: Journal = {
         _id: "5aa0b36e1f57545f27a26b69",
+        userID: '456987',
         subject: "Pennington",
         body: "Get it done",
         date: new Date("Sun Feb 07 1982 22:41:23 GMT-0600 (CST)"),
-        email: "pennington@pennington.com"
     };
     const newId = 'pennington_id';
 
@@ -176,6 +198,10 @@ describe('Adding a journal', () => {
         };
     };
 
+    let appServiceStub: {
+        isSignedIn: () => boolean
+    };
+
     beforeEach(() => {
         calledJournal = null;
         // stub JournalService for test purposes
@@ -188,6 +214,7 @@ describe('Adding a journal', () => {
                 });
             }
         };
+
         mockMatDialog = {
             open: () => {
                 return {
@@ -198,13 +225,18 @@ describe('Adding a journal', () => {
             }
         };
 
+        appServiceStub = {
+            isSignedIn: () => true,
+        };
+
         TestBed.configureTestingModule({
             imports: [FormsModule, CustomModule],
             declarations: [JournalListComponent],
             providers: [
                 {provide: JournalListService, useValue: journalListServiceStub},
                 {provide: MatDialog, useValue: mockMatDialog},
-                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}]
+                {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+                {provide: AppService, useValue: appServiceStub}]
         });
     });
 

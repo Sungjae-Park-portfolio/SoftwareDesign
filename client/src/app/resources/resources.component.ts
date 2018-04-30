@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {AppService} from "../app.service";
 
 @Component({
     selector: 'resources-component',
@@ -8,18 +9,8 @@ import {Component} from '@angular/core';
 export class ResourcesComponent {
     public title: string;
 
-    constructor() {
+    constructor(public appService: AppService) {
         this.title = 'Resources';
-    }
-
-    //New function to return the name of the active user
-    //window.* is not defined, or 'gettable' straight from HTML *ngIf
-    //So this function will return that
-    // This function returns true when the user is signed in and false otherwise
-    isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
-        else return true;
     }
 
 }

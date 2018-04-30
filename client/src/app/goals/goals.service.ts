@@ -10,20 +10,22 @@ import {Goal} from "./goals";
 export class GoalsService {
     readonly baseUrl: string = environment.API_URL + 'goals';
     private goalsUrl: string = this.baseUrl;
-    private userEmail: string = localStorage.getItem('email');
+    private userID: string = localStorage.getItem('userID');
 
     constructor(private http: HttpClient) {
     }
 
     addGoal(newGoal: Goal): Observable<{'$oid': string}> {
+        console.log('Starting to add goal');
+
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             }),
         };
 
-        if(this.parameterPresent('email')){
-            this.removeParameter('email');
+        if(this.parameterPresent('userID')){
+            this.removeParameter('userID');
             let locationOfQuestionMark = this.goalsUrl.indexOf('?');
             this.goalsUrl = this.goalsUrl.substring(0, locationOfQuestionMark) + this.goalsUrl.substring(locationOfQuestionMark + 1, this.goalsUrl.length)
         }
@@ -37,29 +39,29 @@ export class GoalsService {
     }
 
     getGoals(): Observable<Goal[]> {
-        this.filterByEmail(this.userEmail);
+        this.filterByUserID(this.userID);
         return this.http.get<Goal[]>(this.goalsUrl);
     }
 
     //////Starting Here
 
-    filterByEmail(userEmail?: string): void {
-        if(!(userEmail == null || userEmail === '')) {
-            if (this.parameterPresent('email=') ) {
+    filterByUserID(userID?: string): void {
+        if(!(userID == null || userID === '')) {
+            if (this.parameterPresent('userID=') ) {
                 // there was a previous search by company that we need to clear
-                this.removeParameter('email=');
+                this.removeParameter('userID=');
             }
             if (this.goalsUrl.indexOf('?') !== -1) {
                 // there was already some information passed in this url
-                this.goalsUrl += 'email=' + userEmail + '&';
+                this.goalsUrl += 'userID=' + userID + '&';
             } else {
                 // this was the first bit of information to pass in the url
-                this.goalsUrl += '?email=' + userEmail + '&';
+                this.goalsUrl += '?userID=' + userID + '&';
             }
         }
         else {
-            if (this.parameterPresent('email=')) {
-                let start = this.goalsUrl.indexOf('email=');
+            if (this.parameterPresent('userID=')) {
+                let start = this.goalsUrl.indexOf('userID=');
                 const end = this.goalsUrl.indexOf('&', start);
                 if (this.goalsUrl.substring(start - 1, start) === '?') {
                     start = start - 1;
@@ -91,8 +93,8 @@ export class GoalsService {
             }),
         };
 
-        if(this.parameterPresent('email')){
-            this.removeParameter('email');
+        if(this.parameterPresent('userID')){
+            this.removeParameter('userID');
             let locationOfQuestionMark = this.goalsUrl.indexOf('?');
             this.goalsUrl = this.goalsUrl.substring(0, locationOfQuestionMark) + this.goalsUrl.substring(locationOfQuestionMark + 1, this.goalsUrl.length)
         }

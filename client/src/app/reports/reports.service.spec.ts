@@ -10,28 +10,28 @@ describe('Report service: ', () => {
     const testEmojis: Emoji[] = [
         {
             _id: "a98ab3747faebe4490d5154",
+            userID: '123456',
             mood: 5,
             intensity: 3,
             date: new Date("8/20/2015 20:00"),
-            owner: "Ahnaf",
-            email: "ahnaf@gmail.com",
+            ownerFirstName: "Ahnaf",
         },
         {
 
             _id: "a98ab3747faebe4490d5153",
+            userID: '987654',
             mood: 3,
             intensity: 1,
             date: new Date("8/20/2018 20:00"),
-            owner: "Chuck",
-            email: "chuck@gmail.com",
+            ownerFirstName: "Chuck",
         },
         {
             _id: "a98ab3747faebe4490d5151",
+            userID: '654321',
             mood: 3,
             intensity: 1,
             date: new Date("8/23/2018 20:00"),
-            owner: "Matt",
-            email: "matt@gmail.com",
+            ownerFirstName: "Matt",
         },
     ];
 

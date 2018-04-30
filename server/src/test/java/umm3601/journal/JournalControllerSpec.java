@@ -28,34 +28,33 @@ public class JournalControllerSpec extends ControllerSuperSpec {
         MongoCollection<Document> journalDocs = db.getCollection("journals");
         journalDocs.drop();
         List<Document> testJournals = new ArrayList<>();
-        // to be clear, adding in user_oid would probably be advantageous at some point, instead of relying on email
         testJournals.add(Document.parse("{\n" +
             "                           subject: \"3601 is hard\", \n" +
             "                           body: \"I'm having a hard time with writing all these tests\"" +
+            "                           userID: \"123456\"" +
             "                           date: \"8/20/2015 20:00\",\n" +
-            "                           email: \"aurora@boreal.is\",\n" +
             "                        }"));
         testJournals.add(Document.parse("{\n" +
             "                           subject: \"3601 is easy\", \n" +
             "                           body: \"All this programming and communication is super easy\"" +
+            "                           userID: \"987654\"" +
             "                           date: \"1/1/1970 1:00\",\n" +
-            "                           email: \"no@one.ever\",\n" +
             "                        }"));
         nicId = new ObjectId();
         BasicDBObject nic = new BasicDBObject("_id", nicId);
         nic = nic.append("subject", "I love teaching Software Development")
             .append("body", "All these college students are so good at everything and we'll give them all A's")
             .append("date", "12/22/2012 19:00")
-            .append("email", "nic@college.com");
+            .append("userID", "8123");
         journalDocs.insertMany(testJournals);
         journalDocs.insertOne(Document.parse(nic.toJson()));
 
         journalController = new JournalController(db);
     }
 
-    private static String getEmail(BsonValue value) {
+    private static String getUserID(BsonValue value) {
         BsonDocument doc = value.asDocument();
-        return ((BsonString) doc.get("email")).getValue();
+        return ((BsonString) doc.get("userID")).getValue();
     }
 
     private static String getSubject(BsonValue value) {
@@ -63,21 +62,6 @@ public class JournalControllerSpec extends ControllerSuperSpec {
         return ((BsonString) doc.get("subject")).getValue();
     }
 
-    @Test
-    public void getAllJournals() {
-        Map<String, String[]> emptyMap = new HashMap<>();
-        String jsonResult = journalController.getItems(emptyMap);
-        BsonArray docs = parseJsonArray(jsonResult);
-
-        assertEquals("Should be 3 journal entries", 3, docs.size());
-        List<String> emails = docs
-            .stream()
-            .map(JournalControllerSpec::getEmail)
-            .sorted()
-            .collect(Collectors.toList());
-        List<String> expectedEmails = Arrays.asList("aurora@boreal.is", "nic@college.com", "no@one.ever");
-        assertEquals("Emails should match", expectedEmails, emails);
-    }
 
     @Test
     public void getJournalById() {
@@ -96,16 +80,16 @@ public class JournalControllerSpec extends ControllerSuperSpec {
 
         assertNotNull("Add new journal should return true when a journal is added,", newId);
         Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("I am ok with 3601.", new String[]{"I am ok with 3601."});
+        argMap.put("subject", new String[]{"I am ok with 3601."});
         String jsonResult = journalController.getItems(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
-        List<String> email = docs
+        List<String> userIDList = docs
             .stream()
-            .map(JournalControllerSpec::getEmail)
+            .map(JournalControllerSpec::getUserID)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the email of the new journal entry", "me@apat.hy", email.get(1));
+        assertEquals("Should return the email of the new journal entry", "me@apat.hy", userIDList.get(0));
     }
 
     @Test

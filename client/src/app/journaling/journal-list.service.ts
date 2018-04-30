@@ -11,14 +11,14 @@ import {environment} from '../../environments/environment';
 export class JournalListService {
     readonly baseUrl: string = environment.API_URL + 'journaling';
     private journalUrl: string = this.baseUrl;
-    public userEmail: string = localStorage.getItem('email');
+    public userID: string = localStorage.getItem('userID');
 
     constructor(private http: HttpClient) {
     }
 
     getJournals(journalSubject?: string): Observable<Journal[]> {
         this.filterBySubject(journalSubject);
-        this.filterByEmail(this.userEmail);
+        this.filterByUserID(this.userID);
         return this.http.get<Journal[]>(this.journalUrl);
     }
 
@@ -62,22 +62,22 @@ export class JournalListService {
         }
     }
 
-    filterByEmail(userEmail?: string): void {
-        if (!(userEmail == null || userEmail === '')) {
-            if (this.parameterPresent('email=') ) {
+    filterByUserID(userID?: string): void {
+        if (!(userID == null || userID === '')) {
+            if (this.parameterPresent('userID=') ) {
                 // there was a previous search by company that we need to clear
-                this.removeParameter('email=');
+                this.removeParameter('userID=');
             }
             if (this.journalUrl.indexOf('?') !== -1) {
                 // there was already some information passed in this url
-                this.journalUrl += 'email=' + userEmail + '&';
+                this.journalUrl += 'userID=' + userID + '&';
             } else {
                 // this was the first bit of information to pass in the url
-                this.journalUrl += '?email=' + userEmail + '&';
+                this.journalUrl += '?userID=' + userID + '&';
             }
         } else {
-            if (this.parameterPresent('email=')) {
-                let start = this.journalUrl.indexOf('email=');
+            if (this.parameterPresent('userID=')) {
+                let start = this.journalUrl.indexOf('userID=');
                 const end = this.journalUrl.indexOf('&', start);
                 if (this.journalUrl.substring(start - 1, start) === '?') {
                     start = start - 1;
@@ -109,8 +109,8 @@ export class JournalListService {
                 'Content-Type': 'application/json'
             }),
         };
-        if (this.parameterPresent('email')) {
-            this.removeParameter('email');
+        if (this.parameterPresent('userID')) {
+            this.removeParameter('userID');
             const locationOfQuestionMark = this.journalUrl.indexOf('?');
             this.journalUrl = this.journalUrl.substring(0, locationOfQuestionMark) +
                 this.journalUrl.substring(locationOfQuestionMark + 1, this.journalUrl.length);
@@ -125,8 +125,8 @@ export class JournalListService {
                 'Content-Type': 'application/json'
             }),
         };
-        if (this.parameterPresent('email')) {
-            this.removeParameter('email');
+        if (this.parameterPresent('userID')) {
+            this.removeParameter('userID');
             const locationOfQuestionMark = this.journalUrl.indexOf('?');
             this.journalUrl = this.journalUrl.substring(0, locationOfQuestionMark) +
                 this.journalUrl.substring(locationOfQuestionMark + 1, this.journalUrl.length);

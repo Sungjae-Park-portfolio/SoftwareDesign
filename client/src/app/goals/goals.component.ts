@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddGoalComponent} from "./add-goals.component";
 import {EditGoalComponent} from "./edit-goals.component";
 import {MatSnackBar} from '@angular/material';
+import {AppService} from "../app.service";
 
 @Component({
     selector: 'app-goals-component',
@@ -22,20 +23,20 @@ export class GoalsComponent implements OnInit{
     public goalOwner: string;
     public goalStatus: string;
     public goalFilter: string;
-    //public email: string =
+    public userID: string = localStorage.getItem('userID');
 
     private highlightedID: {'$oid': string} = { '$oid': '' };
 
 
     // Inject the GoalListService into this component.
-    constructor(public goalsService: GoalsService, public dialog: MatDialog, public snackBar: MatSnackBar) {
-
+    constructor(public goalsService: GoalsService, public appService: AppService, public dialog: MatDialog, public snackBar: MatSnackBar) {
     }
 
     openDialog(): void {
         const newGoal: Goal =
             {
                 _id: '',
+                userID: this.userID,
                 name: '',
                 owner: '',
                 body: '',
@@ -44,7 +45,6 @@ export class GoalsComponent implements OnInit{
                 endDate: '',
                 frequency: '',
                 status: false,
-                email: localStorage.getItem('email'),
             };
         const dialogRef = this.dialog.open(AddGoalComponent, {
             width: '500px',
@@ -64,10 +64,11 @@ export class GoalsComponent implements OnInit{
         });
     }
 
-    openDialogEdit(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, email: string, status: boolean): void {
+    openDialogEdit(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, status: boolean): void {
         const newGoal: Goal =
             {
                 _id: _id,
+                userID: this.userID,
                 name: name,
                 owner: owner,
                 body: body,
@@ -76,7 +77,6 @@ export class GoalsComponent implements OnInit{
                 endDate: endDate,
                 frequency: frequency,
                 status: status,
-                email: email,
             };
         const dialogRef = this.dialog.open(EditGoalComponent, {
             width: '500px',
@@ -164,13 +164,11 @@ export class GoalsComponent implements OnInit{
     }
 
     getDateString(goal: Goal, time: string): string {
-        if(time == 'start'){
+        if (time == 'start') {
             return new Date(goal.startDate).toDateString();
-        }
-        else{
+        } else {
             return new Date(goal.endDate).toDateString();
         }
-
     }
 
     openSnackBar(message: string, action: string) {
@@ -205,6 +203,7 @@ export class GoalsComponent implements OnInit{
 
     ngOnInit(): void {
         this.refreshGoals();
+        //this.appService.testingToggle();
     }
 
     parseStatus(thing: Boolean){
@@ -212,14 +211,8 @@ export class GoalsComponent implements OnInit{
         else return "Incomplete"
     }
 
-    isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
-        else return true;
-    }
-
-    editGoal(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, email: string, status: boolean) {
-        const updatedGoal: Goal = {_id: _id, name: name, owner: owner, body: body, category: category, startDate: startDate, endDate: endDate, frequency: frequency, email: email, status: status};
+    editGoal(_id: string, name: string, owner: string, body: string, category: string, startDate: string, endDate: string, frequency: string, status: boolean) {
+        const updatedGoal: Goal = {_id: _id, userID: this.userID, name: name, owner: owner, body: body, category: category, startDate: startDate, endDate: endDate, frequency: frequency, status: status};
         this.goalsService.editGoal(updatedGoal).subscribe(
             editGoalResult => {
                 this.highlightedID = editGoalResult;

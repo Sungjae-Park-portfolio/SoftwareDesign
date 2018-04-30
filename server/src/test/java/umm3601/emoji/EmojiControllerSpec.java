@@ -14,7 +14,6 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,24 +30,28 @@ public class EmojiControllerSpec {
         emojiDocuments.drop();
         List<Document> testEmojis = new ArrayList<>();
         testEmojis.add(Document.parse("{\n" +
-            "                    owner: \"Ahnaf\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060b\",\n" +
             "                    mood: 5,\n" +
+            "                    intensity: 2\n" +
             "                    date: \"" + new Date() + "\",\n" +
             "                }"));
         testEmojis.add(Document.parse("{\n" +
-            "                    owner: \"Chuck\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060a\",\n" +
             "                    mood: 3,\n" +
+            "                    intensity: 3\n" +
             "                    date: \"" + new Date() + "\",\n" +
             "                }"));
         testEmojis.add(Document.parse("{\n" +
-            "                    owner: \"Kyle\",\n" +
+            "                    userID: \"5ae21df81ce1aa2ca211060c\",\n" +
             "                    mood: 2,\n" +
+            "                    intensity: 1\n" +
             "                    date: \"" + new Date() + "\",\n" +
             "                }"));
 
         mattsId = new ObjectId();
         BasicDBObject matt = new BasicDBObject("_id", mattsId);
-        matt = matt.append("owner", "Matt")
+        matt = matt.append("userID", "5ae21df81ce1aa2ca211060d")
+            .append("intensity", 4)
             .append("mood", 1)
             .append("date", new Date());
 
@@ -77,27 +80,10 @@ public class EmojiControllerSpec {
         return arrayReader.decode(reader, DecoderContext.builder().build());
     }
 
-    private static String getOwner(BsonValue val) {
+    private static String getUserID(BsonValue val) {
         BsonDocument doc = val.asDocument();
-        return ((BsonString) doc.get("owner")).getValue();
+        return ((BsonString) doc.get("userID")).getValue();
     }
-
-    @Test
-    public void getAllEmojis() {
-        Map<String, String[]> emptyMap = new HashMap<>();
-        String jsonResult = emojiController.getItems(emptyMap);
-        BsonArray docs = parseJsonArray(jsonResult);
-
-        assertEquals("Should be 4 emojis", 4, docs.size());
-        List<String> names = docs
-            .stream()
-            .map(EmojiControllerSpec::getOwner)
-            .sorted()
-            .collect(Collectors.toList());
-        List<String> expectedNames = Arrays.asList("Ahnaf", "Chuck", "Kyle", "Matt");
-        assertEquals("Names should match", expectedNames, names);
-    }
-
 
     @Test
     public void getEmojiById() {
@@ -105,7 +91,7 @@ public class EmojiControllerSpec {
         System.out.println(jsonResult);
         Document matt = Document.parse(jsonResult);
 
-        assertEquals("Name should match", "Matt", matt.getString("owner"));
+        assertEquals("Name should match", "5ae21df81ce1aa2ca211060d", matt.getString("userID"));
         String noJsonResult = emojiController.getItem(new ObjectId().toString());
         assertNull("No name should match",noJsonResult);
 
@@ -113,41 +99,21 @@ public class EmojiControllerSpec {
 
     @Test
     public void addEmojiTest(){
-        String newId = emojiController.addNewEmoji("Matt2",5, 2, "matt@yahoo.com");
+        String newId = emojiController.addNewEmoji("123456",5, 2);
 
         assertNotNull("Add new emoji should return true when an emoji is added,", newId);
         Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("Matt2", new String[] { "Matt2" });
+        argMap.put("123456", new String[] { "123456" });
         String jsonResult = emojiController.getItems(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
-        List<String> name = docs
+        List<String> userID = docs
             .stream()
-            .map(EmojiControllerSpec::getOwner)
+            .map(EmojiControllerSpec::getUserID)
             .sorted()
             .collect(Collectors.toList());
-        assertEquals("Should return the owner of the new emoji", "Matt2", name.get(4));
+        assertEquals("Should return the userID of the new emoji", "123456", userID.get(0));
     }
-
-    @Test
-    public void getEmojisByOwner(){
-        Map<String, String[]> argMap = new HashMap<>();
-        //This will search for emojis owned by Kyle
-        argMap.put("owner", new String[] { "Kyle" });
-        String jsonResult = emojiController.getItems(argMap);
-        BsonArray docs = parseJsonArray(jsonResult);
-        assertEquals("Should be one emoji entry", 1, docs.size());
-        List<String> name = docs
-            .stream()
-            .map(EmojiControllerSpec::getOwner)
-            .sorted()
-            .collect(Collectors.toList());
-        List<String> expectedName = Arrays.asList("Kyle");
-        assertEquals("Names should match", expectedName, name);
-
-    }
-
-
 
 }
 

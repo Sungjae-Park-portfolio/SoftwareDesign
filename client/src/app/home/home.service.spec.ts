@@ -10,28 +10,28 @@ describe('Home service: ', () => {
     const testEmojis: Emoji[] = [
         {
             _id: "a98ab3747faebe4490d5154",
+            userID: '123456',
+            ownerFirstName: 'Jubair',
             mood: 5,
             intensity: 1,
             date: new Date("8/20/2015 20:00"),
-            owner: "Ahnaf",
-            email: "ahnaf@gmail.com",
         },
         {
 
             _id: "a98ab3747faebe4490d5153",
+            userID: '987654',
+            ownerFirstName: 'David',
             mood: 3,
             intensity: 3,
             date: new Date("8/20/2018 20:00"),
-            owner: "Chuck",
-            email: "chuck@gmail.com",
         },
         {
             _id: "a98ab3747faebe4490d5151",
+            userID: '123789',
+            ownerFirstName: 'Ethan',
             mood: 3,
             intensity: 2,
             date: new Date("8/23/2018 20:00"),
-            owner: "Matt",
-            email: "matt@gmail.com",
         },
     ];
 
@@ -107,11 +107,11 @@ describe('Home service: ', () => {
         const chuck_id = { '$oid': 'chuck_id' };
         const newEmoji: Emoji = {
             _id: '',
+            userID: '456789',
+            ownerFirstName: 'Hunter',
             mood: 4,
             intensity: 2,
             date: new Date("6/20/2012 20:00"),
-            owner: "Chuck",
-            email: "chuck@gmail.com",
         };
 
         emojiListService.addEmoji(newEmoji).subscribe(
@@ -129,26 +129,26 @@ describe('Home service: ', () => {
     it('calls addEmoji in home.service.ts', () => {
         let emotion: Emoji = {
             _id: '',
+            userID: '987321',
+            ownerFirstName: 'Song',
             mood: 4,
             intensity: 2,
             date: new Date("4/21/2014 17:30"),
-            owner: "aurora",
-            email: "aurora@boreal.is",
         };
 
         expect(emojiListService.addEmoji(emotion)).toBeDefined();
     });
 
     it('calls removeParameter in home.service.ts', () => {
-        emojiListService.filterByEmail("aurora@boreal.is");
-        emojiListService.filterByEmail("aurora@austral.is");
+        emojiListService.filterByUserID("aurora@boreal.is");
+        emojiListService.filterByUserID("aurora@austral.is");
     });
 
     it('gets a random response', () => {
         let response: Response  = {
             _id: '',
             link: 'https://fluff.fy',
-            email: 'aurora@boreal.is',
+            userID: '654782',
             name: 'fluff'
         };
 

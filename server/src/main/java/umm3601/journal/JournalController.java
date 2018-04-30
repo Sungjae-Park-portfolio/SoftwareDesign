@@ -30,51 +30,11 @@ public class JournalController extends SuperController {
         collection = database.getCollection("journals");
     }
 
-//    public String getJournal(String id) {
-//        FindIterable<Document> jsonUsers
-//            = collection
-//            .find(eq("_id", new ObjectId(id)));
-//
-//        Iterator<Document> iterator = jsonUsers.iterator();
-//        if (iterator.hasNext()) {
-//            Document user = iterator.next();
-//            return user.toJson();
-//        } else {
-//            // We didn't find the desired journal
-//            return null;
-//        }
-//    }
-//
-//    public String getJournals(Map<String, String[]> queryParams) {
-//
-//        Document filterDoc = new Document();
-//
-//        if (queryParams.containsKey("subject")) {
-//            String targetContent = (queryParams.get("subject")[0]);
-//            Document contentRegQuery = new Document();
-//            contentRegQuery.append("$regex", targetContent);
-//            contentRegQuery.append("$options", "i");
-//            filterDoc = filterDoc.append("subject", contentRegQuery);        }
-//
-//        if (queryParams.containsKey("body")) {
-//            String targetContent = (queryParams.get("body")[0]);
-//            Document contentRegQuery = new Document();
-//            contentRegQuery.append("$regex", targetContent);
-//            contentRegQuery.append("$options", "i");
-//            filterDoc = filterDoc.append("body", contentRegQuery);
-//        }
-//
-//        //FindIterable comes from mongo, Document comes from Gson
-//        FindIterable<Document> matchingJournals = collection.find(filterDoc);
-//
-//        return JSON.serialize(matchingJournals);
-//    }
-
-    public String addNewJournal(String subject, String body, String email) {
+    public String addNewJournal(String subject, String body, String userID) {
         Document newJournal = new Document();
-        newJournal.append("subject",subject);
-        newJournal.append("body",body);
-        newJournal.append("email",email);
+        newJournal.append("subject", subject);
+        newJournal.append("body", body);
+        newJournal.append("userID", userID);
 
         Date now = new Date();
         newJournal.append("date", now.toString());
