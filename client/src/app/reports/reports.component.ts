@@ -2,7 +2,7 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
 import {Emoji} from '../emoji';
 import {ReportsService} from './reports.service';
-import {MatDialog} from '@angular/material';
+import {MatTabChangeEvent} from '@angular/material';
 import { DomSanitizer } from '@angular/platform-browser';
 import {Inject} from '@angular/core';
 
@@ -69,8 +69,9 @@ export class ReportsComponent implements AfterViewInit, OnInit {
     ctx: any;
     myChart:any;
 
-    limitedPast:boolean;
+    limitedPast = false;
     graphMode = 'line';
+    chart = 'myChart';
     public inputType = "week";
 
 
@@ -86,7 +87,6 @@ export class ReportsComponent implements AfterViewInit, OnInit {
     public filterEmojis(start, end): Emoji[] {
 
         this.filteredEmojis = this.emojis;
-
 
         // Filter by startDate
         if (start != null) {
@@ -157,7 +157,8 @@ export class ReportsComponent implements AfterViewInit, OnInit {
     }
 
     filterGraphData(dateValue,mood):number{
-        let filterChartData = this.chartEmojis.filter(emoji => {
+
+        let filterChartData = this.filteredEmojis.filter(emoji => {
             return !mood.toString() || emoji.mood.toString().indexOf(mood.toString()) !== -1;
         });
 
@@ -368,7 +369,7 @@ export class ReportsComponent implements AfterViewInit, OnInit {
             stackStatus = true;
         }
 
-        this.canvas = document.getElementById("myChart");
+        this.canvas = document.getElementById(this.chart);
         this.ctx = this.canvas;
 
         let xLabel;
@@ -389,8 +390,6 @@ export class ReportsComponent implements AfterViewInit, OnInit {
 
         }
 
-        console.log(this.inputType);
-
         if (this.inputType == "week") {
             xLabel = days;
         }
@@ -403,8 +402,6 @@ export class ReportsComponent implements AfterViewInit, OnInit {
         this.moodThreeColor = "rgb(100,100,100)";
         this.moodFourColor = "rgb(255,0,0)";
         this.moodFiveColor = "rgb(255,128,0)";
-
-
 
 
         this.myChart = new Chart(this.ctx, {
@@ -472,9 +469,6 @@ export class ReportsComponent implements AfterViewInit, OnInit {
             }
         });
     }
-
-
-
 
 
 
@@ -595,8 +589,8 @@ export class ReportsComponent implements AfterViewInit, OnInit {
 */
 
     ngAfterViewInit(): void {
+        //this.buildFakeChart();
         this.buildChart();
-        //this.buildBar();
     }
 
     refreshEmojis(): Observable<Emoji[]> {
@@ -617,10 +611,18 @@ export class ReportsComponent implements AfterViewInit, OnInit {
         return emojiListObservable;
     }
 
+    public tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+        console.log(tabChangeEvent.tab.textLabel);
+        this.graphMode = 'bar';
+        this.chart = 'myBar';
+        this.buildChart();
+    }
+
 
     ngOnInit(): void {
         this.refreshEmojis();
     }
+
     isUserLoggedIN(): boolean {
         var email = localStorage.getItem('email');
         return ((email != '') && (typeof email != 'undefined'));
