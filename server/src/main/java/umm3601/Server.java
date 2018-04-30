@@ -14,8 +14,6 @@ import static spark.Spark.*;
 import static spark.debug.DebugScreen.enableDebugScreen;
 
 import spark.Route;
-import umm3601.contacts.ResourceController;
-import umm3601.contacts.ResourceRequestHandler;
 import umm3601.contact.ContactController;
 import umm3601.contact.ContactRequestHandler;
 import umm3601.emoji.EmojiController;
@@ -62,8 +60,6 @@ public class Server {
         ResponseController responseController = new ResponseController(emojiDatabase);
         ResponseRequestHandler responseRequestHandler = new ResponseRequestHandler(responseController);
 
-        ResourceController resourceController = new ResourceController(emojiDatabase);
-        ResourceRequestHandler resourceRequestHandler = new ResourceRequestHandler(resourceController);
         //Configure Spark
         port(serverPort);
         enableDebugScreen();
@@ -121,10 +117,6 @@ public class Server {
         // Response get requests
         get("api/response", responseRequestHandler::getRandomResponse);
         get("api/responses", responseRequestHandler::getResponses);
-
-        get("api/resources", resourceRequestHandler::getResources);
-        get("api/resources/:id", resourceRequestHandler::getResourceJSON);
-        post("api/resources/add", resourceRequestHandler::addNewResource);
 
         // User get requests
         get("api/users", userRequestHandler::getUsers);
