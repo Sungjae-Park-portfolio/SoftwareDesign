@@ -79,13 +79,13 @@ public class ContactRequestHandler {
                     BasicDBObject dbO = (BasicDBObject) o;
                     String id = dbO.getString("_id");
                     String name = dbO.getString("name");
-                    String email = dbO.getString("email");
+                    String userID = dbO.getString("userID");
                     String phone = dbO.getString("phone");
 
 
 //
-//                    System.err.println("Adding new resource [id=" + id + ", name=" + name + " phonenumber=" + phonenumber + "email" + email  + ']');
-                    return contactController.addNewContact( id, name, email, phone).toString();
+//                    System.err.println("Adding new resource [id=" + id + ", name=" + name + " phonenumber=" + phonenumber + "userID" + userID  + ']');
+                    return contactController.addNewContact( id, name, userID, phone).toString();
                 }
                 catch(NullPointerException e)
                 {
@@ -120,13 +120,13 @@ public class ContactRequestHandler {
 
                     String id = dbO.getString("_id");
                     String name = dbO.getString("name");
-                    String email = dbO.getString("email");
+                    String userID = dbO.getString("userID");
                     String phone = dbO.getString("phone");
 
 
 
-                    System.err.println("Editing contact [ id=" + id + ", name=" + name + ", email=" + email + ",phone=" + phone + ']');
-                    return contactController.editContact(id, name, email, phone).toString();
+                    System.err.println("Editing contact [ id=" + id + ", name=" + name + ", userID=" + userID + ",phone=" + phone + ']');
+                    return contactController.editContact(id, name, userID, phone).toString();
                 }
                 catch(NullPointerException e)
                 {

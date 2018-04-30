@@ -20,8 +20,8 @@ export class AppComponent implements OnInit {
 
 
     isUserLoggedIN(): boolean {
-        const email = localStorage.getItem('email');
-        if(email == '' || email === null) return false;
+        const userID = localStorage.getItem('userID');
+        if(userID == '' || userID === null) return false;
         else return true;
     }
 
