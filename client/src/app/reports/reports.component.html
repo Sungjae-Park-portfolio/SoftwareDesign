@@ -8,7 +8,7 @@
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
                 <mat-card-title id="charts-title">Charts Report</mat-card-title>
                 <mat-divider></mat-divider>
-
+                <mat-card-content>
                 <div layout="row" layout-align="center">
 
                         <mat-form-field>
@@ -23,17 +23,18 @@
                             <mat-datepicker-toggle matSuffix [for]="enddp"></mat-datepicker-toggle>
                             <mat-datepicker #enddp disabled="false"></mat-datepicker>
                         </mat-form-field>
-                        <!--<form>-->
-                             <!--&lt;!&ndash;# The Angular feature&ndash;&gt;-->
-                            <!--<label>Show entries across a day or week?</label>-->
+                        <form>
+                             <!--# The Angular feature&ndash-->
+                            <label>Show entries across a day or week?</label>
                         <mat-select name="dropdown" id="labelType" #input (input)="inputType = $event.target.value">
                                 <mat-option id ="Week" value="week" selected>Week</mat-option>
                                 <mat-option id ="Year" value="year">Year</mat-option>
                         </mat-select>
-                        <!--</form>-->
-                        <button mat-raised-button id="submit" (click)="buildChart()" type="button">Submit</button>
+                        </form>
+                        <button mat-button id="submit" (click)="buildChart()" type="button">Submit</button>
 
                 </div>
+                </mat-card-content>
             <a name="{{filterEmojis(startDate, endDate).length}}"></a>
 
 
