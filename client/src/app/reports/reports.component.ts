@@ -405,6 +405,8 @@ export class ReportsComponent implements AfterViewInit, OnInit {
         this.moodFourColor = "rgb(255,0,0)";
         this.moodFiveColor = "rgb(255,128,0)";
 
+        console.log(this.inputType);
+
 
         this.myChart = new Chart(this.ctx, {
             type: this.graphMode,

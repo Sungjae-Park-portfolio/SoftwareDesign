@@ -26,8 +26,8 @@
                              <!--# The Angular feature&ndash-->
                             <label>Show entries across a day or week?</label>
                         <mat-select name="dropdown" id="labelType" #input (input)="inputType = $event.target.value">
-                                <mat-option id ="Week" value="week" selected>Week</mat-option>
-                                <mat-option id ="Year" value="year">Year</mat-option>
+                                <mat-option id ="Week" value="week" selected (click)="inputType = 'week'">Week</mat-option>
+                                <mat-option id ="Year" value="year" (click)="inputType = 'year'">Year</mat-option>
                         </mat-select>
                         </form>
                         <button mat-button id="submit" (click)="buildChart()" type="button">Submit</button>
