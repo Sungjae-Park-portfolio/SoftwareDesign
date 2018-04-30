@@ -1,5 +1,5 @@
 <!-- Don't allow the user to see anything if they aren't logged in. -->
-<div *ngIf="isUserLoggedIN(); else promptLogin">
+<div *ngIf="appService.isSignedIn(); else promptLogin">
 
     <!--
     <div class="addNewResourcesDiv">
