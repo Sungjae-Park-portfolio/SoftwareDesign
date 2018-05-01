@@ -12,6 +12,17 @@
                 <mat-panel-description >Email: {{contact.email}}</mat-panel-description>
                 <mat-panel-description >Phone Number: {{contact.phone}}</mat-panel-description>
             </mat-expansion-panel>
+
+             <!--Function for favorite and unfavorite a contact -->
+            <mat-card-actions>
+                <button mat-button *ngIf="contact.favorite" class="check-buttons" (click)="editContact(contact._id['$oid'], contact.userID, contact.name, contact.email, contact.phone, true); openSnackBar(contact.name + ' Favorited', '❤️')">
+                    <mat-icon>check</mat-icon>
+                </button>
+                <button mat-button *ngIf="contact.favorite" class="edit-buttons" (click)="openDialogEdit(contact._id['$oid'],contact.userID, contact.name, contact.email, contact.phone, contact.favorite)">
+                    <mat-icon>mode_edit</mat-icon>
+                </button>
+            </mat-card-actions>
+
         </mat-accordion>
 
         <ng-template #contactError>

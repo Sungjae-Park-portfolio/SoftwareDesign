@@ -33,7 +33,14 @@ export class ContactComponent implements OnInit{
     }
 
     openDialog(): void {
-        const newContact: contact = {_id: '', name: '', email: '', phone: ''};
+        const newContact: contact = {
+            _id: '',
+            userID: '',
+            name: '',
+            email: '',
+            phone: '',
+            favorite: false
+        };
         const dialogRef = this.dialog.open(AddContactComponent, {
             width: '500px',
             data: { contact: newContact }
@@ -53,9 +60,9 @@ export class ContactComponent implements OnInit{
         });
     }
 
-    openDialogReview(_id: string, name: string, email: string, phone: string): void {
+    openDialogReview(_id: string, userID: string, name: string, email: string, phone: string, favorite: boolean): void {
         console.log(_id + ' ' + name);
-        const newContact: contact = {_id: _id, name: name, email: email, phone: phone};
+        const newContact: contact = {_id: _id, userID: userID, name: name, email: email, phone: phone, favorite: favorite};
         const dialogRef = this.dialog.open(EditContactComponent, {
             width: '500px',
             data: {contact: newContact}
