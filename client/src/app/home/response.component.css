@@ -1,5 +1,17 @@
-.mat-dialog-container {
-    width: 150%;
+#responseGetButton {
+    margin-bottom: 10px;
+}
+#response1, #response2, #response3, #response4, #response5{
+    margin-bottom: 0px;
 }
 
+.response, #embed{
+    width: 30rem;
+    height: 50vh;
+    max-width: 100%;
+}
 
+body{
+    width: 100%;
+    height: 100%;
+}
