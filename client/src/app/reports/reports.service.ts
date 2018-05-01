@@ -21,6 +21,7 @@ export class ReportsService {
         return this.http.get<Emoji[]>(this.emojiUrl);
     }
 
+
     filterByUserID(userID?: string): void {
         if(!(userID == null || userID === '')) {
             if (this.parameterPresent('userID=') ) {

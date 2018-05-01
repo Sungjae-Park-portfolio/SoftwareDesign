@@ -87,4 +87,27 @@ describe('Report service: ', () => {
         // actually being performed.
         req.flush(testEmojis);
     });
+
+
+
+    it('filterByUserID(userID) deals appropriately with a URL that already had an ID', () => {
+        currentlyImpossibleToGenerateSearchEmojiUrl = reportsListService.baseUrl + '?userID=123456&something=k&';
+        reportsListService['emojiUrl'] = currentlyImpossibleToGenerateSearchEmojiUrl;
+        reportsListService.filterByUserID('123456');
+        expect(reportsListService['emojiUrl']).toEqual(reportsListService.baseUrl + '?something=k&userID=123456&');
+    });
+
+    it('ffilterByUserID(userID) deals appropriately with a URL that already had some filtering, but no user id', () => {
+        currentlyImpossibleToGenerateSearchEmojiUrl = reportsListService.baseUrl + '?something=k&';
+        reportsListService['emojiUrl'] = currentlyImpossibleToGenerateSearchEmojiUrl;
+        reportsListService.filterByUserID('123456');
+        expect(reportsListService['emojiUrl']).toEqual(reportsListService.baseUrl + '?something=k&userID=123456&');
+    });
+
+    it('filterByUserID(userID) deals appropriately with a URL has the user id, but nothing after the =', () => {
+        currentlyImpossibleToGenerateSearchEmojiUrl= reportsListService.baseUrl + '?userID=&';
+        reportsListService['emojiUrl'] = currentlyImpossibleToGenerateSearchEmojiUrl;
+        reportsListService.filterByUserID('');
+        expect(reportsListService['emojiUrl']).toEqual(reportsListService.baseUrl + '');
+    });
 });

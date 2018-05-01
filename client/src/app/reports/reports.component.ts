@@ -4,8 +4,6 @@ import {ReportsService} from "./reports.service";
 import {AppService} from "../app.service";
 import {Emoji} from '../emoji';
 import {MatTabChangeEvent} from '@angular/material';
-import { DomSanitizer } from '@angular/platform-browser';
-import {Inject} from '@angular/core';
 
 import * as Chart from 'chart.js';
 
@@ -130,33 +128,6 @@ export class ReportsComponent implements AfterViewInit, OnInit {
         return this.pastYearEmojis;
     }
 
-
-
-    public clearDateFilter(){
-        this.startDate = null;
-        this.endDate = null;
-    }
-
-    //get current date
-    getdate(): string{
-        return Date();
-    }
-
-    filterChart(mood:number,startDay:any,endDay:any): Emoji[] {
-        this.chartEmojis = this.prefilteredEmojis;
-        if(this.chartEmojis == null){
-            this.chartEmojis = [];
-        }
-
-        // Filter by mood
-        this.chartEmojis = this.chartEmojis.filter(emoji => {
-            return !mood.toString() || emoji.mood.toString().indexOf(mood.toString()) !== -1;
-        });
-
-        this.chartEmojis = this.filterEmojis(startDay,endDay);
-
-        return this.chartEmojis;
-    }
 
     filterGraphData(dateValue,mood):number{
 
@@ -484,113 +455,6 @@ export class ReportsComponent implements AfterViewInit, OnInit {
      * Starts an asynchronous operation to update the emojis list
      *
      */
-/*
-
-    buildChartData() {
-        let days = ['Sun', 'Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat'];
-
-        let one_daily_totals = {"label":"Frustrated/Angry",
-            "data":[
-                this.filterChart('Sun', '1'),
-                this.filterChart('Mon', '1'),
-                this.filterChart('Tue', '1'),
-                this.filterChart('Wed', '1'),
-                this.filterChart('Thu', '1'),
-                this.filterChart('Fri', '1'),
-                this.filterChart('Sat', '1')
-            ],
-            "fill":false,
-            "borderColor":"rgb(0, 0, 100)",
-            "lineTension":0.1};
-
-        let two_daily_totals = {"label":"Worried/Anxious",
-            "data":[
-                this.filterChart('Sun', '2'),
-                this.filterChart('Mon', '2'),
-                this.filterChart('Tue', '2'),
-                this.filterChart('Wed', '2'),
-                this.filterChart('Thu', '2'),
-                this.filterChart('Fri', '2'),
-                this.filterChart('Sat', '2')
-            ],
-            "fill":false,
-            "borderColor":"rgb(0, 100, 0)",
-            "lineTension":0.1};
-
-        let three_daily_totals = {"label":"Happy/Content/Ecstatic",
-            "data":[
-                this.filterChart('Sun', '3'),
-                this.filterChart('Mon', '3'),
-                this.filterChart('Tue', '3'),
-                this.filterChart('Wed', '3'),
-                this.filterChart('Thu', '3'),
-                this.filterChart('Fri', '3'),
-                this.filterChart('Sat', '3')
-            ],
-            "fill":false,
-            "borderColor":"rgb(100, 0, 0)",
-            "lineTension":0.1};
-
-        let four_daily_totals = {"label":"Meh/Bleh",
-            "data":[
-                this.filterChart('Sun', '4'),
-                this.filterChart('Mon', '4'),
-                this.filterChart('Tue', '4'),
-                this.filterChart('Wed', '4'),
-                this.filterChart('Thu', '4'),
-                this.filterChart('Fri', '4'),
-                this.filterChart('Sat', '4')
-            ],
-            "fill":false,
-            "borderColor":"rgb(100, 100, 100)",
-            "lineTension":0.1};
-
-        let five_daily_totals = {"label":"Unhappy/Sad/Miserable",
-            "data":[
-                this.filterChart('Sun', '5'),
-                this.filterChart('Mon', '5'),
-                this.filterChart('Tue', '5'),
-                this.filterChart('Wed', '5'),
-                this.filterChart('Thu', '5'),
-                this.filterChart('Fri', '5'),
-                this.filterChart('Sat', '5')
-            ],
-            "fill":false,
-            "borderColor":"rgb(200, 100, 50)",
-            "lineTension":0.1};
-
-        return { labels: days, datasets: [
-
-            one_daily_totals,
-            two_daily_totals,
-            three_daily_totals,
-            four_daily_totals,
-            five_daily_totals,
-
-        ]};
-    }
-
-    buildChart(): void {
-        this.canvas = document.getElementById("myChart");
-        this.ctx = this.canvas;
-        let data = this.buildChartData();
-
-
-        let myChart = new Chart(this.ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero:true
-                        }
-                    }]
-                }
-            }
-        });
-    }
-*/
 
     ngAfterViewInit(): void {
         //this.buildFakeChart();

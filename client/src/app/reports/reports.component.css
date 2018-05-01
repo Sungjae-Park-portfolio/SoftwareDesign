@@ -32,3 +32,12 @@
     margin:0 auto;
     max-width: 90vh;
 }
+
+#labelDayWeek{
+    font-family:"Times New Roman", Times, serif;
+    font-size: 18px;
+}
+
+#submit{
+    background-color: darkorange;
+}
