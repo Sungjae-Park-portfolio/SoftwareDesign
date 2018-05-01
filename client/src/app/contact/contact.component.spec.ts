@@ -27,20 +27,20 @@ describe('Contact list', () => {
                 {
                     _id: '5ab2bc3742f5a7b6f0f48626',
                     name: 'Robert Ward',
-                    userID: '258771',
+                    email: 'Ladonna@ Benson.com',
                     phone: '(891) 411-3124',
 
                 },
                 {
                     _id: '5ab2bc37bc8681f8f0ddf797',
                     name: 'Thomas Franco',
-                    userID: '258993',
+                    email: 'Lila@ Browning.com',
                     phone: '(803) 525-2495',
                 },
                 {
                     _id: '5ab2bc370290adc56f8065fc',
                     name: 'Wood Aguirre',
-                    userID: '122586',
+                    email: 'Alford@ Beard.com',
                     phone: '(862) 433-3136',
                 }
             ])
@@ -76,8 +76,8 @@ describe('Contact list', () => {
         expect(contactsList.contact.some((contacts: contact) => contacts.name === 'Santa')).toBe(false);
     });
 
-    it('has two contact with userID', () => {
-        expect(contactsList.contact.filter((contacts: contact) => contacts.userID === '258771').length).toBe(1);
+    it('has two contact with email', () => {
+        expect(contactsList.contact.filter((contacts: contact) => contacts.email === 'Ladonna@ Benson.com').length).toBe(1);
     });
 
     it('contact list filters by name', () => {
@@ -135,7 +135,7 @@ describe('Adding a contacts', () => {
     const newContact: contact = {
         _id: '5ab2bc37e194ff1f2434eb46',
         name: 'test man',
-        userID: "561489",
+        email: "fefwaefjj@gsfewf.com",
         phone: "1715611615161"
     };
     const newId = 'new_id';

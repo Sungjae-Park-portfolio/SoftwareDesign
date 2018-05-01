@@ -14,21 +14,21 @@ describe('Contact list service: ', () => {
             _id: '5ab2bc3742f5a7b6f0f48626',
             name: 'Lir Fealladh',
             phone: '555-555-5550',
-            userID: '123456'
+            email: 'Lir@Fealladh.com'
 
         },
         {
             _id: '5ab2bc37bc8681f8f0ddf797',
             name: 'Reina',
             phone: '555-555-5551',
-            userID: '456789'
+            email: 'Reina@myfriend.com'
 
         },
         {
             _id: '5ab2bc370290adc56f8065fc',
             name: 'Suicide Prevention Lifeline',
             phone: '1-800-555-5555',
-            userID: '789123'
+            email: 'preventsuicide@lifeline.org'
 
         }
     ];
@@ -77,7 +77,7 @@ describe('Contact list service: ', () => {
         );
 
         // Specify that (exactly) one request will be made to the specified URL.
-        const req = httpTestingController.expectOne(contactService.baseUrl + '?userID=');
+        const req = httpTestingController.expectOne(contactService.baseUrl + '?email=');
         // Check that the request made to that URL was a GET request.
         expect(req.request.method).toEqual('GET');
         // Specify the content of the response to that request. This
@@ -105,7 +105,7 @@ describe('Contact list service: ', () => {
             _id: '5ab2bc37e194ff1f2434eb46',
             name: 'Bryon',
             phone: "555-555-5552",
-            userID: "147850",
+            email: "bryonotherbestfriend.gov",
         };
 
         contactService.addContact(newContact).subscribe(

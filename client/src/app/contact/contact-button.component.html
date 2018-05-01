@@ -4,12 +4,12 @@
         <mat-divider></mat-divider>
 
         <mat-accordion *ngIf="contact; else contactError" >
-            <mat-expansion-panel #elem class="contact" [id]="contact.userID"  *ngFor="let contact of this.filterContact(contactName)">
+            <mat-expansion-panel #elem class="contact" [id]="contact.email"  *ngFor="let contact of this.filterContact(contactName)">
                 <mat-expansion-panel-header>
                     <mat-panel-title id="test" matTooltip="ID: {{contact._id['$oid']}}" >{{contact.name}}</mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-panel-description >Name: {{contact.name}}</mat-panel-description>
-                <mat-panel-description >UserID: {{contact.userID}}</mat-panel-description>
+                <mat-panel-description >Email: {{contact.email}}</mat-panel-description>
                 <mat-panel-description >Phone Number: {{contact.phone}}</mat-panel-description>
             </mat-expansion-panel>
         </mat-accordion>
