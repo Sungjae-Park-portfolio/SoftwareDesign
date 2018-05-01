@@ -11,14 +11,7 @@
                 <div layout="row" layout-align="center">
 
 
-                    <form>
-                        <!--# The Angular feature&ndash-->
-                        <label id="labelDayWeek">Show entries across a day or week? </label>
-                        <mat-select name="dropdown" id="labelType" #input (input)="inputType = $event.target.value">
-                            <mat-option id ="Week" value="week" selected (click)="inputType = 'week'">Week</mat-option>
-                            <mat-option id ="Year" value="year" (click)="inputType = 'year'">Year</mat-option>
-                        </mat-select>
-                    </form>
+
 
                         <mat-form-field>
                             <input matInput [(ngModel)]="startDate" (oninput)="buildChart()"
@@ -32,6 +25,17 @@
                             <mat-datepicker-toggle matSuffix [for]="enddp"></mat-datepicker-toggle>
                             <mat-datepicker #enddp disabled="false"></mat-datepicker>
                         </mat-form-field>
+
+                    <form>
+                        <!--# The Angular feature&ndash-->
+                        <label id="labelDayWeek">    Show entries across a day or week? </label>
+                        <mat-select name="dropdown" id="labelType" #input (input)="inputType = $event.target.value">
+                            <mat-option id ="Week" value="week" selected (click)="inputType = 'week'">Week</mat-option>
+                            <mat-option id ="Year" value="year" (click)="inputType = 'year'">Year</mat-option>
+                        </mat-select>
+                    </form>
+                    <br>
+                    <br/>
 
 
                         <button mat-button id="submit" (click)="buildChart()" type="button">Submit</button>
