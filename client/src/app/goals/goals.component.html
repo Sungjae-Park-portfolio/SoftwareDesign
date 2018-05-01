@@ -63,10 +63,10 @@
                                 -->
                             </mat-card-content>
                             <mat-card-actions>
-                                <button mat-button *ngIf="!goal.status" class="check-buttons" (click)="editGoal(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, goal.email, true); openSnackBar(goal.name + ' Completed', '✔️')">
+                                <button mat-button *ngIf="!goal.status" class="check-buttons" (click)="editGoal(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, true); openSnackBar(goal.name + ' Completed', '✔️')">
                                     <mat-icon>check</mat-icon>
                                 </button>
-                                <button mat-button *ngIf="!goal.status" class="edit-buttons" (click)="openDialogEdit(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, goal.email, goal.status);">
+                                <button mat-button *ngIf="!goal.status" class="edit-buttons" (click)="openDialogEdit(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, goal.status);">
                                     <mat-icon>mode_edit</mat-icon>
                                 </button>
                             </mat-card-actions>
@@ -95,7 +95,7 @@
                                 -->
                             </mat-card-content>
                             <mat-card-actions>
-                                <button mat-button *ngIf="!goal.status" (click)="editGoal(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, goal.email, true)">Complete Goal</button>
+                                <button mat-button *ngIf="!goal.status" (click)="editGoal(goal._id['$oid'], goal.name, goal.owner, goal.body, goal.category, goal.startDate, goal.endDate, goal.frequency, true)">Complete Goal</button>
                             </mat-card-actions>
                         </mat-card>
                     </div>
