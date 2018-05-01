@@ -6,7 +6,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddContactComponent} from "./add-contact.component";
 import {EditContactComponent} from "./edit-contact.component";
 
-
 @Component({
     selector: 'contact-component',
     templateUrl: 'contact.component.html',
@@ -20,6 +19,7 @@ export class ContactComponent implements OnInit{
     // These are the target values used in searching.
     // We should rename them to make that clearer.
     public contactName: string;
+    public selectedContact: contact;
 
     private highlightedID: {'$oid': string} = { '$oid': '' };
 
@@ -53,17 +53,40 @@ export class ContactComponent implements OnInit{
         });
     }
 
-    openDialogReview(_id: string, name: string, email: string, phone: string): void {
-        console.log(_id + ' ' + name);
-        const newContact: contact = {_id: _id, name: name, email: email, phone: phone};
+
+
+    //trying
+
+
+    openDialogSelect(): void {
+        const newContact: contact = {_id: '', name: '', email: '', phone: ''};
+        const dialogRef = this.dialog.open(AddContactComponent, {
+            width: '500px',
+            data: { journal: newContact }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if(result != null) {
+                this.selectedContact = result;
+            }
+        });
+    }
+
+
+    openDialogReview(editeContact: contact): void {
+        console.log(editeContact._id + ' ' + editeContact.name);
         const dialogRef = this.dialog.open(EditContactComponent, {
             width: '500px',
-            data: {contact: newContact}
+            data: { contact: editeContact }
         });
+
         dialogRef.afterClosed().subscribe(result => {
             this.contactService.editContact(result).subscribe(
                 editContactResult => {
-                    this.highlightedID = editContactResult;
+
+                    if(result != null) {
+                        this.selectedContact = result;
+                    }
                     this.refreshContact();
                 },
                 err => {
@@ -72,6 +95,34 @@ export class ContactComponent implements OnInit{
                     console.log('The error was ' + JSON.stringify(err));
                 });
         });
+    }
+
+    deleteContact(_id: string){
+        this.contactService.deleteContact(_id).subscribe(
+            contact => {
+                this.refreshContact();
+                this.loadService();
+                this.selectedContact = null;
+            },
+            err => {
+                console.log(err);
+                this.refreshContact();
+                this.loadService();
+                this.selectedContact = null;
+            }
+        );
+    }
+
+    loadService(): void {
+        this.contactService.getContact('').subscribe(
+            contact => {
+                this.contact = contact;
+                this.filteredContact = this.contact;
+            },
+            err => {
+                console.log(err);
+            }
+        );
     }
 
     public filterContact(searchName): contact[] {

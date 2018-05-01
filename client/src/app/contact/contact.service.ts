@@ -37,15 +37,28 @@ export class ContactService {
         }
         return this.http.get<contact[]>(this.contactUrl);
     }
-    editContact(id: string): Observable<{'$oid': string}> {
+    editContact(editedContact: contact): Observable<{'$oid': string}> {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             }),
         };
 
-        console.log(id);
+        console.log(editedContact);
         // Send post request to add a new journal with the journal data as the body with specified headers.
-        return this.http.post<{'$oid': string}>(this.contactUrl + '/edit', id, httpOptions);
+        return this.http.post<{'$oid': string}>(this.contactUrl + '/edit', editedContact, httpOptions);
+    }
+
+    deleteContact(id: string): Observable<{'$oid': string}>{
+        console.log ("here!");
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            }),
+        };
+
+        console.log(this.baseUrl + '/delete/' + id);
+        console.log(this.http.delete(this.baseUrl + '/delete/' + id, httpOptions));
+        return this.http.delete<{'$oid': string}>(this.contactUrl + '/delete/' + id, httpOptions);
     }
 }

@@ -146,6 +146,8 @@ describe('Adding a contacts', () => {
     let contactListServiceStub: {
         getContact: () => Observable<contact[]>,
         addNewContact: (newContact: contact) => Observable<{'$oid': string}>
+        editContact: (editedContact: contact) => Observable<contact>,
+        deleteContact: (id: string) => Observable<{'$oid': string}>
     };
     let mockMatDialog: {
         open: (AddContactComponent, any) => {
@@ -162,6 +164,16 @@ describe('Adding a contacts', () => {
                 calledContact = contactsToAdd;
                 return Observable.of({
                     '$oid': newId
+                });
+            },
+            editContact: (editedContact: contact) => {
+                calledContact = editedContact;
+                return Observable.of(editedContact);
+            },
+            deleteContact: (id: string) => {
+                calledContact = null;
+                return Observable.of({
+                    '$oid': id
                 });
             },
         };
@@ -192,4 +204,30 @@ describe('Adding a contacts', () => {
             fixture.detectChanges();
         });
     }));
+
+    it('calls ContactService.addContact', () => {
+        expect(calledContact).toBeNull();
+        contactsList.openDialog();
+        expect(calledContact).toEqual(newContact);
+    });
+
+    it('calls ContactService.editContact', () => {
+        expect(calledContact).toBeNull();
+        contactsList.openDialogReview(newContact);
+        expect(calledContact).toEqual(newContact);
+    });
+
+    it('calls ContactService.deleteContact', () => {
+        calledContact = newContact;
+        expect(calledContact).toEqual(newContact);
+        contactsList.deleteContact(newContact._id);
+        expect(calledContact).toBeNull();
+    });
+
+    it('updates selected journal when the dialog is closed', () => {
+        expect(contactsList.selectedContact).toBeUndefined();
+        contactsList.openDialogSelect(); // will 'select' newJournal
+        expect(contactsList.selectedContact).toEqual(newContact);
+    });
+
 });

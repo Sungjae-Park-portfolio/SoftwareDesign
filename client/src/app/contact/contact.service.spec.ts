@@ -120,4 +120,44 @@ describe('Contact list service: ', () => {
         expect(req.request.method).toEqual('POST');
         req.flush(bryon_id);
     });
+
+    it('editContact calls api/contact/edit', () => {
+        const bryon_id = { '$oid': 'bryon_id' };
+        const editedContact : contact = {
+            _id: '5ab2bc37e194ff1f2434eb46',
+            name: 'Bryon',
+            phone: "555-666-5552",
+            email: "bryonotherbestfriend.gov",
+        };
+
+        contactService.editContact(editedContact).subscribe(
+            res => {
+                expect(res).toBe(bryon_id);
+            }
+        );
+
+        const expectedUrl: string = contactService.baseUrl + '/edit';
+        const req = httpTestingController.expectOne(expectedUrl);
+        console.log(req);
+        expect(req.request.method).toEqual('POST');
+        expect(req.request.body).toEqual(editedContact);
+        req.flush(bryon_id);
+    });
+
+    it('deleteJournal calls api/journals/delete/id', () => {
+        const bryon_id = { '$oid': 'pennington_id' };
+
+
+        contactService.deleteContact(bryon_id['$oid']).subscribe(
+            res => {
+                expect(res).toBe(bryon_id);
+            }
+        );
+
+        const expectedUrl: string = contactService.baseUrl + '/delete/' + bryon_id['$oid'];
+        const req = httpTestingController.expectOne(expectedUrl);
+        console.log(req);
+        expect(req.request.method).toEqual('DELETE');
+        req.flush(bryon_id);
+    });
 });
