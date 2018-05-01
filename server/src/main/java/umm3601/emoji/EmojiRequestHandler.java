@@ -80,7 +80,7 @@ public class EmojiRequestHandler {
                     int mood = dbO.getInt("mood");
                     int intensity = dbO.getInt("intensity");
 
-                    System.err.println("Adding new emoji [owner=" + userID + ", mood=" + mood +
+                    System.err.println("Adding new emoji [userID=" + userID + ", mood=" + mood +
                         "intensity= " + intensity +']');
                     return emojiController.addNewEmoji(userID, mood, intensity);
                 }

@@ -66,14 +66,14 @@ export class AppComponent implements OnInit {
         this.http.post(environment.API_URL + "login", {code: code}, httpOptions)
             .subscribe(onSuccess => {
                 console.log("Code sent to server");
-                window.location.reload();
-                console.log('User id: ' + onSuccess["_id"]["$oid"]);
+                console.log('User id: ' + onSuccess["_id"]);
                 console.log(onSuccess["FirstName"]);
                 console.log(onSuccess["LastName"]);
                 localStorage.setItem('isSignedIn', 'true');
                 localStorage.setItem("userID", onSuccess["_id"]["$oid"]);
                 localStorage.setItem("userFirstName", onSuccess["FirstName"]);
                 localStorage.setItem("userLastName", onSuccess["LastName"]);
+                location.reload();
             }, onFail => {
                 console.log("ERROR: Code couldn't be sent to the server");
             });
