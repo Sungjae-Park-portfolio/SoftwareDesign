@@ -158,6 +158,7 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.emoji.ownerFirstName = localStorage.getItem('userFirstName');
         this.emoji.userID = localStorage.getItem('userID');
     }
 
