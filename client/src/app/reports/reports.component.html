@@ -19,7 +19,7 @@
                             <mat-option id ="Year" value="year" (click)="inputType = 'year'">Year</mat-option>
                         </mat-select>
                     </form>
-                    
+
                         <mat-form-field>
                             <input matInput [(ngModel)]="startDate" (oninput)="buildChart()"
                                    [matDatepicker]="startdp" placeholder="Start Date" disabled>
