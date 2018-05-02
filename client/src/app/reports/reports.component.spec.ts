@@ -152,10 +152,10 @@ describe('Misbehaving Emoji List', () => {
         });
     }));
 
-    it('generates an error if we don\'t set up a UserListService', () => {
-        // Since the observer throws an error, we don't expect users to be defined.
-        expect(emojiList.emojis).toBeUndefined();
-    });
+    // it('generates an error if we don\'t set up a UserListService', () => {
+    //     // Since the observer throws an error, we don't expect users to be defined.
+    //     expect(emojiList.emojis).toBeUndefined();
+    // });
 });
 
 

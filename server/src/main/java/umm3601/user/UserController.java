@@ -108,7 +108,15 @@ public class UserController extends SuperController {
                 collection.insertOne(newUser);
                 System.err.println("Successfully added new user [_id=" + id + ", userID=" + userID + " FirstName=" + FirstName + " LastName=" + LastName + ']');
                 // return JSON.serialize(newUser);
-                return JSON.serialize(id);
+                //return JSON.serialize(id);
+
+                //assumes there will only be 1 user returned
+                Document userInfo = new Document();
+                userInfo.append("_id", matchingUsers.first().get("_id"));
+                userInfo.append("FirstName", matchingUsers.first().get("FirstName"));
+                userInfo.append("LastName", matchingUsers.first().get("LastName"));
+
+                return JSON.serialize(userInfo);
             } catch(MongoException me) {
                 me.printStackTrace();
                 return null;
