@@ -117,7 +117,7 @@ public class ContactController  extends SuperController{
         Document searchQuery = new Document().append("_id", new ObjectId(id));
 
         try {
-            collection.deleteOne(searchQuery);
+            contactCollection.deleteOne(searchQuery);
             ObjectId id1 = searchQuery.getObjectId("_id");
             System.out.println("Succesfully deleted contact " + id1);
 
