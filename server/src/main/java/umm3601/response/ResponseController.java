@@ -64,12 +64,14 @@ public class ResponseController extends SuperController{
 
     @Override
     public String getItems(Map<String, String[]> queryParams) {
+        System.out.println("Using the overriding getItems");
         Document filterDoc = new Document();
 
-        if (queryParams.containsKey("email")) {
-            String targetEmail = (queryParams.get("email")[0]);
-            filterDoc = filterDoc.append("email", "default");
-            filterDoc = filterDoc.append("email", targetEmail);
+        if (queryParams.containsKey("userID")) {
+            String targetUserID = (queryParams.get("userID")[0]);
+            System.out.println("This is the targetUserID for responses: " + targetUserID);
+            filterDoc = filterDoc.append("userID", "default");
+            filterDoc = filterDoc.append("userID", targetUserID);
         }
 
         FindIterable<Document> matchingItems = collection.find(filterDoc);
@@ -83,12 +85,12 @@ public class ResponseController extends SuperController{
         Document filterdoc = new Document();
         Document defaultDoc = new Document();
 
-        // this uses aggregation to choose inclusive or of having default as email or the
-        // user's email
-        if (queryParams.containsKey("email")) {
-            String targetEmail = (queryParams.get("email")[0]);
-            filterdoc = filterdoc.append("email", targetEmail);
-            defaultDoc = defaultDoc.append("email", "default");
+        // this uses aggregation to choose inclusive or of having default as userID or the
+        // user's userID
+        if (queryParams.containsKey("userID")) {
+            String targetuserID = (queryParams.get("userID")[0]);
+            filterdoc = filterdoc.append("userID", targetuserID);
+            defaultDoc = defaultDoc.append("userID", "default");
             filterdoc = new Document("$or", Arrays.asList(filterdoc, defaultDoc));
         }
 
