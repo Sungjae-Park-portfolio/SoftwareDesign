@@ -14,6 +14,7 @@ import {ContactComponent} from "./contact.component"
 export class ContactService {
     readonly baseUrl: string = environment.API_URL + 'contact';
     private contactUrl: string = this.baseUrl;
+    private userID: string = localStorage.getItem('userID');
 
     constructor(private http: HttpClient) {
     }
@@ -49,7 +50,23 @@ export class ContactService {
         return this.http.post<{'$oid': string}>(this.contactUrl + '/edit', editedContact, httpOptions);
     }
 
-    deleteContact(id: string): Observable<{'$oid': string}>{
+    private parameterPresent(searchParam: string) {
+        return this.contactUrl.indexOf(searchParam) !== -1;
+    }
+
+    private removeParameter(searchParam: string) {
+        const start = this.contactUrl.indexOf(searchParam);
+        let end = 0;
+        if (this.contactUrl.indexOf('&') !== -1) {
+            end = this.contactUrl.indexOf('&', start) + 1;
+        } else {
+            end = this.contactUrl.indexOf('&', start);
+        }
+        this.contactUrl = this.contactUrl.substring(0, start) + this.contactUrl.substring(end);
+    }
+
+
+    deleteContact(id: string){
         console.log ("here!");
         const httpOptions = {
             headers: new HttpHeaders({
@@ -57,8 +74,14 @@ export class ContactService {
             }),
         };
 
+        if(this.parameterPresent('userID')){
+            this.removeParameter('userID');
+            let locationOfQuestionMark = this.contactUrl.indexOf('?');
+            this.contactUrl = this.contactUrl.substring(0, locationOfQuestionMark) + this.contactUrl.substring(locationOfQuestionMark + 1, this.contactUrl.length)
+        }
+
         console.log(this.baseUrl + '/delete/' + id);
-        console.log(this.http.delete(this.baseUrl + '/delete/' + id, httpOptions));
-        return this.http.delete<{'$oid': string}>(this.contactUrl + '/delete/' + id, httpOptions);
+        console.log(id);
+        return this.http.delete(this.contactUrl + '/delete/' + id, httpOptions);
     }
 }
