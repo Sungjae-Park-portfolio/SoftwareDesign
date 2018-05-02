@@ -37,7 +37,8 @@ export class ContactService {
         }
         return this.http.get<contact[]>(this.contactUrl);
     }
-    editContact(id: string): Observable<{'$oid': string}> {
+
+    editContact(id: contact): Observable<{'$oid': string}> {
         const httpOptions = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'

@@ -77,15 +77,16 @@ public class ContactRequestHandler {
             {
                 try {
                     BasicDBObject dbO = (BasicDBObject) o;
-                    String id = dbO.getString("_id");
+                    String userID = dbO.getString("userID");
                     String name = dbO.getString("name");
                     String email = dbO.getString("email");
                     String phone = dbO.getString("phone");
+                    Boolean favorite = Boolean.parseBoolean(dbO.getString("favorite"));
 
 
 //
-//                    System.err.println("Adding new resource [id=" + id + ", name=" + name + " phonenumber=" + phonenumber + "email" + email  + ']');
-                    return contactController.addNewContact( id, name, email, phone).toString();
+//                    System.err.println("Adding new resource [userID=" + userID + ", name=" + name + " phonenumber=" + phonenumber + "email" + email  + ']');
+                    return contactController.addNewContact( userID, name, email, phone, favorite).toString();
                 }
                 catch(NullPointerException e)
                 {
@@ -122,11 +123,12 @@ public class ContactRequestHandler {
                     String name = dbO.getString("name");
                     String email = dbO.getString("email");
                     String phone = dbO.getString("phone");
+                    Boolean favorite = Boolean.parseBoolean(dbO.getString("favorite"));
 
 
 
                     System.err.println("Editing contact [ id=" + id + ", name=" + name + ", email=" + email + ",phone=" + phone + ']');
-                    return contactController.editContact(id, name, email, phone).toString();
+                    return contactController.editContact(id, name, email, phone, favorite).toString();
                 }
                 catch(NullPointerException e)
                 {

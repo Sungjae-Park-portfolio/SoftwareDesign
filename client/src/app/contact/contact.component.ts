@@ -5,6 +5,7 @@ import {ContactService} from "./contact.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddContactComponent} from "./add-contact.component";
 import {EditContactComponent} from "./edit-contact.component";
+import {AppService} from "../app.service";
 
 
 @Component({
@@ -25,9 +26,10 @@ export class ContactComponent implements OnInit{
 
 
     // Inject the ResourcesListService into this component.
-    constructor(public contactService: ContactService, public dialog: MatDialog) {
+    constructor(public contactService: ContactService, public appService: AppService, public dialog: MatDialog) {
 
     }
+
     isHighlighted(contact: contact): boolean {
         return contact._id['$oid'] === this.highlightedID['$oid'];
     }
@@ -35,7 +37,7 @@ export class ContactComponent implements OnInit{
     openDialog(): void {
         const newContact: contact = {
             _id: '',
-            userID: '',
+            userID: localStorage.getItem('userID'),
             name: '',
             email: '',
             phone: '',
@@ -79,6 +81,18 @@ export class ContactComponent implements OnInit{
                     console.log('The error was ' + JSON.stringify(err));
                 });
         });
+    }
+
+    public favoriteContact(_id: string, name: string, email: string, phone: string){
+
+        const updatedContact: contact = {_id: _id, userID: localStorage.getItem('userID'), name: name, email: email, phone: phone, favorite: true}
+        this.contactService.editContact(updatedContact).subscribe(
+            editContactResult => {
+                this.highlightedID = editContactResult;
+                this.refreshContact();
+            }
+        )
+
     }
 
     public filterContact(searchName): contact[] {
