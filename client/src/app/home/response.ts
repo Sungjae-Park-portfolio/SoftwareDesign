@@ -3,4 +3,5 @@ export interface Response {
     link: string;
     userID: string;
     name: string;
+    linkedEmotions: string[];
 }

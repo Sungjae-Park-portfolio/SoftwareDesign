@@ -11,6 +11,19 @@
                 <mat-form-field>
                     <input matInput #inputLink id="linkField" placeholder="Add your link here" [(ngModel)]="data.response.link">
                 </mat-form-field>
+                <mat-form-field>
+                    Select which emotions this response will appear for:
+                    <br>
+                    <input type="checkbox" id="happyResponse" name="Happy" value="happy" checked> Happy
+                    <br>
+                    <input type="checkbox" id="mehResponse" name="Meh" value="meh" checked> Meh
+                    <br>
+                    <input type="checkbox" id="sadResponse" name="Sad" value="sad" checked> Sad
+                    <br>
+                    <input type="checkbox" id="frustratedResponse" name="Frustrated" value="frustrated" checked> Frustrated/Angry
+                    <br>
+                    <input type="checkbox" id="anxiousResponse" name="Anxious" value="anxious" checked> Nervous/Anxious
+                </mat-form-field>
 
                 <button mat-button id="confirmAddResponseButton" [mat-dialog-close]="data.response" type="button">Add response</button>
             </mat-card-content>

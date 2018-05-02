@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     public userFirstName: string = localStorage.getItem('userFirstName');
     public emoji: Emoji = {_id: '', userID: this.userID,
         ownerFirstName: this.userFirstName, date: null, mood: 3, intensity: 1};
-    public response: Response = {_id: '', link: '', userID: this.userID, name: ''};
+    public response: Response = {_id: '', link: '', userID: this.userID, name: '', linkedEmotions: []};
     public emojis: Emoji[];
     public lastMood = 3;
     public lastIntensity = 1;
@@ -105,6 +105,7 @@ export class HomeComponent implements OnInit {
                 name: '',
                 link: '',
                 userID: localStorage.getItem('userID'),
+                linkedEmotions: []
             };
         const dialogRef = this.dialog.open(AddResponseComponent, {
             width: '500px',
