@@ -15,6 +15,7 @@ export class ContactComponent implements OnInit{
     // These are public so that tests can reference them (.spec.ts)
     public contact: contact[];
     public filteredContact: contact[];
+    public userID: string = localStorage.getItem('userID');
 
     // These are the target values used in searching.
     // We should rename them to make that clearer.
@@ -33,7 +34,7 @@ export class ContactComponent implements OnInit{
     }
 
     openDialog(): void {
-        const newContact: contact = {_id: '', name: '', email: '', phone: ''};
+        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID: this.userID};
         const dialogRef = this.dialog.open(AddContactComponent, {
             width: '500px',
             data: { contact: newContact }
@@ -59,7 +60,7 @@ export class ContactComponent implements OnInit{
 
 
     openDialogSelect(): void {
-        const newContact: contact = {_id: '', name: '', email: '', phone: ''};
+        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID:this.userID};
         const dialogRef = this.dialog.open(AddContactComponent, {
             width: '500px',
             data: { journal: newContact }
@@ -73,20 +74,17 @@ export class ContactComponent implements OnInit{
     }
 
 
-    openDialogReview(editeContact: contact): void {
-        console.log(editeContact._id + ' ' + editeContact.name);
+    openDialogReview(_id: string, name : string, email : string, phone : string): void {
+        const editContact: contact = {_id: _id, name: name, email: email, phone: phone, userID: this.userID};
+
         const dialogRef = this.dialog.open(EditContactComponent, {
             width: '500px',
-            data: { contact: editeContact }
+            data: { contact: editContact }
         });
 
         dialogRef.afterClosed().subscribe(result => {
             this.contactService.editContact(result).subscribe(
                 editContactResult => {
-
-                    if(result != null) {
-                        this.selectedContact = result;
-                    }
                     this.refreshContact();
                 },
                 err => {
