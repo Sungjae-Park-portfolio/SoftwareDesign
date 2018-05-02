@@ -102,13 +102,11 @@ export class ContactComponent implements OnInit{
             contact => {
                 this.refreshContact();
                 this.loadService();
-                this.selectedContact = null;
             },
             err => {
                 console.log(err);
                 this.refreshContact();
                 this.loadService();
-                this.selectedContact = null;
             }
         );
     }
