@@ -14,21 +14,24 @@ describe('Contact list service: ', () => {
             _id: '5ab2bc3742f5a7b6f0f48626',
             name: 'Lir Fealladh',
             phone: '555-555-5550',
-            email: 'Lir@Fealladh.com'
+            email: 'Lir@Fealladh.com',
+            userID: '789159',
 
         },
         {
             _id: '5ab2bc37bc8681f8f0ddf797',
             name: 'Reina',
             phone: '555-555-5551',
-            email: 'Reina@myfriend.com'
+            email: 'Reina@myfriend.com',
+            userID: '123357',
 
         },
         {
             _id: '5ab2bc370290adc56f8065fc',
             name: 'Suicide Prevention Lifeline',
             phone: '1-800-555-5555',
-            email: 'preventsuicide@lifeline.org'
+            email: 'preventsuicide@lifeline.org',
+            userID: '741456',
 
         }
     ];
@@ -106,6 +109,7 @@ describe('Contact list service: ', () => {
             name: 'Bryon',
             phone: "555-555-5552",
             email: "bryonotherbestfriend.gov",
+            userID: '369951',
         };
 
         contactService.addContact(newContact).subscribe(
@@ -128,6 +132,7 @@ describe('Contact list service: ', () => {
             name: 'Bryon',
             phone: "555-666-5552",
             email: "bryonotherbestfriend.gov",
+            userID: '369951',
         };
 
         contactService.editContact(editedContact).subscribe(
