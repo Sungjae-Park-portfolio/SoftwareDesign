@@ -6,6 +6,7 @@ import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatCardModule} from '@angular/material/card';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelectModule} from '@angular/material/select';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
@@ -76,7 +77,8 @@ export function provideConfig() {
         MatCardModule,
         MatSelectModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatButtonToggleModule
     ],
     declarations: [
         AppComponent,
