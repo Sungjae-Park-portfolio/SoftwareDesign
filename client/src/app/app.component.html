@@ -11,11 +11,11 @@
             <li><a id="reports" [routerLink]="['/reports']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>assignment</mat-icon>Reports</button></a></li>
             <li><a id="goals" [routerLink]="['/goals']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>check_box</mat-icon>Goals</button></a></li>
             <li><a id="journaling" [routerLink]="['/journaling']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>create</mat-icon>Journaling</button></a></li>
-            <li><a id="resources" [routerLink]="['/resources']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>call</mat-icon>Resources</button></a></li>
+            <li><a id="resources" [routerLink]="['/resources']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>web</mat-icon>Resources</button></a></li>
+            <li><a class="contact" [routerLink]="['/contact']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>phone</mat-icon> Contact</button></a></li>
             <li><a id="about" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>insert_emoticon</mat-icon>About</button></a></li>
             <li><a id="crisis"><button mat-raised-button class="nav-button" color="warn" (click)="openDialog()"><mat-icon>call</mat-icon>Crisis</button></a></li>
             <li *ngIf="appService.isSignedIn()"><a id="sign-out"><button mat-button class="nav-button" (click)="signOut()"><mat-icon>exit_to_app</mat-icon>Sign Out</button></a></li>
-            <li><a class="contact" [routerLink]="['/contact']" routerLinkActive="active"><mat-icon>phone</mat-icon> Contact</a></li>
         </ul>
 </ng-template>
 

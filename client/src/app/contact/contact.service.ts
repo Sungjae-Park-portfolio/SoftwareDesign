@@ -31,6 +31,7 @@ export class ContactService {
     getContactById(id: string): Observable<contact> {
         return this.http.get<contact>(this.contactUrl + '/' + id);
     }
+
     getContact(contactName?: string): Observable<contact[]> {
         if(contactName) {
             return this.http.get<contact[]>(this.contactUrl + '?name=' + contactName);
