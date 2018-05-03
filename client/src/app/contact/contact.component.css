@@ -14,3 +14,17 @@
 #addedCrisis{
     background-color: #D8E5C4;
 }
+
+.loginEmoji{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 256px;
+    height: 256px;
+    padding: 32px;
+}
+
+.loginEmojiText {
+    text-align: center;
+    font-size: 24px;
+}
