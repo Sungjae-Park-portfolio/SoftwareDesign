@@ -233,7 +233,7 @@ describe('Adding a contacts', () => {
         expect(calledContact).toBeNull();
     });
 
-    it('updates selected journal when the dialog is closed', () => {
+    it('updates selected contact when the dialog is closed', () => {
         expect(contactsList.selectedContact).toBeUndefined();
         contactsList.openDialogSelect(); // will 'select' newJournal
         expect(contactsList.selectedContact).toEqual(newContact);

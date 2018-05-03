@@ -46,7 +46,7 @@ export class ContactService {
         };
 
         console.log(editedContact);
-        // Send post request to add a new journal with the journal data as the body with specified headers.
+        // Send post request to add a new contact with the contact data as the body with specified headers.
         return this.http.post<{'$oid': string}>(this.contactUrl + '/edit', editedContact, httpOptions);
     }
 

@@ -63,7 +63,7 @@ export class ContactComponent implements OnInit{
         const newContact: contact = {_id: '', name: '', email: '', phone: '', userID:this.userID};
         const dialogRef = this.dialog.open(AddContactComponent, {
             width: '500px',
-            data: { journal: newContact }
+            data: { contact: newContact }
         });
 
         dialogRef.afterClosed().subscribe(result => {

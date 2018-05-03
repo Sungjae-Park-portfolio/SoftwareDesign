@@ -8,7 +8,7 @@ import {ContactService} from "./contact.service";
 
 
 describe('Contact list service: ', () => {
-    // A small collection of test journals
+    // A small collection of test contact
     const testContact: contact[] = [
         {
             _id: '5ab2bc3742f5a7b6f0f48626',
@@ -39,7 +39,7 @@ describe('Contact list service: ', () => {
         contact.name.toLowerCase().indexOf('m') !== -1
     );
 
-    // We will need some url information from the journalListService to meaningfully test subject filtering;
+    // We will need some url information from the contactListService to meaningfully test subject filtering;
     // https://stackoverflow.com/questions/35987055/how-to-write-unit-testing-for-angular-2-typescript-for-private-methods-with-ja
     let contactService: ContactService;
     let currentlyImpossibleToGenerateSearchContactUrl: string;
@@ -69,8 +69,8 @@ describe('Contact list service: ', () => {
     });
 
     it('getContact() calls api/contact', () => {
-        // Assert that the journals we get from this call to getJournals()
-        // should be our set of test journals. Because we're subscribing
+        // Assert that the contact we get from this call to getJournals()
+        // should be our set of test contact. Because we're subscribing
         // to the result of getJournals(), this won't actually get
         // checked until the mocked HTTP request "returns" a response.
         // This happens when we call req.flush(testJournals) a few lines
@@ -149,7 +149,7 @@ describe('Contact list service: ', () => {
         req.flush(bryon_id);
     });
 
-    it('deleteJournal calls api/journals/delete/id', () => {
+    it('deleteJournal calls api/contact/delete/id', () => {
         const bryon_id = { '$oid': 'pennington_id' };
 
 
