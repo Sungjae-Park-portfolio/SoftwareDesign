@@ -5,6 +5,7 @@ import {ContactService} from "./contact.service";
 import {MatDialog} from "@angular/material/dialog";
 import {AddContactComponent} from "./add-contact.component";
 import {EditContactComponent} from "./edit-contact.component";
+import {MatButtonToggleChange} from '@angular/material';
 
 @Component({
     selector: 'contact-component',
@@ -34,7 +35,7 @@ export class ContactComponent implements OnInit{
     }
 
     openDialog(): void {
-        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID: this.userID};
+        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID: this.userID, favorite : false};
         const dialogRef = this.dialog.open(AddContactComponent, {
             width: '500px',
             data: { contact: newContact }
@@ -60,7 +61,7 @@ export class ContactComponent implements OnInit{
 
 
     openDialogSelect(): void {
-        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID:this.userID};
+        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID:this.userID, favorite: false};
         const dialogRef = this.dialog.open(AddContactComponent, {
             width: '500px',
             data: { contact: newContact }
@@ -74,8 +75,8 @@ export class ContactComponent implements OnInit{
     }
 
 
-    openDialogReview(_id: string, name : string, email : string, phone : string): void {
-        const editContact: contact = {_id: _id, name: name, email: email, phone: phone, userID: this.userID};
+    openDialogReview(_id: string, name : string, email : string, phone : string, favorite : boolean): void {
+        const editContact: contact = {_id: _id, name: name, email: email, phone: phone, userID: this.userID, favorite: favorite};
 
         const dialogRef = this.dialog.open(EditContactComponent, {
             width: '500px',
@@ -157,6 +158,27 @@ export class ContactComponent implements OnInit{
                 console.log(err);
             });
         return contactListObservable;
+    }
+
+    public changeValue(contact : contact): void{
+        console.log(contact.favorite);
+        let fav : boolean = false;
+        if(contact.favorite == false){
+            fav = true;
+        }
+        else{
+            fav = false
+        }
+        const updatedContact: contact = {_id: contact._id['$oid'], name: contact.name, email: contact.email, phone: contact.phone, userID: this.userID, favorite: fav};
+        this.contactService.editContact(updatedContact).subscribe(
+            editGoalResult => {
+                this.highlightedID = editGoalResult;
+                this.refreshContact();
+            },
+            err => {
+                console.log('There was an error editing the contact.');
+                console.log('The error was ' + JSON.stringify(err));
+            });
     }
 
 
