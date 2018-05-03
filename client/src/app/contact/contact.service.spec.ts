@@ -16,6 +16,7 @@ describe('Contact list service: ', () => {
             phone: '555-555-5550',
             email: 'Lir@Fealladh.com',
             userID: '789159',
+            favorite: false
 
         },
         {
@@ -24,6 +25,7 @@ describe('Contact list service: ', () => {
             phone: '555-555-5551',
             email: 'Reina@myfriend.com',
             userID: '123357',
+            favorite: false
 
         },
         {
@@ -32,6 +34,7 @@ describe('Contact list service: ', () => {
             phone: '1-800-555-5555',
             email: 'preventsuicide@lifeline.org',
             userID: '741456',
+            favorite: false
 
         }
     ];
@@ -89,6 +92,7 @@ describe('Contact list service: ', () => {
             phone: "555-555-5552",
             email: "bryonotherbestfriend.gov",
             userID: '369951',
+            favorite: false
         };
 
         contactService.addContact(newContact).subscribe(
@@ -112,6 +116,7 @@ describe('Contact list service: ', () => {
             phone: "555-666-5552",
             email: "bryonotherbestfriend.gov",
             userID: '369951',
+            favorite: false
         };
 
         contactService.editContact(editedContact).subscribe(

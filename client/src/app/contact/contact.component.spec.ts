@@ -30,6 +30,7 @@ describe('Contact list', () => {
                     email: 'Ladonna@ Benson.com',
                     phone: '(891) 411-3124',
                     userID: '123456',
+                    favorite: false
 
                 },
                 {
@@ -38,6 +39,7 @@ describe('Contact list', () => {
                     email: 'Lila@ Browning.com',
                     phone: '(803) 525-2495',
                     userID: '456789',
+                    favorite: false
                 },
                 {
                     _id: '5ab2bc370290adc56f8065fc',
@@ -45,6 +47,7 @@ describe('Contact list', () => {
                     email: 'Alford@ Beard.com',
                     phone: '(862) 433-3136',
                     userID: '789156',
+                    favorite: false
                 }
             ])
         };
@@ -144,7 +147,8 @@ describe('Adding a contacts', () => {
         name: 'test man',
         email: "fefwaefjj@gsfewf.com",
         phone: "1715611615161",
-        userID: '159357'
+        userID: '159357',
+        favorite: false
     };
     const newId = 'new_id';
 
@@ -223,7 +227,7 @@ describe('Adding a contacts', () => {
     it('calls ContactService.editContact', () => {
         expect(calledContact).toBeNull();
         //put four input testing now it fix or not
-        contactsList.openDialogReview(this.name, this._id, this.email, this.phone);
+        contactsList.openDialogReview(this._id, this.name, this.email, this.phone, this.favorite);
         expect(calledContact).toEqual(newContact);
     });
 
