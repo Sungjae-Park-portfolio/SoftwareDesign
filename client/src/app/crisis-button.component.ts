@@ -42,18 +42,6 @@ export class CrisisButtonComponent implements OnInit{
         return this.filteredContact;
     }
 
-    loadService(): void {
-        this.contactService.getContact('').subscribe(
-            contact => {
-                this.contact = contact;
-                this.filteredContact = this.contact;
-            },
-            err => {
-                console.log(err);
-            }
-        );
-    }
-
     refreshContact(): Observable<contact[]> {
         // Get Resources returns an Observable, basically a "promise" that
         // we will get the data from the server.
