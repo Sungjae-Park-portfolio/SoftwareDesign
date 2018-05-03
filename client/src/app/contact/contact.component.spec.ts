@@ -29,6 +29,7 @@ describe('Contact list', () => {
                     name: 'Robert Ward',
                     email: 'Ladonna@ Benson.com',
                     phone: '(891) 411-3124',
+                    userID: '123456',
 
                 },
                 {
@@ -36,12 +37,14 @@ describe('Contact list', () => {
                     name: 'Thomas Franco',
                     email: 'Lila@ Browning.com',
                     phone: '(803) 525-2495',
+                    userID: '456789',
                 },
                 {
                     _id: '5ab2bc370290adc56f8065fc',
                     name: 'Wood Aguirre',
                     email: 'Alford@ Beard.com',
                     phone: '(862) 433-3136',
+                    userID: '789156',
                 }
             ])
         };
@@ -78,6 +81,10 @@ describe('Contact list', () => {
 
     it('has two contact with email', () => {
         expect(contactsList.contact.filter((contacts: contact) => contacts.email === 'Ladonna@ Benson.com').length).toBe(1);
+    });
+
+    it('has two contact with phone', () => {
+        expect(contactsList.contact.filter((contacts: contact) => contacts.phone === '(862) 433-3136').length).toBe(1);
     });
 
     it('contact list filters by name', () => {
@@ -136,7 +143,8 @@ describe('Adding a contacts', () => {
         _id: '5ab2bc37e194ff1f2434eb46',
         name: 'test man',
         email: "fefwaefjj@gsfewf.com",
-        phone: "1715611615161"
+        phone: "1715611615161",
+        userID: '159357'
     };
     const newId = 'new_id';
 
@@ -146,6 +154,8 @@ describe('Adding a contacts', () => {
     let contactListServiceStub: {
         getContact: () => Observable<contact[]>,
         addNewContact: (newContact: contact) => Observable<{'$oid': string}>
+        editContact: (editedContact: contact) => Observable<contact>,
+        deleteContact: (id: string) => Observable<{'$oid': string}>
     };
     let mockMatDialog: {
         open: (AddContactComponent, any) => {
@@ -162,6 +172,16 @@ describe('Adding a contacts', () => {
                 calledContact = contactsToAdd;
                 return Observable.of({
                     '$oid': newId
+                });
+            },
+            editContact: (editedContact: contact) => {
+                calledContact = editedContact;
+                return Observable.of(editedContact);
+            },
+            deleteContact: (id: string) => {
+                calledContact = null;
+                return Observable.of({
+                    '$oid': id
                 });
             },
         };
@@ -192,4 +212,33 @@ describe('Adding a contacts', () => {
             fixture.detectChanges();
         });
     }));
+
+    /*
+    it('calls ContactService.addContact', () => {
+        expect(calledContact).toBeNull();
+        contactsList.openDialog();
+        expect(calledContact).toEqual(newContact);
+    });
+    */
+    it('calls ContactService.editContact', () => {
+        expect(calledContact).toBeNull();
+        //put four input testing now it fix or not
+        contactsList.openDialogReview(this.name, this._id, this.email, this.phone);
+        expect(calledContact).toEqual(newContact);
+    });
+
+    it('calls ContactService.deleteContact', () => {
+        calledContact = newContact;
+        expect(calledContact).toEqual(newContact);
+        contactsList.deleteContact(newContact._id);
+        expect(calledContact).toBeNull();
+    });
+
+
+    it('updates selected contact when the dialog is closed', () => {
+        expect(contactsList.selectedContact).toBeUndefined();
+        contactsList.openDialogSelect(); // will 'select' newJournal
+        expect(contactsList.selectedContact).toEqual(newContact);
+    });
+
 });

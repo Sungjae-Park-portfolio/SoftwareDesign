@@ -47,6 +47,23 @@ export class ContactPage {
 
     }
 
+    editContact(name: string, phone: string) {
+        const input = element(by.id('editContact'));
+        input.click();
+        const nameInput = element(by.id('nameField'));
+        nameInput.click();
+        nameInput.clear();
+        nameInput.sendKeys(name);
+        const phoneInput = element(by.id('phonenumberField'));
+        phoneInput.click();
+        phoneInput.clear();
+        phoneInput.sendKeys(phone);
+        const button = element(by.css('#confirmAddcontactButton'));
+        const buttonWasThere = button.isDisplayed();
+        button.click();
+        return buttonWasThere;
+    }
+
     buttonExists(): promise.Promise<boolean> {
         this.highlightElement(by.id('addNewContact'));
         return element(by.id('addNewContact')).isPresent();
@@ -55,5 +72,20 @@ export class ContactPage {
     clickAddContactButton(): promise.Promise<void> {
         this.highlightElement(by.id('addNewContact'));
         return element(by.id('addNewContact')).click();
+    }
+
+    selectContact(search: string){
+        const input = element(by.id('selectContact'));
+        input.click();
+
+        // //search for journal
+        const nameInput = element(by.id('contactName'));
+        nameInput.click();
+        nameInput.sendKeys(search);
+        //
+        // //click journal
+        const journal = element(by.cssContainingText('mat-list-item',search));
+        journal.click();
+
     }
 }

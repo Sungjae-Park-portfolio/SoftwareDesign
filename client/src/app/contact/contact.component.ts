@@ -6,7 +6,6 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddContactComponent} from "./add-contact.component";
 import {EditContactComponent} from "./edit-contact.component";
 
-
 @Component({
     selector: 'contact-component',
     templateUrl: 'contact.component.html',
@@ -16,10 +15,12 @@ export class ContactComponent implements OnInit{
     // These are public so that tests can reference them (.spec.ts)
     public contact: contact[];
     public filteredContact: contact[];
+    public userID: string = localStorage.getItem('userID');
 
     // These are the target values used in searching.
     // We should rename them to make that clearer.
     public contactName: string;
+    public selectedContact: contact;
 
     private highlightedID: {'$oid': string} = { '$oid': '' };
 
@@ -33,7 +34,7 @@ export class ContactComponent implements OnInit{
     }
 
     openDialog(): void {
-        const newContact: contact = {_id: '', name: '', email: '', phone: ''};
+        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID: this.userID};
         const dialogRef = this.dialog.open(AddContactComponent, {
             width: '500px',
             data: { contact: newContact }
@@ -53,17 +54,37 @@ export class ContactComponent implements OnInit{
         });
     }
 
-    openDialogReview(_id: string, name: string, email: string, phone: string): void {
-        console.log(_id + ' ' + name);
-        const newContact: contact = {_id: _id, name: name, email: email, phone: phone};
+
+
+    //trying
+
+
+    openDialogSelect(): void {
+        const newContact: contact = {_id: '', name: '', email: '', phone: '', userID:this.userID};
+        const dialogRef = this.dialog.open(AddContactComponent, {
+            width: '500px',
+            data: { contact: newContact }
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+            if(result != null) {
+                this.selectedContact = result;
+            }
+        });
+    }
+
+
+    openDialogReview(_id: string, name : string, email : string, phone : string): void {
+        const editContact: contact = {_id: _id, name: name, email: email, phone: phone, userID: this.userID};
+
         const dialogRef = this.dialog.open(EditContactComponent, {
             width: '500px',
-            data: {contact: newContact}
+            data: { contact: editContact }
         });
+
         dialogRef.afterClosed().subscribe(result => {
             this.contactService.editContact(result).subscribe(
                 editContactResult => {
-                    this.highlightedID = editContactResult;
                     this.refreshContact();
                 },
                 err => {
@@ -72,6 +93,32 @@ export class ContactComponent implements OnInit{
                     console.log('The error was ' + JSON.stringify(err));
                 });
         });
+    }
+
+    deleteContact(_id: string){
+        this.contactService.deleteContact(_id).subscribe(
+            contact => {
+                this.refreshContact();
+                this.loadService();
+            },
+            err => {
+                console.log(err);
+                this.refreshContact();
+                this.loadService();
+            }
+        );
+    }
+
+    loadService(): void {
+        this.contactService.getContact('').subscribe(
+            contact => {
+                this.contact = contact;
+                this.filteredContact = this.contact;
+            },
+            err => {
+                console.log(err);
+            }
+        );
     }
 
     public filterContact(searchName): contact[] {

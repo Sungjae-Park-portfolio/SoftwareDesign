@@ -29,6 +29,7 @@ describe('Contact list', () => {
                     name: 'Robert Ward',
                     email: 'Ladonna@ Benson.com',
                     phone: '(891) 411-3124',
+                    userID: '123456',
 
                 },
                 {
@@ -36,12 +37,14 @@ describe('Contact list', () => {
                     name: 'Thomas Franco',
                     email: 'Lila@ Browning.com',
                     phone: '(803) 525-2495',
+                    userID: '456789',
                 },
                 {
                     _id: '5ab2bc370290adc56f8065fc',
                     name: 'Wood Aguirre',
                     email: 'Alford@ Beard.com',
                     phone: '(862) 433-3136',
+                    userID: '789156',
                 }
             ])
         };
