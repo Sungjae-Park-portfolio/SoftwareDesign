@@ -33,17 +33,17 @@ public class ResponseControllerSpec extends ControllerSuperSpec {
         testResponses.add(Document.parse("{\n" +
             "name: \"Fluffy bunnies\", \n" +
             "link: \"https://fluffybun.ny/getBunny\",\n" +
-            "email: \"aurora@boreal.is\", \n" +
+            "userID: \"aurora@boreal.is\", \n" +
             "}"));
         testResponses.add(Document.parse("{\n" +
             "name: \"Satisfying video\", \n" +
             "link: \"https://mycylinder.nomnom/getNom\",\n" +
-            "email: \"aurora@austral.is\", \n" +
+            "userID: \"aurora@austral.is\", \n" +
             "}"));
         testResponses.add(Document.parse("{\n" +
             "name: \"Motivational song\", \n" +
             "link: \"https://justdoit.justdo/getJustIt\",\n" +
-            "email: \"shialabeouf@shiasurprise.net\", \n" +
+            "userID: \"shialabeouf@shiasurprise.net\", \n" +
             "}"));
 
         id = new ObjectId();
@@ -51,7 +51,7 @@ public class ResponseControllerSpec extends ControllerSuperSpec {
         stressRelief = stressRelief
             .append("name", "Stress relief for programmers")
             .append("link", "https://breathe.io")
-            .append("email", "all@of.us");
+            .append("userID", "all@of.us");
 
         responseDocs.insertMany(testResponses);
         responseDocs.insertOne(Document.parse(stressRelief.toJson()));
@@ -59,9 +59,9 @@ public class ResponseControllerSpec extends ControllerSuperSpec {
         responseController = new ResponseController(db);
     }
 
-    private static String getEmail(BsonValue value) {
+    private static String getuserID(BsonValue value) {
         BsonDocument doc = value.asDocument();
-        return ((BsonString) doc.get("email")).getValue();
+        return ((BsonString) doc.get("userID")).getValue();
     }
 
     private static String getName(BsonValue value) {
@@ -76,22 +76,22 @@ public class ResponseControllerSpec extends ControllerSuperSpec {
         BsonArray docs = parseJsonArray(jsonResult);
 
         assertEquals("Should be 4 entries", 4, docs.size());
-        List<String> emails = docs
+        List<String> userIDs = docs
             .stream()
-            .map(ResponseControllerSpec::getEmail)
+            .map(ResponseControllerSpec::getuserID)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedEmails = Arrays.asList("all@of.us",
+        List<String> expecteduserIDs = Arrays.asList("all@of.us",
             "aurora@austral.is",
             "aurora@boreal.is",
             "shialabeouf@shiasurprise.net");
-        assertEquals("Emails should match", expectedEmails, emails);
+        assertEquals("userIDs should match", expecteduserIDs, userIDs);
     }
 
     @Test
-    public void getResponsesByEmail() {
+    public void getResponsesByuserID() {
         Map<String, String[]> map = new HashMap<>();
-        map.put("email", new String[]{"aurora@boreal.is"});
+        map.put("userID", new String[]{"aurora@boreal.is"});
         String jsonResult = responseController.getItems(map);
         BsonArray docs = parseJsonArray(jsonResult);
 
@@ -102,7 +102,7 @@ public class ResponseControllerSpec extends ControllerSuperSpec {
     @Test
     public void getRandomResponse() {
         Map<String, String[]> map = new HashMap<>();
-        map.put("email", new String[]{"aurora@boreal.is"});
+        map.put("userID", new String[]{"aurora@boreal.is"});
         String jsonResult = responseController.getRandomResponse(map);
         BsonArray docs = parseJsonArray(jsonResult);
 
