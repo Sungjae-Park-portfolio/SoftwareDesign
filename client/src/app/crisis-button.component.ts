@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialogRef} from '@angular/material';
-import {contact} from "/home/dejon076/IdeaProjects/csci3601/iteration-4-secure-super-group/client/src/app/contact/contact";
-import {ContactService} from "/home/dejon076/IdeaProjects/csci3601/iteration-4-secure-super-group/client/src/app/contact/contact.service";
+import {contact} from '../app/contact/contact';
+import {ContactService} from "../app/contact/contact.service";
 import {Observable} from "rxjs/Observable";
 
 @Component({
