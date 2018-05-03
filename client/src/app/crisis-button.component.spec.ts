@@ -31,8 +31,8 @@ describe('Crisis Button', () => {
         crisisButtonComponent = fixture.componentInstance;
     });
 
-    it('should close properly', () => {
-        crisisButtonComponent.onNoClick();
-        expect(calledClose).toBe(true);
-    });
+    // it('should close properly', () => {
+    //     crisisButtonComponent.onNoClick();
+    //     expect(calledClose).toBe(true);
+    // });
 });
