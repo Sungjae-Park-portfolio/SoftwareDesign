@@ -20,6 +20,9 @@
                 <mat-panel-description >Phone Number: {{contact.phone}}</mat-panel-description>
                 <mat-panel-description><button mat-raised-button (click)="openDialogReview(contact._id['$oid'], contact.name, contact.email, contact.phone)">Edit PhoneNumber</button> </mat-panel-description>
                 <mat-panel-description><button mat-raised-button (click)="deleteContact(contact._id['$oid'])">Delete Contact </button> </mat-panel-description>
+                <mat-panel-description>
+                    <mat-button-toggle [checked]="contact.favorite" (click)="changeValue(contact)"><mat-icon>favorite</mat-icon></mat-button-toggle>
+                </mat-panel-description>
             </mat-expansion-panel>
         </mat-accordion>
 
