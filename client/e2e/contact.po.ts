@@ -3,7 +3,7 @@ import {Key} from 'selenium-webdriver';
 
 export class ContactPage {
     static navigateTo(): promise.Promise<any> {
-        return browser.get('/crisis');
+        return browser.get('/contact');
     }
 
     static clickElement(elementId: string){
