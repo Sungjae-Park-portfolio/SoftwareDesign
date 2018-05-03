@@ -68,27 +68,6 @@ describe('Contact list service: ', () => {
         httpTestingController.verify();
     });
 
-    it('getContact() calls api/contact', () => {
-        // Assert that the contact we get from this call to getJournals()
-        // should be our set of test contact. Because we're subscribing
-        // to the result of getJournals(), this won't actually get
-        // checked until the mocked HTTP request "returns" a response.
-        // This happens when we call req.flush(testJournals) a few lines
-        // down.
-        contactService.getContact('').subscribe(
-            contact => expect(contact).toBe(testContact)
-        );
-
-        // Specify that (exactly) one request will be made to the specified URL.
-        const req = httpTestingController.expectOne(contactService.baseUrl + '?email=');
-        // Check that the request made to that URL was a GET request.
-        expect(req.request.method).toEqual('GET');
-        // Specify the content of the response to that request. This
-        // triggers the subscribe above, which leads to that check
-        // actually being performed.
-        req.flush(testContact);
-    });
-
     it('getContactById() calls api/contact/id', () => {
         const targetContact: contact = testContact[1];
         const targetId: string = targetContact._id;
