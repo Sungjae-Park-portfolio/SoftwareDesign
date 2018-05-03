@@ -34,6 +34,11 @@ export class CrisisButtonComponent implements OnInit{
                 return !searchName || contact.name.toLowerCase().indexOf(searchName) !== -1;
             });
         }
+        let searchFavorite = "true";
+        this.filteredContact = this.filteredContact.filter(contact => {
+            return !searchFavorite || contact.favorite.toString().toLowerCase().indexOf(searchFavorite) !== -1;
+        });
+
         return this.filteredContact;
     }
 
