@@ -63,12 +63,13 @@ public class ContactController  extends SuperController{
         return JSON.serialize(matchingContact);
     }
 
-    public String editContact(String id, String name, String email, String phone){
+    public String editContact(String id, String name, String email, String phone, Boolean favorite){
         System.out.println("Right here again");
         Document newContact = new Document();
         newContact.append("name", name);
         newContact.append("email", email);
         newContact.append("phone", phone);
+        newContact.append("favorite", favorite);
         Document setQuery = new Document();
         setQuery.append("$set", newContact);
 
@@ -81,7 +82,7 @@ public class ContactController  extends SuperController{
         try {
             contactCollection.updateOne(searchQuery, setQuery);
             ObjectId id1 = searchQuery.getObjectId("_id");
-            System.err.println("Successfully updated journal [_id=" + id1 + ", name=" + name + ", email=" + email + ",phone=" + phone + ']');
+            System.err.println("Successfully updated journal [_id=" + id1 + ", name=" + name + ", email=" + email + ",phone=" + phone + "favorite=" + favorite + ']');
             return JSON.serialize(id1);
         } catch(MongoException me) {
             me.printStackTrace();
@@ -90,14 +91,14 @@ public class ContactController  extends SuperController{
     }
 
 
-    public String addNewContact(String id, String name, String email, String phone) {
+    public String addNewContact(String id, String name, String email, String phone, Boolean favorite) {
         System.out.println("Adding new contact " + name);
 
         Document newContact = new Document();
         newContact.append("name", name);
         newContact.append("email", email);
         newContact.append("phone", phone);
-
+        newContact.append("favorite", favorite);
 
 
 
@@ -105,7 +106,7 @@ public class ContactController  extends SuperController{
             contactCollection.insertOne(newContact);
 
             ObjectId Id = newContact.getObjectId("_id");
-            System.err.println("Successfully added new contacts [_id=" + id + ", name=" + name + ", email=" + email + " phone=" + phone + ']');
+            System.err.println("Successfully added new contacts [_id=" + id + ", name=" + name + ", email=" + email + " phone=" + phone + "favorite=" + favorite + ']');
 
             return JSON.serialize(Id);
         } catch (MongoException me) {
