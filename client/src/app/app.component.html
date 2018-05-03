@@ -15,7 +15,6 @@
             <li><a class="contact" [routerLink]="['/contact']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>phone</mat-icon> Contact</button></a></li>
             <li><a id="about" [routerLink]="['/about']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><button mat-button class="nav-button"><mat-icon>insert_emoticon</mat-icon>About</button></a></li>
             <li><a id="crisis"><button mat-raised-button class="nav-button" color="warn" (click)="openDialog()"><mat-icon>call</mat-icon>Crisis</button></a></li>
-            <li><a class="contact" [routerLink]="['/contact']" routerLinkActive="active"><mat-icon>phone</mat-icon> Contact</a></li>
             <li *ngIf="appService.isSignedIn()"><a id="sign-out"><button mat-button class="nav-button" (click)="signOut()"><mat-icon>exit_to_app</mat-icon>Sign Out</button></a></li>
         </ul>
 </ng-template>
