@@ -65,9 +65,15 @@ https://www.flaticon.com/packs/emoji-3
 Developing Credits:
 
 - Aurora Codes
+- Blake Bellamy
+- Chuck Menne
 - David Chong
 - Ethan Hamer
 - Hunter Welch
+- Isaac Yoakm
 - Jubair Hassan
+- Khondoker Prio
+- Kyle Foss
+- Matthew Munns
 - Rocherno De Jongh
 - Yujing Song
