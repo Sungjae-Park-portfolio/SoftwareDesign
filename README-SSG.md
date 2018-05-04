@@ -56,6 +56,19 @@ need to have data in the `dev` database before running the e2e tests!
 
 ## Developer Side Notes
 
+#### Responses:
+
+Responses are given to the user after they submit an emotion on the home page and click the "Get a Response" button. 
+
+A response is a link (as of now, only YouTube videos, but it could be changed to accommodate any kind of link) that is helpful to the user in some way. There is a set of default responses seeded into the database that is accessed by default whenever the user gets a response. 
+
+
+The system accounts for possible bad links by checking the URL with commons-validator. It also converts YouTube watch links to embedded links so they can be viewed in the webpage itself.
+
+The user can also add responses that can show up for themselves only, but have a random chance to be selected. 
+
+Note that in order to have getting a random response to work correctly, MongoDB on your deployed server needs to be at least version 3.6, because of the way that the random responses work. 
+
 ## Credits
 
 Emoji credits: 
