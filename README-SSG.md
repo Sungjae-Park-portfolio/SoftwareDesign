@@ -92,3 +92,13 @@ Developing Credits:
 - Matthew Munns
 - Rocherno De Jongh
 - Yujing Song
+
+Built on code from:
+- Brian Caravantes
+- K.K. Lamberty
+- Joseph Thelen
+- Nic McPhee
+- Nick Bushway
+- Nick Plucker
+- Paul Friederichsen
+- Shawn Seymour
