@@ -6,6 +6,8 @@
 - [Running the Project](#running-the-project)
 - [Deploying Project for Production](#deploying-project-for-production)
 - [Testing and Continuous Integration](#testing-and-continuous-integration)
+- [Client Side Notes](#client-side-notes)
+- [Developer Side Notes](#developer-side-notes)
 - [Credits](#credits)
 <!-- /TOC -->
 
