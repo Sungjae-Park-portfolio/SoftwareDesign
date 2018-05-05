@@ -8,6 +8,7 @@
 - [Testing and Continuous Integration](#testing-and-continuous-integration)
 - [Client Side Notes](#client-side-notes)
 - [Developer Side Notes](#developer-side-notes)
+- [To-do list/Future improvement](#To-do list/Future improvement)
 - [Credits](#credits)
 <!-- /TOC -->
 
@@ -94,6 +95,21 @@ The system accounts for possible bad links by checking the URL with commons-vali
 The user can also add responses that can show up for themselves only, but have a random chance to be selected. 
 
 Note that in order to have getting a random response to work correctly, MongoDB on your deployed server needs to be at least version 3.6, because of the way that the random responses work. 
+
+#### Reports:
+
+Reports provided the line chart and stacked bar plot based on users’ emotion selection in home page.  Stacked bar plot shows up when click tab “Bar plot”, click tab “Line chart” if want to switch to check the line chart.
+
+Both line chart and bar plot are default to show the frequency of users’ chosen emotion in each day of this week (Monday to Sunday).  Different colors of lines/bars response to different emotions, legends on the top of each plot shows the correspondence between colors and emotions.  Click the legends can filter the relative emotions in the current plot.  For getting the yearly report, choose “year” in the dropdown above the plots tab, then click “submit”.  For getting more flexible historical report, please choose “start date” and “end date” first, then using dropdown to choose “year” or “week”, click “submit”.
+
+We used “chart.js” for making both plots, scripted it in html file with src: https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js  
+Bar plot and line chart are using the same canvas but with different type (Line chart with type “line”, but bar plot with type “bar” and set stacked as “ture” in both x-axes and y-axes).  
+
+Filtering by “date” and “mood” in “emoji” stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default setting.  
+
+
+##To-do list/Future improvement
+
 
 ## Credits
 
