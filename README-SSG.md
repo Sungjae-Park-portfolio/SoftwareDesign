@@ -8,7 +8,7 @@
 - [Testing and Continuous Integration](#testing-and-continuous-integration)
 - [Client Side Notes](#client-side-notes)
 - [Developer Side Notes](#developer-side-notes)
-- [To-do list/Future improvement](#to-do-list-future improvement)
+- [To-do list/Future improvement](#to-do-list-future-improvement)
 - [Credits](#credits)
 <!-- /TOC -->
 
