@@ -58,6 +58,30 @@ need to have data in the `dev` database before running the e2e tests!
 
 ## Developer Side Notes
 
+#### Emoji Carousel:
+
+This feature is the main function of the website. This allows users to select an emotion from a selection of five by navigating left or right. From the selected emotion the user can then select an intensity by navigating up or down. 
+The user is able to either use the arrow buttons to navigate through or by 'swiping' through by click and dragging within the emoji selection area. This function makes more sense on a phone but still works on either.
+Once a user has selected an emoji they are able to submit it. Once submitted the entry is saved in the database and the user is prompted in a popup window that allows them to view a youtube video if they would like.
+Each different emoji including the various intensity is assigned a text that is displayed below to clarify what each emoji represents.
+
+Each time a emoji is sent to the database these fields are stored:
+    _id: string;
+    userID: string;
+    ownerFirstName: string;
+    mood: number;
+    intensity: number;
+    date: Date;
+These parameters are defined within the emoji.ts file
+
+The function of moving through the moods as well as intensity can be found in the home.component.html (see Control Gestures in html)
+The function of wrapping around for moods and intensity can be found in the home.component.ts (see parseSwipeDirection and parseEmotionIntensity)
+
+Files related to this function can be found within:
+home.component.html
+home.component.ts
+home.service.ts
+
 #### Responses:
 
 Responses are given to the user after they submit an emotion on the home page and click the "Get a Response" button. 
