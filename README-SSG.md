@@ -108,7 +108,14 @@ Bar plot and line chart are using the same canvas but with different type (Line 
 Filtering by “date” and “mood” in “emoji” stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default setting.  
 
 
-##To-do list/Future improvement
+## To-do list/Future improvement
+
+#### Reports:
+
+1. Providing more time filters.  We have weekly and yearly report so for in report page, we will provide monthly and hourly filter in the future.
+
+2. Scatter plot will be provided to show the intensity information.  We have two plots to show the emotional frequency, but users cannot check the intensity history report, we will provide a scatter plot to show the historical intensity of each emotion.
+
 
 
 ## Credits
