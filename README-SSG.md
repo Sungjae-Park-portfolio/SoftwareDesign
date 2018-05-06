@@ -105,7 +105,17 @@ Both line chart and bar plot are default to show the frequency of users’ chose
 We used “chart.js” for making both plots, scripted it in html file with src: https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js  
 Bar plot and line chart are using the same canvas but with different type (Line chart with type “line”, but bar plot with type “bar” and set stacked as “ture” in both x-axes and y-axes).  
 
-Filtering by “date” and “mood” in “emoji” stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default setting.  
+Filtering by “date” and “mood” in “emoji” stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default s
+
+#### Journals:
+
+Journals provide can client post their daily journals. So client can write why they were happy or angry that day and which makes them angry or happy. 
+
+Also client can view their submitted journals and can edit their journals when they want to.
+
+Also can search their entered journals by Subjects and Body. Another feature on journaling is have move to next button at the bottom of page. 
+
+Also you can write as much as you want, it scroll down when it exceed the entry box and clients can keep enter their journals.
 
 
 ## To-do list/Future improvement
@@ -139,6 +149,7 @@ Developing Credits:
 - Matthew Munns
 - Rocherno De Jongh
 - Yujing Song
+- Sungjae Park
 
 Built on code from:
 - Brian Caravantes
