@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
     constructor(private http: HttpClient, public appService: AppService, public dialog: MatDialog){
     }
 
+    // The function that starts the sign in process
     signIn() {
         //let googleAuth = gapi.auth2.getAuthInstance();
         this.googleAuth = gapi.auth2.getAuthInstance();
@@ -40,6 +41,8 @@ export class AppComponent implements OnInit {
 
     }
 
+    // Clears the localStorage of any stored values related to a signed in user.
+    // If future versions use more values, those will needed to be added to also be cleared
     signOut() {
         //let googleAuth = gapi.auth2.getAuthInstance();
         this.handleClientLoad();
@@ -56,6 +59,7 @@ export class AppComponent implements OnInit {
         })
     }
 
+    // Send the authcode to the server to be verified.
     sendAuthCode(code: string): void {
         const httpOptions = {
             headers: new HttpHeaders({
@@ -87,6 +91,7 @@ export class AppComponent implements OnInit {
     initClient() {
 
         gapi.client.init({
+            // NOTE: This is not the same as your client secret. This is the clientId. This is fine to have publicly on your github. The client secret is NOT!
             'clientId': '1080043572259-h3vk6jgc4skl3uav3g0l13qvlcqpebvu.apps.googleusercontent.com',
             'scope': 'profile email'
         });

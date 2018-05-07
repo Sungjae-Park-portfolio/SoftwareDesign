@@ -152,8 +152,8 @@ public class Server {
 
 
             try {
-                // We can create this later to keep our secret safe
 
+                // The default path for the client secret file. This can be changed to reflect wherever you decide to put the file in the project.
                 String CLIENT_SECRET_FILE = "./src/main/java/umm3601/server_files/client_secret_file.json";
 
                 GoogleClientSecrets clientSecrets =
@@ -172,7 +172,7 @@ public class Server {
                         clientSecrets.getDetails().getClientSecret(),
                         authCode,
                         "http://localhost:9000")
-                        //Not sure if we have a redirectUri
+                        // The redirectUri should be the same as your web url
 
                         // Specify the same redirect URI that you use with your web
                         // app. If you don't have a web version of your app, you can
@@ -180,9 +180,10 @@ public class Server {
                         .execute();
 
 
+                // Getting the various fields we get access to after the user logs in
                 GoogleIdToken idToken = tokenResponse.parseIdToken();
                 GoogleIdToken.Payload payload = idToken.getPayload();
-                String userID = payload.getSubject();  // Use this value as a key to identify a user.
+                String userID = payload.getSubject();  // Use this value as a key to identify a user. This is referred to as userID across the project.
                 String email = payload.getEmail();
                 boolean emailVerified = Boolean.valueOf(payload.getEmailVerified());
                 String name = (String) payload.get("name");
@@ -197,6 +198,7 @@ public class Server {
                 System.out.println(name);
                 System.out.println(locale);
 
+                // Adding the user to the database
                 return userController.addNewUser(userID, givenName, familyName);
 
             } catch (Exception e) {

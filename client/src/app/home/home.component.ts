@@ -5,7 +5,6 @@ import {MatDialog, MatSnackBar} from '@angular/material';
 import {ResponseComponent} from "./response.component";
 import {Response} from "./response";
 import {AddResponseComponent} from "./add-response.component";
-import {AppService} from "../app.service";
 
 // Selector will change when we know more
 
@@ -35,6 +34,9 @@ export class HomeComponent implements OnInit {
         });
     }
 
+    // Checks if a user is signed in.
+    // There is a copy of this in app.service.ts as having the home component access it there caused problems with testing
+    // As such, any changes made to this function must also be made to the isSignedIn() function in app.service.ts
     public isSignedIn(): boolean {
         return (localStorage.getItem('isSignedIn') == 'true');
     }
@@ -176,7 +178,7 @@ export class HomeComponent implements OnInit {
             this.lastMood = mood;
         }
 
-        var currentNumber = mood;
+        let currentNumber = mood;
         currentNumber = currentNumber + num;
         if(currentNumber < 1) currentNumber = 5;
         if(currentNumber > 5) currentNumber = 1;
@@ -191,7 +193,7 @@ export class HomeComponent implements OnInit {
         //Keep Track of last intensity.
         this.lastIntensity = intensity;
 
-        var currentNumber = intensity;
+        let currentNumber = intensity;
         currentNumber = currentNumber + num;
 
         // Find which moods have 2 intensities verses 3 intensities.
