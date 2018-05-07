@@ -126,8 +126,21 @@ Also you can write as much as you want, it scroll down when it exceed the entry 
 
 2. Scatter plot will be provided to show the intensity information.  We have two plots to show the emotional frequency, but users cannot check the intensity history report, we will provide a scatter plot to show the historical intensity of each emotion.
 
+#### Mobile Optimization:
 
+1. Remove/hide the navigation buttons on the home page when a user is on mobile. We have the swipe feature and it would free up space.
 
+2. Improve the sizing for charts on mobile. The actual chart part looks ok but the filter area could use some work.
+
+3. Possibly change view of goals on mobile. Currently card view is used but that uses a lot of space so you are only able to view one or two goals at a time depending on the size of your mobile screen.
+
+4. Journal mat-card-main. This needs to be fixed so that it fits around all of the journals being displayed. This has a similar issue to the goals as both are card view.
+
+5. Change menu to a more standard mobile navigation. As is on small devices we run out of space with separate icons for each menu item. We also have a duplicate phone icon, one for crisis button and one for contacts. I feel like this is confusing to the user and should be changed in the future.
+
+6. Fix the window centering for adding new items. When a new goal or new response window opens it is justified left. This should be changed to be centered.
+
+7. Simplify goals on mobile. There are many options for goals right now. I think it would be nice to have a simple title and category with a show more options to save on space.
 ## Credits
 
 Emoji credits: 
