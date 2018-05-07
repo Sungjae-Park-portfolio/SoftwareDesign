@@ -117,6 +117,8 @@ Also can search their entered journals by Subjects and Body. Another feature on 
 
 Also you can write as much as you want, it scroll down when it exceed the entry box and clients can keep enter their journals.
 
+#Resource Page
+
 
 ## To-do list/Future improvement
 
@@ -141,6 +143,17 @@ Also you can write as much as you want, it scroll down when it exceed the entry 
 6. Fix the window centering for adding new items. When a new goal or new response window opens it is justified left. This should be changed to be centered.
 
 7. Simplify goals on mobile. There are many options for goals right now. I think it would be nice to have a simple title and category with a show more options to save on space.
+
+8. give the embedded videos an option to go to fullscreen.
+
+9. The user has to scroll to fully see the embedded video, this needs to be changed so it shows the entire video without the need of scrolling.
+
+#Resource Page
+
+1. Have a section for users to view/delete videos they have added to embedded videos.
+
+2. Give users the option to create/select different playlists for their embedded videos.
+
 ## Credits
 
 Emoji credits: 
