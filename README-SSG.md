@@ -39,8 +39,17 @@ the actual URL of the server. If your server is deployed on a droplet or virtual
 
 ## Deploying Project for Production
 
-Instructions on setting up the project for production can be found here: 
+Instructions on setting up the project for production can be found below. Note, in order to have the latest version of mongo on your deployment, which is necessary with this version of the project, instead of running wget with the url given in the following instructions, run 'wget https://gist.githubusercontent.com/hamer073/55c17e713b4652b644940a3ee2e6287e/raw/6729067ae8e39dc3952859521728bd71b7f78c38/3601-Setup-V2.sh' 
 [UMM CSCI 3601 Droplet Setup Instructions](https://gist.github.com/pluck011/d968c2280cc9dc190a294eaf149b1c6e)
+
+After following the above instructions, you'll need to upload your client secret to the droplet or other deployment environment.
+1. Decide where you want the client secret to be located. It doesn't matter a ton where this goes, but you'll have to change the path in the Server.java file to reflect wherever you put it.
+2. After deciding where you want the client secret json file (the one you get by following the instructions in the developer side notes under Google Login. You may want to do this first.) to go you're going to want to FTP into your deployment. There are desktop applications to help with this, but I'm going to be using instructions for command line interfaces.
+3. Opening up your terminal (assuming your using linux) and type 'sftp deploy-user@[your-ip-here]'. Do whatever you would need to do to ssh into your deployment.
+4. Next navigate to the directory where you want to put your client secret. To do this use cd [path] to navigate to the directory you want. You can use ls to see what folders and files are in the current directory. If you need to make a new folder for it, you can create one from the command line by using mkdir [new-file-name].
+5. Now you need to navigate to wherever the client secret is stored on your local machine. To do this you use lcd [path] to change the directory your local machine is looking at. To see the folders and files in the current directory use lls.
+6. Once you've gotten to the directory you want the client secret to be in on your deployment and have located the client secret on your local machine,  type 'put [your file name] [new file name]'. The second argument in brackets is optional, but helpful if your client secret is named one thing and you want it to be named something else on your deployment.
+7. Now exit out of the sftp session using exit and ssh into your deployment as usual. Reboot the server following the instructions in droplet setup instructions above.
 
 ## Testing and Continuous Integration
 
@@ -118,6 +127,19 @@ Also can search their entered journals by Subjects and Body. Another feature on 
 Also you can write as much as you want, it scroll down when it exceed the entry box and clients can keep enter their journals.
 
 #### Resource Page:
+
+#### Google Login
+
+Google Login is how we're providing user authentication. We're using the gapi library imported from gapi-client. For instructions from Google on setting all this up you can check these links: https://developers.google.com/identity/sign-in/web/sign-in and https://developers.google.com/identity/sign-in/web/server-side-flow
+
+For a basic run down of setting up Google login however:
+1. Go to console.developers.google.com and select create a project if you don't have any existing ones or click on the dropdown to select a project at the top and add click the plus to create a new project.
+2. Name your project and select any organizations you want linked to it. Click create.
+3. Select the Credentials tab on the sidebar of your dashboard. Go to the OAuth Consent Screen tab and enter your product name you want to show and the website url.
+4.  Now go to the credentials tab and select Create Credentials choosing OAuth Client ID.
+5. Select Web Application, filling out the fields. Authorized Javascript Origins refers to your web url. Both Authorized Javascript Origins and Authorized Redirect URIs should be the same.
+6. Now that your credentials are setup you want to download your client secret file. Select your project in the credentials screen and click the Download JSON button at the top. This will give you a file copy of your client secret. DO NOT SHARE THIS WITH ANYONE WHO SHOULDN'T HAVE ACCESS TO THE SITE! It is very very important that this file remains secure, so do not put it into a github repository.
+7. For instructions on how to get the client secret onto your deployment, see the deployment instructions above. 
 
 
 ## To-do list/Future improvement
