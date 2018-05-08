@@ -80,10 +80,11 @@ Each time a emoji is sent to the database these fields are stored:
 - `mood: number;`
 -  `intensity: number;`
 - `date: Date;` <br />
+<br />
 These parameters are defined within the `emoji.ts` file
 
-The function of moving through the moods as well as intensity can be found in the home.component.html (see Control Gestures in html)
-The function of wrapping around for moods and intensity can be found in the home.component.ts (see parseSwipeDirection and parseEmotionIntensity)
+The function of moving through the moods as well as intensity can be found in the `home.component.html` (see Control Gestures in html)
+The function of wrapping around for moods and intensity can be found in the `home.component.ts` (see `parseSwipeDirection` and `parseEmotionIntensity`)
 
 Files related to this function can be found within:
 - `home.component.html`
