@@ -6,9 +6,9 @@
 - [Running the Project](#running-the-project)
 - [Deploying Project for Production](#deploying-project-for-production)
 - [Testing and Continuous Integration](#testing-and-continuous-integration)
-- [Client Side Notes](#client-side-notes)
 - [Developer Side Notes](#developer-side-notes)
-- [To-do list/Future improvement](#to-do-list-future-improvement)
+- [Future Improvement](#future-improvement)
+- [Pamphlet](#pamphlet)
 - [Credits](#credits)
 <!-- /TOC -->
 
@@ -64,8 +64,6 @@ The server (`run`) needs to be on for this test to work, and you have to
 need to have data in the `dev` database before running the e2e tests!
 * `runServerTests` runs the server tests.
 
-## Client Side Notes
-
 ## Developer Side Notes
 
 #### Emoji Carousel:
@@ -76,25 +74,25 @@ Once a user has selected an emoji they are able to submit it. Once submitted the
 Each different emoji including the various intensity is assigned a text that is displayed below to clarify what each emoji represents.
 
 Each time a emoji is sent to the database these fields are stored:
-    _id: string;
-    userID: string;
-    ownerFirstName: string;
-    mood: number;
-    intensity: number;
-    date: Date;
-These parameters are defined within the emoji.ts file
+- `_id: string;`
+- `userID: string;`
+- `ownerFirstName: string;`
+- `mood: number;`
+-  `intensity: number;`
+- `date: Date;` <br />
+These parameters are defined within the `emoji.ts` file
 
 The function of moving through the moods as well as intensity can be found in the home.component.html (see Control Gestures in html)
 The function of wrapping around for moods and intensity can be found in the home.component.ts (see parseSwipeDirection and parseEmotionIntensity)
 
 Files related to this function can be found within:
-home.component.html
-home.component.ts
-home.service.ts
+- `home.component.html`
+- `home.component.ts`
+- `home.service.ts`
 
 #### Responses:
 
-Responses are given to the user after they submit an emotion on the home page and click the "Get a Response" button. 
+Responses are given to the user after they submit an emotion on the home page and click the `Get a Response` button. 
 
 A response is a link (as of now, only YouTube videos, but it could be changed to accommodate any kind of link) that is helpful to the user in some way. There is a set of default responses seeded into the database that is accessed by default whenever the user gets a response. 
 
@@ -109,12 +107,12 @@ Note that in order to have getting a random response to work correctly, MongoDB 
 
 Reports provided the line chart and stacked bar plot based on users’ emotion selection in home page.  Stacked bar plot shows up when click tab “Bar plot”, click tab “Line chart” if want to switch to check the line chart.
 
-Both line chart and bar plot are default to show the frequency of users’ chosen emotion in each day of this week (Monday to Sunday).  Different colors of lines/bars response to different emotions, legends on the top of each plot shows the correspondence between colors and emotions.  Click the legends can filter the relative emotions in the current plot.  For getting the yearly report, choose “year” in the dropdown above the plots tab, then click “submit”.  For getting more flexible historical report, please choose “start date” and “end date” first, then using dropdown to choose “year” or “week”, click “submit”.
+Both line chart and bar plot are default to show the frequency of users’ chosen emotion in each day of this week (Monday to Sunday).  Different colors of lines/bars response to different emotions, legends on the top of each plot shows the correspondence between colors and emotions.  Click the legends can filter the relative emotions in the current plot.  For getting the yearly report, choose `year` in the dropdown above the plots tab, then click `submit`.  For getting more flexible historical report, please choose `start date` and `end date` first, then using dropdown to choose `year` or `week` click `submit`.
 
-We used “chart.js” for making both plots, scripted it in html file with src: https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js  
-Bar plot and line chart are using the same canvas but with different type (Line chart with type “line”, but bar plot with type “bar” and set stacked as “ture” in both x-axes and y-axes).  
+We used `chart.js` for making both plots, scripted it in html file with src: https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js  
+Bar plot and line chart are using the same canvas but with different type (Line chart with type `line`, but bar plot with type `bar` and set stacked as `true` in both x-axes and y-axes).  
 
-Filtering by “date” and “mood” in “emoji” stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default s
+Filtering by `date` and `mood` in `emoji` stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default setting.
 
 #### Journals:
 
@@ -132,21 +130,30 @@ This page has all the three inportant phone numbers. Clients can refer to them w
 
 It also have some basic page links that helps you if you are feeling anxiey to anger.
 
+The goal was to consolidate the resource page where you could add your own resource pages and your own sets of contacts so that it would show up in one page.
+
 #### Google Login
 
 Google Login is how we're providing user authentication. We're using the gapi library imported from gapi-client. For instructions from Google on setting all this up you can check these links: https://developers.google.com/identity/sign-in/web/sign-in and https://developers.google.com/identity/sign-in/web/server-side-flow
 
 For a basic run down of setting up Google login however:
+
 1. Go to console.developers.google.com and select create a project if you don't have any existing ones or click on the dropdown to select a project at the top and add click the plus to create a new project.
+
 2. Name your project and select any organizations you want linked to it. Click create.
+
 3. Select the Credentials tab on the sidebar of your dashboard. Go to the OAuth Consent Screen tab and enter your product name you want to show and the website url.
+
 4.  Now go to the credentials tab and select Create Credentials choosing OAuth Client ID.
+
 5. Select Web Application, filling out the fields. Authorized Javascript Origins refers to your web url. Both Authorized Javascript Origins and Authorized Redirect URIs should be the same.
+
 6. Now that your credentials are setup you want to download your client secret file. Select your project in the credentials screen and click the Download JSON button at the top. This will give you a file copy of your client secret. DO NOT SHARE THIS WITH ANYONE WHO SHOULDN'T HAVE ACCESS TO THE SITE! It is very very important that this file remains secure, so do not put it into a github repository.
+
 7. For instructions on how to get the client secret onto your deployment, see the deployment instructions above. 
 
 
-## To-do list/Future improvement
+## Future Improvement
 
 #### Reports:
 
@@ -184,7 +191,7 @@ For a basic run down of setting up Google login however:
 
 Unfortunately we weren't able to get https to work on our project. If in the future someone wants to add https to the project, [click here to go to that documentation](https://github.com/UMM-CSci-3601-S18/iteration-4-megabittron/blob/master/Documentation/HTTPS.md)
 
-## Pamphlet:
+## Pamphlet
 
 Link: https://docs.google.com/document/d/1mRzK-fZytXP5xbv3Fp5vLWHSLybcmTmnJOCOY430QX0/edit?usp=sharing
 
