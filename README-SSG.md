@@ -128,6 +128,10 @@ Also you can write as much as you want, it scroll down when it exceed the entry 
 
 #### Resource Page:
 
+This page has all the three inportant phone numbers. Clients can refer to them whenever they want to.
+
+It also have some basic page links that helps you if you are feeling anxiey to anger.
+
 #### Google Login
 
 Google Login is how we're providing user authentication. We're using the gapi library imported from gapi-client. For instructions from Google on setting all this up you can check these links: https://developers.google.com/identity/sign-in/web/sign-in and https://developers.google.com/identity/sign-in/web/server-side-flow
