@@ -47,7 +47,7 @@ After following the above instructions, you'll need to upload your client secret
 2. After deciding where you want the client secret json file (the one you get by following the instructions in the developer side notes under Google Login. You may want to do this first.) to go you're going to want to FTP into your deployment. There are desktop applications to help with this, but I'm going to be using instructions for command line interfaces.
 3. Opening up your terminal (assuming your using linux) and type 'sftp deploy-user@[your-ip-here]'. Do whatever you would need to do to ssh into your deployment.
 4. Next navigate to the directory where you want to put your client secret. To do this use cd [path] to navigate to the directory you want. You can use ls to see what folders and files are in the current directory. If you need to make a new folder for it, you can create one from the command line by using mkdir [new-file-name].
-5. Now you need to navigate to wherever the client secret is stored on your local machine. To do this you use lcd [path] to change the directory your local machine is looking at. To see the folders and files in the current directory use lls.
+5. Now you need to navigate to wherever the client secret is stored on your local machine. To do this you use lcd [path] to change the directory your local machine is looking at. To see the folders and files in the current directory use ls.
 6. Once you've gotten to the directory you want the client secret to be in on your deployment and have located the client secret on your local machine,  type 'put [your file name] [new file name]'. The second argument in brackets is optional, but helpful if your client secret is named one thing and you want it to be named something else on your deployment.
 7. Now exit out of the sftp session using exit and ssh into your deployment as usual. Reboot the server following the instructions in droplet setup instructions above.
 
@@ -70,10 +70,10 @@ need to have data in the `dev` database before running the e2e tests!
 
 This feature is the main function of the website. This allows users to select an emotion from a selection of five by navigating left or right. From the selected emotion the user can then select an intensity by navigating up or down. 
 The user is able to either use the arrow buttons to navigate through or by 'swiping' through by click and dragging within the emoji selection area. This function makes more sense on a phone but still works on either.
-Once a user has selected an emoji they are able to submit it. Once submitted the entry is saved in the database and the user is prompted in a popup window that allows them to view a youtube video if they would like.
+Once a user has selected an emoji they are able to submit it. Once submitted the entry is saved in the database and the user is prompted in a popup window that allows them to view a YouTube video if they would like.
 Each different emoji including the various intensity is assigned a text that is displayed below to clarify what each emoji represents.
 
-Each time a emoji is sent to the database these fields are stored:
+Each time an emoji is sent to the database these fields are stored:
 - `_id: string;`
 - `userID: string;`
 - `ownerFirstName: string;`
@@ -117,7 +117,7 @@ Filtering by `date` and `mood` in `emoji` stored in the database and get the len
 
 #### Goals:
 
-The Goals' page is where users can set up goals that they want to do. To set up a new a goal is really easy, the user needs to just click on `Add a Goal` button, where a dialog will pop up. Here, users need to choose a name for their goal, choose a start and end date, choose a category for their goal (The four categories you can choose from are: Chores, Health, Social, Other), and lastly they need  to choose the frequency of the goal. For the fields of Goal, only `Name`is a requireed field, all the other fields are optional. 
+The Goals' page is where users can set up goals that they want to do. To set up a new a goal is really easy, the user needs to just click on `Add a Goal` button, where a dialog will pop up. Here, users need to choose a name for their goal, choose a start and end date, choose a category for their goal (The four categories you can choose from are: Chores, Health, Social, Other), and lastly, they need  to choose the frequency of the goal. For the fields of Goal, only `Name`is a required field, all the other fields are optional. 
 
 The Goals' page contains three tabs `Incomplete Goals`, `All Goals`, and `Completed Goals`. As the names suggest, under `Incomplete Goals`, the user will find goals that are not completed, under `Completed Goals`, the user will find goals that have been completed, and under `All Goals`, the user will find all of the goals that the user has created.
 
@@ -127,9 +127,9 @@ Lastly, there is also a filter on the Goals' page, where users can filter goals 
 
 #### Journaling:
 
-Journals provide a place where users can post their journals. So, users can write why they were happy or angry that day and which makes them angry or happy, or they can just write anything in general. Users can easily add a journal by clicking the `Add a New Journal` button. When you writing a journal, you can write as much as you want, without having to worry that your text entry will exceed the text box, also we have a scrolling bar that makes it easy to navigate through your entered text when writing a journal.
+Journals provide a place where users can post their journals. So, users can write why they were happy or angry that day and which makes them angry or happy, or they can just write anything in general. Users can easily add a journal by clicking the `Add a New Journal` button. When you are writing a journal, you can write as much as you want, without having to worry that your text entry will exceed the text box, also we have a scrolling bar that makes it easy to navigate through your entered text when writing a journal.
 
-Users can view their submitted journals, by clicking on the `View` button, and edit their journals, by clicking on the `Edit` button, when they want to, .
+Users can view their submitted journals, by clicking on the `View` button, and edit their journals, by clicking on the `Edit` button, when they want to.
 
 Users can search through their journals by `Subject` of the journal and by `Body`, which is the text entered for a journal. Another feature that we have for the Journaling page, is that we have navigation buttons. At most 10 journals will be shown on the Journaling page each time. Users can click on the right and left arrow to move to the next and previous page, respectively. We also have a "go the first page" button, and a "go to the last page" button, which are the left most and right most navigation buttons, respectively. 
 
@@ -137,7 +137,7 @@ Users can search through their journals by `Subject` of the journal and by `Body
 
 This page has all the three important phone numbers. Clients can refer to them whenever they want to.
 
-It also have some basic page links that helps you if you are feeling anxiety to anger.
+It also has some basic page links that helps you if you are feeling anxiety to anger.
 
 The goal was to consolidate the resource page where you could add your own resource pages and your own sets of contacts so that it would show up in one page.
 
@@ -210,13 +210,13 @@ For a basic run down of setting up Google login however:
 
 1. We want to make it that users can get notifications/reminders for their daily goals. 
 
-2. Additionaly, for a goal that is getting close to the end date, we want to make it possible that users receive push notifications that the end day of their goal is getting close.
+2. Additionally, for a goal that is getting close to the end date, we want to make it possible that users receive push notifications that the end day of their goal is getting close.
 
 #### Journaling Page:
 
 1. Update the journals such that they look more consistent with the rest of web page.
 
-2. Make the `Subject` and `Body` filter into one combo filter, so when an text is entered in the filter, it looks through both the subject and body of the journals simultaneously.
+2. Make the `Subject` and `Body` filter into one combo filter, so when a text is entered in the filter, it looks through both the subject and body of the journals simultaneously.
 
 #### Contact Page:
 
@@ -226,7 +226,7 @@ For a basic run down of setting up Google login however:
 
 #### HTTPS Support:
 
-Unfortunately we weren't able to get https to work on our project. If in the future someone wants to add https to the project, [click here to go to that documentation](https://github.com/UMM-CSci-3601-S18/iteration-4-megabittron/blob/master/Documentation/HTTPS.md)
+Unfortunately, we weren't able to get https to work on our project. If in the future someone wants to add https to the project, [click here to go to that documentation](https://github.com/UMM-CSci-3601-S18/iteration-4-megabittron/blob/master/Documentation/HTTPS.md)
 
 ## Pamphlet
 
