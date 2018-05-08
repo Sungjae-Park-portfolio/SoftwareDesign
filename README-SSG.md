@@ -2,12 +2,22 @@
 [![Build Status](https://travis-ci.org/UMM-CSci-3601-S18/iteration-4-secure-super-group.svg?branch=master)](https://travis-ci.org/UMM-CSci-3601-S18/iteration-4-secure-super-group)
 <!-- TOC depthFrom:1 depthTo:5 withLinks:1 updateOnSave:1 orderedList:0 -->
 ## Table of Contents
+- [Project Description](#project-description)
 - [LogIn Notes](#login-notes)
 - [Developer Side Notes](#developer-side-notes)
 - [Future Improvement](#future-improvement)
 - [Pamphlet](#pamphlet)
 - [Credits](#credits)
 <!-- /TOC -->
+
+## Project Description
+Sunshine Journal is a web app where users can log and track their mood, set goals and write journals. Sunshine journal is meant for anybody who thinks keeping track of their mood is beneficial, and/or helping they keep up with certain goals and express themselves by writing journals.
+
+### Tools Used
+The tools we used consisted primarily of HTML, CSS, and Typescript was used in conjunction with Angular 5.  Angular Material were used with HTML and CSS for design.
+For the backend, we have used Java, where a Java Spark server interacts with MongoDB. Java unit testing was used for the backend. 
+Angular CLI and Yarn were used to manage builds and dependencies. And, Karma and Jasmine were used for front end testing.
+Gradle have been used to manage launching local tasks.
 
 ## LogIn Notes
 
