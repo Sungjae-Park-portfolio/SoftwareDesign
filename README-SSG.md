@@ -115,9 +115,19 @@ Bar plot and line chart are using the same canvas but with different type (Line 
 
 Filtering by `date` and `mood` in `emoji` stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default setting.
 
-#### Journals:
+### Goals:
 
-Journals provide can client post their daily journals. So client can write why they were happy or angry that day and which makes them angry or happy. 
+The Goals' page is where users can set the goals that they want to do. To set up a new a goal is really easy, the user just click on `Add a Goal` button, where a dialog will pop up. Here, users need to choose a name for their goal, choose a start and end date, choose a category for their goal (The four categories are: Chores, Health, Social, Other), and lastly they need  to choose the frequency of the goal. For the fields of Goal, only `Name`is a requireed field, all the other fields are optional. 
+
+The Goals' page contains three tabs `Incomplete Goals`, `All Goals`, and `Completed Goals`. As the names suggest, under `Incomplete Goals`, you can find goals that are not completed, under `Completed Goals`, you can find goals that have been completed, and under `All Goals`, you will find all of the goals that you have created.
+
+To complete a goal, users need to click on the checkmark button on the goal. Users can also edit goals that have not been completed, by clicking on the edit button on the goal. Users can edit all of the fields of the goal that they want to.
+
+Lastly, there is also a filter on the Goals' page, where users can filter goals by the fields in the goal. When users input something in the filter, it will look for the inputted text in `Name`, `Category`, and `Frequency` simultaneously. So, it will return the goals where their `Name`, `Category`, or `Frequency` contains the inputted text, according to which tab is selected.
+
+#### Journaling:
+
+Journals provide a place where users can post their daily journals. So client can write why they were happy or angry that day and which makes them angry or happy. 
 
 Also client can view their submitted journals and can edit their journals when they want to.
 
@@ -125,13 +135,21 @@ Also can search their entered journals by Subjects and Body. Another feature on 
 
 Also you can write as much as you want, it scroll down when it exceed the entry box and clients can keep enter their journals.
 
-#### Resource Page:
+#### Resources:
 
 This page has all the three inportant phone numbers. Clients can refer to them whenever they want to.
 
 It also have some basic page links that helps you if you are feeling anxiey to anger.
 
 The goal was to consolidate the resource page where you could add your own resource pages and your own sets of contacts so that it would show up in one page.
+
+### Contact:
+
+In the contact's page, users can find all of their contacts. Users can easily add a contact by clicking the `Add your own contact` button. When this button is clicked, a dialog will pop up where users can put in the name of the contact, email of the contact, and the phone number of the contact. Users can edit the contact, and users can also delete the contact by clicking the `Delete Contact` button. An additional feature that we have is that users can favorite the contact by clicking the heart button on the contact. When the contact is favorite, the contact will appear in the `crisis` button pop up. If users do not want a contact to appear in the `crisis` button pop up anymore, users can do this easily by removing the contact from favorites, by simply clicking the heart button on the contact again.
+
+### Crisis:
+
+When the bright red `crisis` button is clicked, it will show a pop up containing the suicide prevention lifleline, and the crisis hotline. Additionally, all of the users' favorited contacts will also show up in this pop up.
 
 #### Google Login
 
@@ -188,6 +206,14 @@ For a basic run down of setting up Google login however:
 
 2. Give users the option to create/select different playlists for their embedded videos.
 
+3. We want to also integrate the contact page with the resource page such that the users can find all useful information in one place. 
+
+### Goals Page:
+
+1. We want to make it that users can get notifications/reminders for their daily goals. 
+
+2. Additionaly, for a goal that is getting close to the end date, we want to make it possible that users receive push notifications that the end day of their goal is getting close.
+
 #### HTTPS Support:
 
 Unfortunately we weren't able to get https to work on our project. If in the future someone wants to add https to the project, [click here to go to that documentation](https://github.com/UMM-CSci-3601-S18/iteration-4-megabittron/blob/master/Documentation/HTTPS.md)
@@ -215,7 +241,7 @@ Developing Credits:
 - Khondoker Prio
 - Kyle Foss
 - Matthew Munns
-- Rocherno De Jongh
+- Rocherno de Jongh
 - Yujing Song
 - Sungjae Park
 
