@@ -106,7 +106,7 @@ Note that in order to have getting a random response to work correctly, MongoDB 
 
 #### Reports:
 
-Reports provided the line chart and stacked bar plot based on users’ emotion selection in home page.  Stacked bar plot shows up when click tab “Bar plot”, click tab “Line chart” if want to switch to check the line chart.
+Reports provides a line chart and a stacked bar plot based on users’ emotion selection in home page.  Stacked bar plot shows up when the tab “Bar plot” is selected, and if you want to switch to check the line chart, select the “Line chart” tab.
 
 Both line chart and bar plot are default to show the frequency of users’ chosen emotion in each day of this week (Monday to Sunday).  Different colors of lines/bars response to different emotions, legends on the top of each plot shows the correspondence between colors and emotions.  Click the legends can filter the relative emotions in the current plot.  For getting the yearly report, choose `year` in the dropdown above the plots tab, then click `submit`.  For getting more flexible historical report, please choose `start date` and `end date` first, then using dropdown to choose `year` or `week` click `submit`.
 
@@ -115,25 +115,23 @@ Bar plot and line chart are using the same canvas but with different type (Line 
 
 Filtering by `date` and `mood` in `emoji` stored in the database and get the length of emoji list left after filtering to get the frequency of a emotion.  Noticed that date filter happened before mood filter, and get frequency of all emotions in current week is a default setting.
 
-### Goals:
+#### Goals:
 
-The Goals' page is where users can set the goals that they want to do. To set up a new a goal is really easy, the user just click on `Add a Goal` button, where a dialog will pop up. Here, users need to choose a name for their goal, choose a start and end date, choose a category for their goal (The four categories are: Chores, Health, Social, Other), and lastly they need  to choose the frequency of the goal. For the fields of Goal, only `Name`is a requireed field, all the other fields are optional. 
+The Goals' page is where users can set up goals that they want to do. To set up a new a goal is really easy, the user needs to just click on `Add a Goal` button, where a dialog will pop up. Here, users need to choose a name for their goal, choose a start and end date, choose a category for their goal (The four categories you can choose from are: Chores, Health, Social, Other), and lastly they need  to choose the frequency of the goal. For the fields of Goal, only `Name`is a requireed field, all the other fields are optional. 
 
-The Goals' page contains three tabs `Incomplete Goals`, `All Goals`, and `Completed Goals`. As the names suggest, under `Incomplete Goals`, you can find goals that are not completed, under `Completed Goals`, you can find goals that have been completed, and under `All Goals`, you will find all of the goals that you have created.
+The Goals' page contains three tabs `Incomplete Goals`, `All Goals`, and `Completed Goals`. As the names suggest, under `Incomplete Goals`, the user will find goals that are not completed, under `Completed Goals`, the user will find goals that have been completed, and under `All Goals`, the user will find all of the goals that the user has created.
 
 To complete a goal, users need to click on the checkmark button on the goal. Users can also edit goals that have not been completed, by clicking on the edit button on the goal. Users can edit all of the fields of the goal that they want to.
 
-Lastly, there is also a filter on the Goals' page, where users can filter goals by the fields in the goal. When users input something in the filter, it will look for the inputted text in `Name`, `Category`, and `Frequency` simultaneously. So, it will return the goals where their `Name`, `Category`, or `Frequency` contains the inputted text, according to which tab is selected.
+Lastly, there is also a filter on the Goals' page, where users can filter goals by the fields in the goal. When users input some text in the filter, it will look for the inputted text in `Name`, `Category`, and `Frequency` of the goals simultaneously. So, it will return the goals where their `Name`, `Category`, or `Frequency` contains the inputted text, according to the tab that is selected.
 
 #### Journaling:
 
-Journals provide a place where users can post their daily journals. So client can write why they were happy or angry that day and which makes them angry or happy. 
+Journals provide a place where users can post their journals. So, users can write why they were happy or angry that day and which makes them angry or happy, or they can just write anything in general. Users can easily add a journal by clicking the `Add a New Journal` button. When you writing a journal, you can write as much as you want, without having to worry that your text entry will exceed the text box, also we have a scrolling bar that makes it easy to navigate through your entered text when writing a journal.
 
-Also client can view their submitted journals and can edit their journals when they want to.
+Users can view their submitted journals, by clicking on the `view` button, and edit their journals, by clicking on the `edit` button, when they want to, .
 
-Also can search their entered journals by Subjects and Body. Another feature on journaling is have move to next button at the bottom of page. 
-
-Also you can write as much as you want, it scroll down when it exceed the entry box and clients can keep enter their journals.
+Users can search through their journals by `Subject` of the journal and by `Body`, which is the text entered for a journal. Another feature that we have for the Journaling page, is that we have navigation buttons. At most 10 journals will be shown on the Journaling page each time. Users can click on the right and left arrow to move to the next and previous page, respectively. We also have a "go the first page" button, and a "go to the last page" button, which are the left most and right most navigation buttons, respectively. 
 
 #### Resources:
 
@@ -143,11 +141,11 @@ It also have some basic page links that helps you if you are feeling anxiey to a
 
 The goal was to consolidate the resource page where you could add your own resource pages and your own sets of contacts so that it would show up in one page.
 
-### Contact:
+#### Contact:
 
 In the contact's page, users can find all of their contacts. Users can easily add a contact by clicking the `Add your own contact` button. When this button is clicked, a dialog will pop up where users can put in the name of the contact, email of the contact, and the phone number of the contact. Users can edit the contact, and users can also delete the contact by clicking the `Delete Contact` button. An additional feature that we have is that users can favorite the contact by clicking the heart button on the contact. When the contact is favorite, the contact will appear in the `crisis` button pop up. If users do not want a contact to appear in the `crisis` button pop up anymore, users can do this easily by removing the contact from favorites, by simply clicking the heart button on the contact again.
 
-### Crisis:
+#### Crisis:
 
 When the bright red `crisis` button is clicked, it will show a pop up containing the suicide prevention lifleline, and the crisis hotline. Additionally, all of the users' favorited contacts will also show up in this pop up.
 
