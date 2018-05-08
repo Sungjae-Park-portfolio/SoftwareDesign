@@ -176,6 +176,10 @@ For a basic run down of setting up Google login however:
 
 2. Give users the option to create/select different playlists for their embedded videos.
 
+#### HTTPS Support:
+
+Unfortunately we weren't able to get https to work on our project. If in the future someone wants to add https to the project, [click here to go to that documentation](https://github.com/UMM-CSci-3601-S18/iteration-4-megabittron/blob/master/Documentation/HTTPS.md)
+
 ## Pamphlet:
 
 Link: https://docs.google.com/document/d/1mRzK-fZytXP5xbv3Fp5vLWHSLybcmTmnJOCOY430QX0/edit?usp=sharing
