@@ -129,21 +129,21 @@ Lastly, there is also a filter on the Goals' page, where users can filter goals 
 
 Journals provide a place where users can post their journals. So, users can write why they were happy or angry that day and which makes them angry or happy, or they can just write anything in general. Users can easily add a journal by clicking the `Add a New Journal` button. When you writing a journal, you can write as much as you want, without having to worry that your text entry will exceed the text box, also we have a scrolling bar that makes it easy to navigate through your entered text when writing a journal.
 
-Users can view their submitted journals, by clicking on the `view` button, and edit their journals, by clicking on the `edit` button, when they want to, .
+Users can view their submitted journals, by clicking on the `View` button, and edit their journals, by clicking on the `Edit` button, when they want to, .
 
 Users can search through their journals by `Subject` of the journal and by `Body`, which is the text entered for a journal. Another feature that we have for the Journaling page, is that we have navigation buttons. At most 10 journals will be shown on the Journaling page each time. Users can click on the right and left arrow to move to the next and previous page, respectively. We also have a "go the first page" button, and a "go to the last page" button, which are the left most and right most navigation buttons, respectively. 
 
 #### Resources:
 
-This page has all the three inportant phone numbers. Clients can refer to them whenever they want to.
+This page has all the three important phone numbers. Clients can refer to them whenever they want to.
 
-It also have some basic page links that helps you if you are feeling anxiey to anger.
+It also have some basic page links that helps you if you are feeling anxiety to anger.
 
 The goal was to consolidate the resource page where you could add your own resource pages and your own sets of contacts so that it would show up in one page.
 
 #### Contact:
 
-In the contact's page, users can find all of their contacts. Users can easily add a contact by clicking the `Add your own contact` button. When this button is clicked, a dialog will pop up where users can put in the name of the contact, email of the contact, and the phone number of the contact. Users can edit the contact, and users can also delete the contact by clicking the `Delete Contact` button. An additional feature that we have is that users can favorite the contact by clicking the heart button on the contact. When the contact is favorite, the contact will appear in the `crisis` button pop up. If users do not want a contact to appear in the `crisis` button pop up anymore, users can do this easily by removing the contact from favorites, by simply clicking the heart button on the contact again.
+In the contact's page, users can find all of their contacts. Users can easily add a contact by clicking the `Add your own contact` button. When this button is clicked, a dialog will pop up where users can put in the name of the contact, email of the contact, and the phone number of the contact. Users can edit the contact, and users can also delete the contact by clicking the `Delete Contact` button. An additional feature that we have is that users can favorite the contact by clicking the heart button on the contact. When the contact is favorite, the contact will appear in the `crisis` button pop up. If users do not want a contact to appear in the `crisis` button pop up anymore, users can do this easily by removing the contact from favorites, by simply clicking the heart button on the contact again. It is easy to check when a contact is favorited, because the heart on the contact looks darker, so it looks like that it has been clicked. 
 
 #### Crisis:
 
@@ -206,11 +206,23 @@ For a basic run down of setting up Google login however:
 
 3. We want to also integrate the contact page with the resource page such that the users can find all useful information in one place. 
 
-### Goals Page:
+#### Goals Page:
 
 1. We want to make it that users can get notifications/reminders for their daily goals. 
 
 2. Additionaly, for a goal that is getting close to the end date, we want to make it possible that users receive push notifications that the end day of their goal is getting close.
+
+#### Journaling Page:
+
+1. Update the journals such that they look more consistent with the rest of web page.
+
+2. Make the `Subject` and `Body` filter into one combo filter, so when an text is entered in the filter, it looks through both the subject and body of the journals simultaneously.
+
+#### Contact Page:
+
+1. Update the contacts to show them in a more useful way.
+
+2. Make it such that when a contact is favorited, the heart turns red, instead of a darker grey.
 
 #### HTTPS Support:
 
